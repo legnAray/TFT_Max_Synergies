@@ -1,0 +1,3 @@
+node_modules/
+raw/*.json
+raw/*.txt

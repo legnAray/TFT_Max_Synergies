@@ -1,0 +1,1076 @@
+{
+  "set": 18,
+  "source": "raw/cd_tft_zh_cn.json (CommunityDragon)",
+  "rules": {
+    "notes": [
+      "拉克丝（大元素使）: 拥有 1 个后商店中其余形态都转为同羁绊 → 各形态互斥；描述\"为选定的羁绊提供+2计数\"",
+      "宿敌: 第1档仅在恰好登场1个宿敌时激活：单人=第1+2档，双人=第2+3档，都是2档",
+      "远古巨龙: 顶级掠食者描述：占用2个弈子栏位，并提供+2【峡谷野怪】羁绊；5费，经峡谷野怪商店机制获取"
+    ]
+  },
+  "groups": [
+    [
+      "DA_Lux18_Base",
+      "DA_18_Lux_Inferno",
+      "DA_Lux18_Blackthorn",
+      "DA_18_Lux_Fae",
+      "DA_Lux18_Blossom",
+      "DA_18_Lux_Coven",
+      "DA_18_Lux_Sunbeam",
+      "DA_18_Lux_Primal",
+      "DA_18_Lux_Elderwood",
+      "DA_18_Lux_Moonbeam"
+    ]
+  ],
+  "champions": [
+    {
+      "key": "DA_18_Akali_AD",
+      "name": "阿卡丽",
+      "cost": 1,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_18_Adaptor",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_Ornn",
+      "name": "奥恩",
+      "cost": 1,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Defender"
+      ]
+    },
+    {
+      "key": "DA_18_Sentry",
+      "name": "苍蓝哨戒",
+      "cost": 1,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Invoker"
+      ]
+    },
+    {
+      "key": "DA_Cinderling18",
+      "name": "绯红树怪",
+      "cost": 1,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Hunter"
+      ]
+    },
+    {
+      "key": "DA_Karma18",
+      "name": "卡尔玛",
+      "cost": 1,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_Camille",
+      "name": "卡蜜尔",
+      "cost": 1,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_Kobuko",
+      "name": "可酷伯",
+      "cost": 1,
+      "traits": [
+        "DA_18_Sprykin",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_18_RekSai",
+      "name": "雷克塞",
+      "cost": 1,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_18_Leona",
+      "name": "蕾欧娜",
+      "cost": 1,
+      "traits": [
+        "DA_18_Solar",
+        "DA_18_Defender"
+      ]
+    },
+    {
+      "key": "DA_18_Rakan",
+      "name": "洛",
+      "cost": 1,
+      "traits": [
+        "DA_18_Fae",
+        "DA_Juggernaut18",
+        "DA_18_Vanguard"
+      ]
+    },
+    {
+      "key": "DA_18_Varus",
+      "name": "韦鲁斯",
+      "cost": 1,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_18_Veigar",
+      "name": "维迦",
+      "cost": 1,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_Sprykin",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_Xayah",
+      "name": "霞",
+      "cost": 1,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Fae",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_18_Yorick",
+      "name": "约里克",
+      "cost": 1,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_Juggernaut18",
+        "DA_18_Summoner"
+      ]
+    },
+    {
+      "key": "DA_18_Alistar",
+      "name": "阿利斯塔",
+      "cost": 2,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_Murkwolf18",
+      "name": "暗影狼",
+      "cost": 2,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_Kayle",
+      "name": "凯尔",
+      "cost": 2,
+      "traits": [
+        "DA_18_Solar",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_18_Caitlyn",
+      "name": "凯特琳",
+      "cost": 2,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_Hunter"
+      ]
+    },
+    {
+      "key": "DA_18_LeBlanc",
+      "name": "乐芙兰",
+      "cost": 2,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_Gromp18_AP",
+      "name": "魔沼蛙",
+      "cost": 2,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Adaptor"
+      ]
+    },
+    {
+      "key": "DA_18_Sejuani",
+      "name": "瑟庄妮",
+      "cost": 2,
+      "traits": [
+        "DA_18_Solar",
+        "DA_Juggernaut18"
+      ]
+    },
+    {
+      "key": "DA_18_Shen",
+      "name": "慎",
+      "cost": 2,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_18_Defender"
+      ]
+    },
+    {
+      "key": "DA_18_Teemo",
+      "name": "提莫",
+      "cost": 2,
+      "traits": [
+        "DA_18_Sprykin",
+        "DA_18_Invoker"
+      ]
+    },
+    {
+      "key": "DA_18_Warwick",
+      "name": "沃里克",
+      "cost": 2,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_Scuttlecrab18",
+      "name": "峡谷迅捷蟹",
+      "cost": 2,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_Juggernaut18"
+      ]
+    },
+    {
+      "key": "DA_18_Elise",
+      "name": "伊莉丝",
+      "cost": 2,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_Vanguard"
+      ]
+    },
+    {
+      "key": "DA_18_Yunara",
+      "name": "芸阿娜",
+      "cost": 2,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Executioner"
+      ]
+    },
+    {
+      "key": "DA_18_Azir",
+      "name": "阿兹尔",
+      "cost": 3,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_Executioner",
+        "DA_18_Summoner"
+      ]
+    },
+    {
+      "key": "DA_18_Tristana",
+      "name": "崔丝塔娜",
+      "cost": 3,
+      "traits": [
+        "DA_18_Fae",
+        "DA_18_Sprykin",
+        "DA_18_Hunter"
+      ]
+    },
+    {
+      "key": "DA_18_Diana",
+      "name": "黛安娜",
+      "cost": 3,
+      "traits": [
+        "DA_18_Lunar",
+        "DA_18_Slayer",
+        "DA_18_Vanguard"
+      ]
+    },
+    {
+      "key": "DA_Fiddlesticks18",
+      "name": "费德提克",
+      "cost": 3,
+      "traits": [
+        "DA_FloraFatalis18",
+        "DA_18_Defender",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_Hecarim",
+      "name": "赫卡里姆",
+      "cost": 3,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Vanguard"
+      ]
+    },
+    {
+      "key": "DA_18_Cassiopeia",
+      "name": "卡西奥佩娅",
+      "cost": 3,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix",
+      "name": "卡兹克",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival"
+      ]
+    },
+    {
+      "key": "DA_KogMaw18_AD",
+      "name": "克格莫",
+      "cost": 3,
+      "traits": [
+        "DA_18_Caustic",
+        "DA_18_Adaptor",
+        "DA_18_Invoker"
+      ]
+    },
+    {
+      "key": "DA_18_Rammus",
+      "name": "拉莫斯",
+      "cost": 3,
+      "traits": [
+        "DA_18_Sprykin",
+        "DA_18_Defender"
+      ]
+    },
+    {
+      "key": "DA_18_Rengar",
+      "name": "雷恩加尔",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival"
+      ]
+    },
+    {
+      "key": "DA_CrimsonRaptor18",
+      "name": "深红锋喙鸟",
+      "cost": 3,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Summoner",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_Vi18",
+      "name": "蔚",
+      "cost": 3,
+      "traits": [
+        "DA_Primal18",
+        "DA_Juggernaut18"
+      ]
+    },
+    {
+      "key": "DA_18_MasterYi_AD",
+      "name": "易",
+      "cost": 3,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Adaptor"
+      ]
+    },
+    {
+      "key": "DA_Krug18",
+      "name": "远古石甲虫",
+      "cost": 3,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_18_Ahri",
+      "name": "阿狸",
+      "cost": 4,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_Amumu18",
+      "name": "阿木木",
+      "cost": 4,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_Juggernaut18"
+      ]
+    },
+    {
+      "key": "DA_Sentinel18",
+      "name": "苍蓝雕纹魔像",
+      "cost": 4,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Vanguard",
+        "DA_18_Invoker"
+      ]
+    },
+    {
+      "key": "DA_18_Aphelios",
+      "name": "厄斐琉斯",
+      "cost": 4,
+      "traits": [
+        "DA_18_Lunar",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_Brambleback18",
+      "name": "绯红印记树怪",
+      "cost": 4,
+      "traits": [
+        "DA_Riftbeast18",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_Zyra",
+      "name": "婕拉",
+      "cost": 4,
+      "traits": [
+        "DA_18_ZyraUniqueTrait",
+        "DA_18_Summoner"
+      ]
+    },
+    {
+      "key": "DA_18_Lillia",
+      "name": "莉莉娅",
+      "cost": 4,
+      "traits": [
+        "DA_18_Fae",
+        "DA_18_Defender"
+      ]
+    },
+    {
+      "key": "DA_18_Morgana",
+      "name": "莫甘娜",
+      "cost": 4,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_Invoker"
+      ]
+    },
+    {
+      "key": "DA_18_Malphite",
+      "name": "墨菲特",
+      "cost": 4,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_Battlemage"
+      ]
+    },
+    {
+      "key": "DA_Nidalee18_AP",
+      "name": "奈德丽",
+      "cost": 4,
+      "traits": [
+        "DA_Primal18",
+        "DA_18_Adaptor"
+      ]
+    },
+    {
+      "key": "DA_18_Sett",
+      "name": "瑟提",
+      "cost": 4,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_18_Soraka",
+      "name": "索拉卡",
+      "cost": 4,
+      "traits": [
+        "DA_FloraFatalis18",
+        "DA_18_Executioner"
+      ]
+    },
+    {
+      "key": "DA_18_Sivir",
+      "name": "希维尔",
+      "cost": 4,
+      "traits": [
+        "DA_Primal18",
+        "DA_18_Hunter"
+      ]
+    },
+    {
+      "key": "DA_18_Ezreal",
+      "name": "伊泽瑞尔",
+      "cost": 4,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Executioner"
+      ]
+    },
+    {
+      "key": "DA_18_Ivern",
+      "name": "艾翁",
+      "cost": 5,
+      "traits": [
+        "DA_18_Greenfather"
+      ]
+    },
+    {
+      "key": "DA_18_Ashe",
+      "name": "艾希",
+      "cost": 5,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_Hunter"
+      ]
+    },
+    {
+      "key": "DA_Draven18",
+      "name": "德莱文",
+      "cost": 5,
+      "traits": [
+        "DA_DravenUniqueTrait18"
+      ]
+    },
+    {
+      "key": "DA_18_Kennen",
+      "name": "凯南",
+      "cost": 5,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_18_Executioner"
+      ]
+    },
+    {
+      "key": "DA_Lux18_Base",
+      "name": "拉克丝",
+      "cost": 5,
+      "traits": [
+        "DA_18_LuxUniqueTrait"
+      ]
+    },
+    {
+      "key": "DA_18_Lux_Inferno",
+      "name": "拉克丝 (地狱火)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Inferno",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Inferno": 2
+      }
+    },
+    {
+      "key": "DA_Lux18_Blackthorn",
+      "name": "拉克丝 (黑荆棘)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Blackthorn",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Blackthorn": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Fae",
+      "name": "拉克丝 (花仙子)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Fae",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Fae": 2
+      }
+    },
+    {
+      "key": "DA_Lux18_Blossom",
+      "name": "拉克丝 (灵魂莲华)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Blossom",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Blossom": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Coven",
+      "name": "拉克丝 (魔女)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Coven",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Coven": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Sunbeam",
+      "name": "拉克丝 (日蚀骑士)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Solar",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Solar": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Primal",
+      "name": "拉克丝 (野兽之灵)",
+      "cost": 5,
+      "traits": [
+        "DA_Primal18",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_Primal18": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Elderwood",
+      "name": "拉克丝 (永恒之森)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Elderwood": 2
+      }
+    },
+    {
+      "key": "DA_18_Lux_Moonbeam",
+      "name": "拉克丝 (月蚀骑士)",
+      "cost": 5,
+      "traits": [
+        "DA_18_Lunar",
+        "DA_18_LuxUniqueTrait"
+      ],
+      "weights": {
+        "DA_18_Lunar": 2
+      }
+    },
+    {
+      "key": "DA_18_Alune",
+      "name": "拉露恩",
+      "cost": 5,
+      "traits": [
+        "DA_AluneUniqueTrait18",
+        "DA_18_Lunar",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_Maokai",
+      "name": "茂凯",
+      "cost": 5,
+      "traits": [
+        "DA_18_Maokai_UniqueTrait",
+        "DA_Juggernaut18"
+      ]
+    },
+    {
+      "key": "DA_18_GnarSmall",
+      "name": "纳尔",
+      "cost": 5,
+      "traits": [
+        "DA_18_Elderwood",
+        "DA_18_Sprykin",
+        "DA_18_Brawler"
+      ]
+    },
+    {
+      "key": "DA_Taric18",
+      "name": "塔里克",
+      "cost": 5,
+      "traits": [
+        "DA_Emerald18",
+        "DA_18_Vanguard"
+      ]
+    },
+    {
+      "key": "DA_18_ElderDragon",
+      "name": "远古巨龙",
+      "cost": 5,
+      "traits": [
+        "DA_18_ApexPredator",
+        "DA_Riftbeast18"
+      ],
+      "slots": 2,
+      "weights": {
+        "DA_Riftbeast18": 2
+      }
+    }
+  ],
+  "traits": [
+    {
+      "key": "DA_18_Elderwood",
+      "name": "永恒之森",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_LuxUniqueTrait",
+      "name": "自然之力！大元素使",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Slayer",
+      "name": "狂战士",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_DravenUniqueTrait18",
+      "name": "赏金猎人",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Solar",
+      "name": "日蚀骑士",
+      "breakpoints": [
+        3
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Sprykin",
+      "name": "约德尔人和朋友",
+      "breakpoints": [
+        3,
+        5,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Adaptor",
+      "name": "魔战士",
+      "breakpoints": [
+        2,
+        3,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Coven",
+      "name": "魔女",
+      "breakpoints": [
+        3,
+        4,
+        5,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Hunter",
+      "name": "猎人",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Maokai_UniqueTrait",
+      "name": "远古树精",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Battlemage",
+      "name": "魔岩巨兽",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_Primal18",
+      "name": "野兽之灵",
+      "breakpoints": [
+        2,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Greenfather",
+      "name": "翠神",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Invoker",
+      "name": "神谕",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Rapidfire",
+      "name": "迅捷射手",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_Juggernaut18",
+      "name": "主宰",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Inferno",
+      "name": "地狱火",
+      "breakpoints": [
+        2,
+        3,
+        5,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_AluneUniqueTrait18",
+      "name": "月华神女",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Rival",
+      "name": "宿敌",
+      "breakpoints": [
+        1,
+        1,
+        2
+      ],
+      "tierRules": [
+        {
+          "tier": 1,
+          "exactCount": 1
+        }
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Vanguard",
+      "name": "重装战士",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Brawler",
+      "name": "斗士",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Blackthorn",
+      "name": "黑荆棘",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Executioner",
+      "name": "裁决使",
+      "breakpoints": [
+        2,
+        3,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_ApexPredator",
+      "name": "顶级掠食者",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_Riftbeast18",
+      "name": "峡谷野怪",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Caustic",
+      "name": "帝王斑蝶",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_18_Fae",
+      "name": "花仙子",
+      "breakpoints": [
+        2,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Lunar",
+      "name": "月蚀骑士",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Defender",
+      "name": "护卫",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Spellweaver",
+      "name": "法师",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_ZyraUniqueTrait",
+      "name": "荆棘之兴",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "DA_FloraFatalis18",
+      "name": "绝命花妖",
+      "breakpoints": [
+        1,
+        2
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Summoner",
+      "name": "召唤师",
+      "breakpoints": [
+        2,
+        3
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_18_Blossom",
+      "name": "灵魂莲华",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ],
+      "unique": false
+    },
+    {
+      "key": "DA_Emerald18",
+      "name": "宝石骑士",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    }
+  ]
+}

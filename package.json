@@ -1,0 +1,17 @@
+{
+  "name": "tft-max-synergies",
+  "version": "1.0.0",
+  "description": "云顶之弈/金铲铲 最大羁绊计算器（ILP 精确最优）",
+  "main": "index.js",
+  "scripts": {
+    "start": "node cli.js",
+    "extract": "node scripts/extract.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "glpk.js": "^5.0.0"
+  }
+}
