@@ -11,10 +11,15 @@ Current data: **Set 18 "Enchanted Wilds"** (source: [CommunityDragon](https://ra
 ```bash
 npm install
 
-node cli.js                       # Set 18, levels 6-10, 3 optimal/tied comps per level
+node cli.js                       # Set 18, levels 6-10, 8 comps per level (score desc, then cost desc)
 node cli.js --levels 8-10         # only levels 8, 9, 10
-node cli.js --levels 7,9 --topk 5 # specific levels, more tied solutions
-node cli.js --units 卡兹克 --level 7   # lock must-include units, optimize the rest
+node cli.js --levels 7,9 --topk 5 # specific levels, fewer/more comps
+node cli.js --units 卡兹克 --level 7        # lock must-include units, optimize the rest
+node cli.js --mode count          # scoring: count distinct active traits (default: tier sum)
+node cli.js --emblem 地狱火,地狱火 --level 8 # emblems (max 10) add fixed trait counts
+node cli.js --ban-5cost --ban-unit 远古巨龙  # ban all 5-costs / any units
+node cli.js --ban-trait 法师 --level 8      # hard-ban a trait (must not activate)
+node cli.js --pin 月蚀骑士=3,宿敌 --level 8 # pin traits to at least N tiers (default 1)
 node cli.js --json                # machine-readable output
 ```
 
@@ -28,12 +33,14 @@ Reference results for Set 18 (patch 18.3 data): **level 6 → 11 tiers · 7 → 
 npm run serve            # or: node server.js [--port 8080]  (PORT env var also works)
 ```
 
-Open http://localhost:8080 — pick levels (multi-select), how many tied comps per level, and
-optional must-include units; results render as cost-colored unit chips plus a per-trait tier
-breakdown with hit breakpoints highlighted. `server.js` is a zero-dependency Node HTTP server
-whose `/api/solve` reuses `lib/solve.js`, so results are identical to the CLI. Heads-up: higher
-levels solve slower (level 10 takes ~30s on S18 data); the page fires one request per selected
-level and renders each as it returns.
+Open http://localhost:8080 — pick levels (multi-select), comps per level (3/5/8/10), the scoring
+mode (tier sum vs distinct-trait count), must-include units, emblems (up to 10, stacked per
+trait), pinned traits with a tier stepper, and banned units/traits (including a one-click
+ban-all-5-cost). Results render as cost-colored unit chips plus a per-trait tier breakdown with
+hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js` is a
+zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are
+identical to the CLI. Heads-up: higher levels solve slower (level 10 takes ~30s+ on S18 data);
+the page fires one request per selected level and renders each as it returns.
 
 ## Updating data (once per set)
 
@@ -74,14 +81,17 @@ affect the intended units.
 - Regular unit: 1 slot, +1 count to each of its traits. Special units are handled through generic
   data-JSON fields: `slots` (board slots), `weights` (trait count weights), `tierRules` (tier
   activation conditions), `groups` (exclusive groups).
-- Trait tier = number of its breakpoints reached (duplicates allowed, e.g. Rivals 1/1/2);
-  total score = Σ tiers.
+- Trait tier = number of its breakpoints reached (duplicates allowed, e.g. Rivals 1/1/2).
+- Two scoring modes: **tiers** (default) maximizes Σ tiers; **count** maximizes the number of
+  distinct active traits (`z[trait]` indicators with `y ≤ z ≤ Σy`).
 - Integer program: `x[unit] ∈ {0,1}`; board constraint `Σ slots·x = N`; exclusive groups
   `Σx ≤ 1`; tier variables `y[trait, breakpoint]` with `weighted count ≥ breakpoint·y` (tiers
   with activation conditions additionally get `count + M·y ≤ required + M` to force the exact
-  count); maximize `Σy`.
+  count); emblems add fixed counts `E` to their trait (rows become `Σw·x ≥ b·y − E`);
+  banned traits forbid activation (`weighted count ≤ first breakpoint − 1`); pinned traits
+  require `Σ_b y ≥ N`.
 - Top-K tied solutions: enumerated iteratively with no-good cuts, deduplicated by trait-tier
-  signature.
+  signature; final order is score desc, then total unit cost desc.
 
 ## Project layout
 
@@ -117,6 +127,8 @@ raw/                raw downloads (.gitignored)
 
 ## Known limitations / roadmap
 
-- No emblem (trait spatula), Augment/hex, or cost-cap constraints yet (a `--max-cost` flag is a
-  natural next step).
+- Emblems are modeled as fixed team-level trait counts (up to 10, no carrier); a
+  solver-optimized emblem mode and Augments are not modeled.
+- No general cost cap yet (only ban-5cost / ban-unit); a `--max-cost` flag is a natural next
+  step.
 - The Riftbeasts tier-10 +team-size reward is not modeled.
