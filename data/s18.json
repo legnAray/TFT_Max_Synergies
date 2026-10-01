@@ -6,6 +6,7 @@
     "notes": [
       "拉克丝（大元素使）: 拥有 1 个后商店中其余形态都转为同羁绊 → 各形态互斥；描述\"为选定的羁绊提供+2计数\"",
       "宿敌: 第1档仅在恰好登场1个宿敌时激活：单人=第1+2档，双人=第2+3档，都是2档",
+      "卡兹克（进化）: 宿敌描述：参与击杀使卡兹克进化，永久获得从 裁决使/迅捷射手/狂战士/法师 中选择的一项羁绊（最多3次、不重复）→ 生成\"未进化/进化1/进化2/进化3\"共 15 个互斥变体",
       "远古巨龙: 顶级掠食者描述：占用2个弈子栏位，并提供+2【峡谷野怪】羁绊；5费，经峡谷野怪商店机制获取"
     ]
   },
@@ -21,6 +22,23 @@
       "DA_18_Lux_Primal",
       "DA_18_Lux_Elderwood",
       "DA_18_Lux_Moonbeam"
+    ],
+    [
+      "DA_18_KhaZix",
+      "DA_18_KhaZix::DA_18_Executioner",
+      "DA_18_KhaZix::DA_18_Rapidfire",
+      "DA_18_KhaZix::DA_18_Slayer",
+      "DA_18_KhaZix::DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Slayer+DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver"
     ]
   ],
   "champions": [
@@ -336,6 +354,146 @@
       "cost": 3,
       "traits": [
         "DA_18_Rival"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner",
+      "name": "卡兹克 (进化1·裁决使)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Spellweaver",
+      "name": "卡兹克 (进化1·法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Slayer",
+      "name": "卡兹克 (进化1·狂战士)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Rapidfire",
+      "name": "卡兹克 (进化1·迅捷射手)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Spellweaver",
+      "name": "卡兹克 (进化2·裁决使+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer",
+      "name": "卡兹克 (进化2·裁决使+狂战士)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire",
+      "name": "卡兹克 (进化2·裁决使+迅捷射手)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Rapidfire"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Slayer+DA_18_Spellweaver",
+      "name": "卡兹克 (进化2·狂战士+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Slayer",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Spellweaver",
+      "name": "卡兹克 (进化2·迅捷射手+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Rapidfire",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer",
+      "name": "卡兹克 (进化2·迅捷射手+狂战士)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Rapidfire",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
+      "name": "卡兹克 (进化3·裁决使+狂战士+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Slayer",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Spellweaver",
+      "name": "卡兹克 (进化3·裁决使+迅捷射手+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Rapidfire",
+        "DA_18_Spellweaver"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+      "name": "卡兹克 (进化3·裁决使+迅捷射手+狂战士)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Executioner",
+        "DA_18_Rapidfire",
+        "DA_18_Slayer"
+      ]
+    },
+    {
+      "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
+      "name": "卡兹克 (进化3·迅捷射手+狂战士+法师)",
+      "cost": 3,
+      "traits": [
+        "DA_18_Rival",
+        "DA_18_Rapidfire",
+        "DA_18_Slayer",
+        "DA_18_Spellweaver"
       ]
     },
     {

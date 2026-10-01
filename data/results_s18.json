@@ -1,11 +1,11 @@
 [
   {
     "level": 6,
-    "score": 11,
+    "score": 13,
     "unitKeys": [
       "DA_18_Diana",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
+      "DA_18_Aphelios",
       "DA_18_Lux_Moonbeam",
       "DA_18_Alune",
       "DA_Taric18"
@@ -14,15 +14,22 @@
       {
         "trait": "DA_18_Lunar",
         "name": "月蚀骑士",
-        "count": 4,
-        "tier": 3,
+        "count": 5,
+        "tier": 4,
         "breakpoints": [
           2,
           3,
           4,
           5
         ],
+        "reached": [
+          true,
+          true,
+          true,
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -35,7 +42,13 @@
           1,
           2
         ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -48,7 +61,53 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Slayer",
+        "name": "狂战士",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rapidfire",
+        "name": "迅捷射手",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reached": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -61,7 +120,13 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -72,19 +137,11 @@
         "breakpoints": [
           1
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
+        "reached": [
+          true
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -95,7 +152,11 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -106,367 +167,25 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
-      },
-      {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
-        "count": 1,
-        "tier": 0,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 1,
-        "active": false
-      },
-      {
-        "trait": "DA_18_Slayer",
-        "name": "狂战士",
-        "count": 1,
-        "tier": 0,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 1,
-        "active": false
       }
     ],
-    "ms": 121
+    "ms": 276
   },
   {
     "level": 7,
-    "score": 12,
-    "unitKeys": [
-      "DA_18_Rakan",
-      "DA_18_Diana",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix",
-      "DA_18_Lillia",
-      "DA_18_Lux_Moonbeam",
-      "DA_18_Alune"
-    ],
-    "breakdown": [
-      {
-        "trait": "DA_18_Lunar",
-        "name": "月蚀骑士",
-        "count": 4,
-        "tier": 3,
-        "breakpoints": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Spellweaver",
-        "name": "法师",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Fae",
-        "name": "花仙子",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Vanguard",
-        "name": "重装战士",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_AluneUniqueTrait18",
-        "name": "月华神女",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_LuxUniqueTrait",
-        "name": "自然之力！大元素使",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Slayer",
-        "name": "狂战士",
-        "count": 1,
-        "tier": 0,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 1,
-        "active": false
-      },
-      {
-        "trait": "DA_Juggernaut18",
-        "name": "主宰",
-        "count": 1,
-        "tier": 0,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 1,
-        "active": false
-      }
-    ],
-    "ms": 396
-  },
-  {
-    "level": 8,
     "score": 14,
     "unitKeys": [
-      "DA_18_Rakan",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix",
-      "DA_18_Lillia",
-      "DA_18_Lux_Moonbeam",
-      "DA_18_Alune",
-      "DA_18_Maokai",
-      "DA_Taric18"
-    ],
-    "breakdown": [
-      {
-        "trait": "DA_18_Lunar",
-        "name": "月蚀骑士",
-        "count": 3,
-        "tier": 2,
-        "breakpoints": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Spellweaver",
-        "name": "法师",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Fae",
-        "name": "花仙子",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Vanguard",
-        "name": "重装战士",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_Juggernaut18",
-        "name": "主宰",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_Emerald18",
-        "name": "宝石骑士",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Maokai_UniqueTrait",
-        "name": "远古树精",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_AluneUniqueTrait18",
-        "name": "月华神女",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_LuxUniqueTrait",
-        "name": "自然之力！大元素使",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
-        ],
-        "waste": 0,
-        "active": true
-      }
-    ],
-    "ms": 521
-  },
-  {
-    "level": 9,
-    "score": 16,
-    "unitKeys": [
-      "DA_18_Akali_AD",
-      "DA_18_Shen",
       "DA_18_Diana",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
       "DA_KogMaw18_AD",
       "DA_Sentinel18",
+      "DA_18_Aphelios",
       "DA_18_Lux_Moonbeam",
       "DA_18_Alune"
     ],
@@ -474,15 +193,22 @@
       {
         "trait": "DA_18_Lunar",
         "name": "月蚀骑士",
-        "count": 4,
-        "tier": 3,
+        "count": 5,
+        "tier": 4,
         "breakpoints": [
           2,
           3,
           4,
           5
         ],
+        "reached": [
+          true,
+          true,
+          true,
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -495,21 +221,13 @@
           1,
           2
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Inferno",
-        "name": "地狱火",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          3,
-          5,
-          7
+        "reached": [
+          true,
+          true,
+          false
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -522,20 +240,13 @@
           4,
           6
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
+        "reached": [
+          true,
+          false,
+          false
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -548,20 +259,13 @@
           4,
           6
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Adaptor",
-        "name": "魔战士",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          3,
-          4
+        "reached": [
+          true,
+          false,
+          false
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -575,7 +279,35 @@
           4,
           5
         ],
+        "reached": [
+          true,
+          false,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rapidfire",
+        "name": "迅捷射手",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reached": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -588,7 +320,13 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -599,19 +337,11 @@
         "breakpoints": [
           1
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
+        "reached": [
+          true
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -622,7 +352,11 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -633,8 +367,31 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
+      },
+      {
+        "trait": "DA_18_Adaptor",
+        "name": "魔战士",
+        "count": 1,
+        "tier": 0,
+        "breakpoints": [
+          2,
+          3,
+          4
+        ],
+        "reached": [
+          false,
+          false,
+          false
+        ],
+        "waste": 1,
+        "emblem": 0,
+        "active": false
       },
       {
         "trait": "DA_Riftbeast18",
@@ -647,26 +404,31 @@
           7,
           10
         ],
+        "reached": [
+          false,
+          false,
+          false,
+          false
+        ],
         "waste": 1,
+        "emblem": 0,
         "active": false
       }
     ],
-    "ms": 1371
+    "ms": 835
   },
   {
-    "level": 10,
-    "score": 17,
+    "level": 8,
+    "score": 16,
     "unitKeys": [
-      "DA_18_Akali_AD",
-      "DA_18_Rakan",
+      "DA_18_Azir",
       "DA_18_Diana",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix",
-      "DA_KogMaw18_AD",
-      "DA_18_Lillia",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
+      "DA_18_Zyra",
+      "DA_18_Malphite",
+      "DA_18_Soraka",
       "DA_18_Lux_Moonbeam",
-      "DA_18_Alune",
-      "DA_18_Maokai"
+      "DA_18_Alune"
     ],
     "breakdown": [
       {
@@ -680,7 +442,33 @@
           4,
           5
         ],
+        "reached": [
+          true,
+          true,
+          true,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Executioner",
+        "name": "裁决使",
+        "count": 3,
+        "tier": 2,
+        "breakpoints": [
+          2,
+          3,
+          4
+        ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -693,7 +481,13 @@
           1,
           2
         ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -706,12 +500,18 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
+        "trait": "DA_18_Blackthorn",
+        "name": "黑荆棘",
         "count": 2,
         "tier": 1,
         "breakpoints": [
@@ -719,19 +519,13 @@
           4,
           6
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Fae",
-        "name": "花仙子",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4
+        "reached": [
+          true,
+          false,
+          false
         ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -744,20 +538,277 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
-        "trait": "DA_18_Adaptor",
-        "name": "魔战士",
+        "trait": "DA_18_Summoner",
+        "name": "召唤师",
         "count": 2,
         "tier": 1,
+        "breakpoints": [
+          2,
+          3
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_ZyraUniqueTrait",
+        "name": "荆棘之兴",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_FloraFatalis18",
+        "name": "绝命花妖",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Battlemage",
+        "name": "魔岩巨兽",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_AluneUniqueTrait18",
+        "name": "月华神女",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_LuxUniqueTrait",
+        "name": "自然之力！大元素使",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Vanguard",
+        "name": "重装战士",
+        "count": 1,
+        "tier": 0,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          false,
+          false,
+          false
+        ],
+        "waste": 1,
+        "emblem": 0,
+        "active": false
+      }
+    ],
+    "ms": 1065
+  },
+  {
+    "level": 9,
+    "score": 18,
+    "unitKeys": [
+      "DA_18_Azir",
+      "DA_18_Diana",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
+      "DA_18_Zyra",
+      "DA_18_Malphite",
+      "DA_18_Soraka",
+      "DA_18_Lux_Moonbeam",
+      "DA_18_Alune",
+      "DA_Taric18"
+    ],
+    "breakdown": [
+      {
+        "trait": "DA_18_Lunar",
+        "name": "月蚀骑士",
+        "count": 4,
+        "tier": 3,
+        "breakpoints": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reached": [
+          true,
+          true,
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Executioner",
+        "name": "裁决使",
+        "count": 3,
+        "tier": 2,
         "breakpoints": [
           2,
           3,
           4
         ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 2,
+        "breakpoints": [
+          1,
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Spellweaver",
+        "name": "法师",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Blackthorn",
+        "name": "黑荆棘",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Slayer",
+        "name": "狂战士",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Summoner",
+        "name": "召唤师",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -770,7 +821,295 @@
           4,
           6
         ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
         "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_Emerald18",
+        "name": "宝石骑士",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_ZyraUniqueTrait",
+        "name": "荆棘之兴",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_FloraFatalis18",
+        "name": "绝命花妖",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Battlemage",
+        "name": "魔岩巨兽",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_AluneUniqueTrait18",
+        "name": "月华神女",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_LuxUniqueTrait",
+        "name": "自然之力！大元素使",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      }
+    ],
+    "ms": 2385
+  },
+  {
+    "level": 10,
+    "score": 19,
+    "unitKeys": [
+      "DA_18_Rakan",
+      "DA_18_Xayah",
+      "DA_18_Diana",
+      "DA_Fiddlesticks18",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+      "DA_18_Aphelios",
+      "DA_18_Soraka",
+      "DA_18_Lux_Moonbeam",
+      "DA_18_Alune",
+      "DA_18_Maokai"
+    ],
+    "breakdown": [
+      {
+        "trait": "DA_18_Lunar",
+        "name": "月蚀骑士",
+        "count": 5,
+        "tier": 4,
+        "breakpoints": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reached": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rapidfire",
+        "name": "迅捷射手",
+        "count": 3,
+        "tier": 2,
+        "breakpoints": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "reached": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_FloraFatalis18",
+        "name": "绝命花妖",
+        "count": 2,
+        "tier": 2,
+        "breakpoints": [
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 2,
+        "breakpoints": [
+          1,
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Executioner",
+        "name": "裁决使",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3,
+          4
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Spellweaver",
+        "name": "法师",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Fae",
+        "name": "花仙子",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Slayer",
+        "name": "狂战士",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Vanguard",
+        "name": "重装战士",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -783,30 +1122,13 @@
           4,
           6
         ],
-        "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Caustic",
-        "name": "帝王斑蝶",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1
+        "reached": [
+          true,
+          false,
+          false
         ],
         "waste": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
-        ],
-        "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -817,7 +1139,11 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -828,7 +1154,11 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
@@ -839,38 +1169,56 @@
         "breakpoints": [
           1
         ],
+        "reached": [
+          true
+        ],
         "waste": 0,
+        "emblem": 0,
         "active": true
       },
       {
-        "trait": "DA_18_Inferno",
-        "name": "地狱火",
+        "trait": "DA_18_Defender",
+        "name": "护卫",
         "count": 1,
         "tier": 0,
         "breakpoints": [
           2,
-          3,
-          5,
-          7
+          4,
+          6
+        ],
+        "reached": [
+          false,
+          false,
+          false
         ],
         "waste": 1,
+        "emblem": 0,
         "active": false
       },
       {
-        "trait": "DA_18_Invoker",
-        "name": "神谕",
+        "trait": "DA_18_Elderwood",
+        "name": "永恒之森",
         "count": 1,
         "tier": 0,
         "breakpoints": [
-          2,
           3,
-          4,
-          5
+          5,
+          7,
+          9,
+          11
+        ],
+        "reached": [
+          false,
+          false,
+          false,
+          false,
+          false
         ],
         "waste": 1,
+        "emblem": 0,
         "active": false
       }
     ],
-    "ms": 3728
+    "ms": 8491
   }
 ]

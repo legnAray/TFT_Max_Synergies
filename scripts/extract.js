@@ -107,6 +107,43 @@ for (const sp of rules.specialUnits || []) {
     if (!t) throw new Error(`tierExactCount 指向的羁绊不存在: ${sp.trait}`);
     t.tierRules = Object.entries(sp.tierExactCount).map(([tier, cnt]) => ({ tier: Number(tier), exactCount: cnt }));
   }
+  if (sp.evolutions) {
+    // 进化机制：为基座棋子合成"进化 k 次、各选一个候选羁绊"的全部变体棋子，
+    // 与基座一起加入互斥组（同拉克丝形态的处理方式），求解器自动选最优进化路线
+    const [base] = us;
+    const evo = sp.evolutions;
+    const choiceKeys = (evo.choices || []).map(n => {
+      const k = byNameTrait[n];
+      if (!k) throw new Error(`evolutions.choices 里的羁绊不存在: ${n}`);
+      return k;
+    });
+    const maxK = Math.min(evo.maxEvolve || 1, choiceKeys.length);
+    // distinct=true（默认）：不重复选 → 组合 C(n,k)；false：可重复选 → 计数可叠加
+    const picks = (arr, k, prefix = []) => {
+      if (k === 0) return [prefix];
+      const out = [];
+      for (let i = 0; i < arr.length; i++) {
+        const rest = evo.distinct === false ? arr.slice(i) : arr.slice(i + 1);
+        for (const p of picks(rest, k - 1, [...prefix, arr[i]])) out.push(p);
+      }
+      return out;
+    };
+    const family = [base.key];
+    for (let k = 1; k <= maxK; k++) {
+      for (const combo of picks(choiceKeys, k)) {
+        const variant = {
+          key: `${base.key}::${combo.join('+')}`,
+          name: `${base.name} (进化${k}·${combo.map(k2 => traits[k2].name).join('+')})`,
+          cost: base.cost,
+          traits: [...base.traits, ...combo],
+        };
+        if (base.slots && base.slots !== 1) variant.slots = base.slots;
+        champions.push(variant);
+        family.push(variant.key);
+      }
+    }
+    if (family.length > 1) groups.push(family);
+  }
   if (sp.note) specialNotes.push(`${sp.name}: ${sp.note}`);
 }
 champions.sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, 'zh'));
@@ -123,7 +160,7 @@ for (const t of Object.values(traits)) {
 
 const out = {
   set: setNumber,
-  name: set.name || null, // 赛季名（Web 端下拉展示用；缺失时前端回退为 S{编号}）
+  name: rules.setName || null, // 赛季显示名（CD 的 set.name 是内部代号如 "Set10"，故取人工维护的 rules.setName）
   source: 'raw/cd_tft_zh_cn.json (CommunityDragon)',
   rules: { notes: specialNotes },
   groups,

@@ -25,7 +25,8 @@ node cli.js --json                # machine-readable output
 
 `--units` takes unit names as they appear in `data/s18_summary.md` (Chinese names).
 
-Reference results for Set 18 (patch 18.3 data): **level 6 → 11 tiers · 7 → 12 · 8 → 14 · 9 → 16 · 10 → 17**.
+Reference results for Set 18 (patch 18.3 data, Kha'Zix fully evolved): **level 6 → 13 tiers ·
+7 → 14 · 8 → 16 · 9 → 18 · 10 → 19** (unevolved boards score about 2 tiers lower).
 
 ## Web UI
 
@@ -68,6 +69,12 @@ affect the intended units.
   your shop converts to the same trait. Her form trait counts **+2**.
 - **Rivals (Kha'Zix / Rengar)**: breakpoints 1/1/2, and **tier 1 only activates with exactly one
   Rival on the board**: solo = tiers 1+2, both = tiers 2+3 — 2 tiers either way.
+- **Kha'Zix evolution**: takedowns let him permanently gain one trait chosen from
+  Executioner / Quickshot / Berserker / Spellweaver (up to 3 times, no repeats). Modeled as
+  15 mutually exclusive variant units (evolve 0–3; same 3-cost, same Rivals count) declared in
+  the rules file — the solver picks the best evolution path automatically, and mid-game boards
+  can lock a specific evolution via `--units`. Rengar's gold/AD rewards are combat effects and
+  are not modeled.
 - **Elder Dragon**: **occupies 2 board slots** and provides **+2 Riftbeasts count** (verbatim
   from the Apex Predator trait description). 5-cost. Empirical result: despite the double count,
   no optimal level 6–10 board contains Elder Dragon — 2 slots for 1 guaranteed tier plus Riftbeast
