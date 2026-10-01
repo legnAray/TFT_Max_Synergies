@@ -25,8 +25,8 @@ node cli.js --json                # machine-readable output
 
 `--units` takes unit names as they appear in `data/s18_summary.md` (Chinese names).
 
-Reference results for Set 18 (patch 18.3 data, Kha'Zix fully evolved): **level 6 → 13 tiers ·
-7 → 14 · 8 → 16 · 9 → 18 · 10 → 19** (unevolved boards score about 2 tiers lower).
+Reference results for Set 18 (patch 18.3 data, Kha'Zix fully evolved): **level 6 → 12 tiers ·
+7 → 13 · 8 → 15 · 9 → 17 · 10 → 18** (unevolved boards score about 2 tiers lower).
 
 ## Web UI
 
@@ -68,8 +68,9 @@ affect the intended units.
 - **Lux (Elementalist / Avatar)**: 10 forms (including the form-less Base) form an exclusive
   group — at most one on the board. In-game description: once you own one, every other Lux in
   your shop converts to the same trait. Her form trait counts **+2**.
-- **Rivals (Kha'Zix / Rengar)**: breakpoints 1/1/2, and **tier 1 only activates with exactly one
-  Rival on the board**: solo = tiers 1+2, both = tiers 2+3 — 2 tiers either way.
+- **Rivals (simplified)**: in-game breakpoints are 1/1/2 (solo Kha'Zix activates tiers 1+2). We
+  simplify per project convention: Rengar (whose only trait is Rival — he never adds tiers) is
+  removed from the pool, and **Rival counts as a Kha'Zix-exclusive 1-tier trait**.
 - **Kha'Zix evolution**: takedowns let him permanently gain one trait chosen from
   Executioner / Quickshot / Berserker / Spellweaver (up to 3 times, no repeats). Modeled as
   15 mutually exclusive variant units (evolve 0–3; same 3-cost, same Rivals count) declared in

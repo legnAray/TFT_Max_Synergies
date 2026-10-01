@@ -1,7 +1,7 @@
 [
   {
     "level": 6,
-    "score": 13,
+    "score": 12,
     "unitKeys": [
       "DA_18_Diana",
       "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
@@ -27,25 +27,6 @@
           true,
           true,
           true
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
-        ],
-        "reached": [
-          true,
-          true,
-          false
         ],
         "waste": 0,
         "emblem": 0,
@@ -145,6 +126,21 @@
         "active": true
       },
       {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
         "trait": "DA_AluneUniqueTrait18",
         "name": "月华神女",
         "count": 1,
@@ -175,16 +171,16 @@
         "active": true
       }
     ],
-    "ms": 276
+    "ms": 465
   },
   {
     "level": 7,
-    "score": 14,
+    "score": 13,
     "unitKeys": [
-      "DA_18_Diana",
+      "DA_18_Akali_AD",
+      "DA_18_Varus",
       "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
       "DA_KogMaw18_AD",
-      "DA_Sentinel18",
       "DA_18_Aphelios",
       "DA_18_Lux_Moonbeam",
       "DA_18_Alune"
@@ -193,8 +189,8 @@
       {
         "trait": "DA_18_Lunar",
         "name": "月蚀骑士",
-        "count": 5,
-        "tier": 4,
+        "count": 4,
+        "tier": 3,
         "breakpoints": [
           2,
           3,
@@ -205,25 +201,48 @@
           true,
           true,
           true,
-          true
+          false
         ],
         "waste": 0,
         "emblem": 0,
         "active": true
       },
       {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
+        "trait": "DA_18_Rapidfire",
+        "name": "迅捷射手",
+        "count": 3,
         "tier": 2,
         "breakpoints": [
-          1,
-          1,
-          2
+          2,
+          3,
+          4,
+          5
         ],
         "reached": [
           true,
           true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Inferno",
+        "name": "地狱火",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3,
+          5,
+          7
+        ],
+        "reached": [
+          true,
+          false,
+          false,
           false
         ],
         "waste": 0,
@@ -269,56 +288,14 @@
         "active": true
       },
       {
-        "trait": "DA_18_Invoker",
-        "name": "神谕",
+        "trait": "DA_18_Adaptor",
+        "name": "魔战士",
         "count": 2,
         "tier": 1,
         "breakpoints": [
           2,
           3,
-          4,
-          5
-        ],
-        "reached": [
-          true,
-          false,
-          false,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rapidfire",
-        "name": "迅捷射手",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "reached": [
-          true,
-          false,
-          false,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Vanguard",
-        "name": "重装战士",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          4,
-          6
+          4
         ],
         "reached": [
           true,
@@ -345,6 +322,21 @@
         "active": true
       },
       {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
         "trait": "DA_AluneUniqueTrait18",
         "name": "月华神女",
         "count": 1,
@@ -375,34 +367,15 @@
         "active": true
       },
       {
-        "trait": "DA_18_Adaptor",
-        "name": "魔战士",
+        "trait": "DA_18_Invoker",
+        "name": "神谕",
         "count": 1,
         "tier": 0,
         "breakpoints": [
           2,
           3,
-          4
-        ],
-        "reached": [
-          false,
-          false,
-          false
-        ],
-        "waste": 1,
-        "emblem": 0,
-        "active": false
-      },
-      {
-        "trait": "DA_Riftbeast18",
-        "name": "峡谷野怪",
-        "count": 1,
-        "tier": 0,
-        "breakpoints": [
-          3,
-          5,
-          7,
-          10
+          4,
+          5
         ],
         "reached": [
           false,
@@ -415,27 +388,27 @@
         "active": false
       }
     ],
-    "ms": 835
+    "ms": 562
   },
   {
     "level": 8,
-    "score": 16,
+    "score": 15,
     "unitKeys": [
-      "DA_18_Azir",
       "DA_18_Diana",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
-      "DA_18_Zyra",
-      "DA_18_Malphite",
+      "DA_Fiddlesticks18",
+      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+      "DA_18_Aphelios",
       "DA_18_Soraka",
       "DA_18_Lux_Moonbeam",
-      "DA_18_Alune"
+      "DA_18_Alune",
+      "DA_Taric18"
     ],
     "breakdown": [
       {
         "trait": "DA_18_Lunar",
         "name": "月蚀骑士",
-        "count": 4,
-        "tier": 3,
+        "count": 5,
+        "tier": 4,
         "breakpoints": [
           2,
           3,
@@ -446,7 +419,24 @@
           true,
           true,
           true,
-          false
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_FloraFatalis18",
+        "name": "绝命花妖",
+        "count": 2,
+        "tier": 2,
+        "breakpoints": [
+          1,
+          2
+        ],
+        "reached": [
+          true,
+          true
         ],
         "waste": 0,
         "emblem": 0,
@@ -455,50 +445,12 @@
       {
         "trait": "DA_18_Executioner",
         "name": "裁决使",
-        "count": 3,
-        "tier": 2,
-        "breakpoints": [
-          2,
-          3,
-          4
-        ],
-        "reached": [
-          true,
-          true,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
-        ],
-        "reached": [
-          true,
-          true,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Spellweaver",
-        "name": "法师",
         "count": 2,
         "tier": 1,
         "breakpoints": [
           2,
-          4,
-          6
+          3,
+          4
         ],
         "reached": [
           true,
@@ -510,8 +462,8 @@
         "active": true
       },
       {
-        "trait": "DA_18_Blackthorn",
-        "name": "黑荆棘",
+        "trait": "DA_18_Spellweaver",
+        "name": "法师",
         "count": 2,
         "tier": 1,
         "breakpoints": [
@@ -548,16 +500,20 @@
         "active": true
       },
       {
-        "trait": "DA_18_Summoner",
-        "name": "召唤师",
+        "trait": "DA_18_Rapidfire",
+        "name": "迅捷射手",
         "count": 2,
         "tier": 1,
         "breakpoints": [
           2,
-          3
+          3,
+          4,
+          5
         ],
         "reached": [
           true,
+          false,
+          false,
           false
         ],
         "waste": 0,
@@ -565,8 +521,27 @@
         "active": true
       },
       {
-        "trait": "DA_18_ZyraUniqueTrait",
-        "name": "荆棘之兴",
+        "trait": "DA_18_Vanguard",
+        "name": "重装战士",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          4,
+          6
+        ],
+        "reached": [
+          true,
+          false,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_Emerald18",
+        "name": "宝石骑士",
         "count": 1,
         "tier": 1,
         "breakpoints": [
@@ -580,25 +555,8 @@
         "active": true
       },
       {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 1,
-        "tier": 1,
-        "breakpoints": [
-          1,
-          2
-        ],
-        "reached": [
-          true,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Battlemage",
-        "name": "魔岩巨兽",
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
         "count": 1,
         "tier": 1,
         "breakpoints": [
@@ -642,8 +600,8 @@
         "active": true
       },
       {
-        "trait": "DA_18_Vanguard",
-        "name": "重装战士",
+        "trait": "DA_18_Defender",
+        "name": "护卫",
         "count": 1,
         "tier": 0,
         "breakpoints": [
@@ -661,11 +619,11 @@
         "active": false
       }
     ],
-    "ms": 1065
+    "ms": 1477
   },
   {
     "level": 9,
-    "score": 18,
+    "score": 17,
     "unitKeys": [
       "DA_18_Azir",
       "DA_18_Diana",
@@ -708,25 +666,6 @@
           2,
           3,
           4
-        ],
-        "reached": [
-          true,
-          true,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
         ],
         "reached": [
           true,
@@ -893,6 +832,21 @@
         "active": true
       },
       {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
         "trait": "DA_AluneUniqueTrait18",
         "name": "月华神女",
         "count": 1,
@@ -923,19 +877,19 @@
         "active": true
       }
     ],
-    "ms": 2385
+    "ms": 3242
   },
   {
     "level": 10,
-    "score": 19,
+    "score": 18,
     "unitKeys": [
       "DA_18_Rakan",
       "DA_18_Xayah",
       "DA_18_Diana",
-      "DA_Fiddlesticks18",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
+      "DA_CrimsonRaptor18",
       "DA_18_Aphelios",
-      "DA_18_Soraka",
+      "DA_18_Zyra",
       "DA_18_Lux_Moonbeam",
       "DA_18_Alune",
       "DA_18_Maokai"
@@ -965,8 +919,8 @@
       {
         "trait": "DA_18_Rapidfire",
         "name": "迅捷射手",
-        "count": 3,
-        "tier": 2,
+        "count": 4,
+        "tier": 3,
         "breakpoints": [
           2,
           3,
@@ -976,62 +930,7 @@
         "reached": [
           true,
           true,
-          false,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_FloraFatalis18",
-        "name": "绝命花妖",
-        "count": 2,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          2
-        ],
-        "reached": [
           true,
-          true
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Rival",
-        "name": "宿敌",
-        "count": 1,
-        "tier": 2,
-        "breakpoints": [
-          1,
-          1,
-          2
-        ],
-        "reached": [
-          true,
-          true,
-          false
-        ],
-        "waste": 0,
-        "emblem": 0,
-        "active": true
-      },
-      {
-        "trait": "DA_18_Executioner",
-        "name": "裁决使",
-        "count": 2,
-        "tier": 1,
-        "breakpoints": [
-          2,
-          3,
-          4
-        ],
-        "reached": [
-          true,
-          false,
           false
         ],
         "waste": 0,
@@ -1094,6 +993,23 @@
         "active": true
       },
       {
+        "trait": "DA_18_Summoner",
+        "name": "召唤师",
+        "count": 2,
+        "tier": 1,
+        "breakpoints": [
+          2,
+          3
+        ],
+        "reached": [
+          true,
+          false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
         "trait": "DA_18_Vanguard",
         "name": "重装战士",
         "count": 2,
@@ -1126,6 +1042,36 @@
           true,
           false,
           false
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_ZyraUniqueTrait",
+        "name": "荆棘之兴",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
+        ],
+        "waste": 0,
+        "emblem": 0,
+        "active": true
+      },
+      {
+        "trait": "DA_18_Rival",
+        "name": "宿敌",
+        "count": 1,
+        "tier": 1,
+        "breakpoints": [
+          1
+        ],
+        "reached": [
+          true
         ],
         "waste": 0,
         "emblem": 0,
@@ -1177,16 +1123,18 @@
         "active": true
       },
       {
-        "trait": "DA_18_Defender",
-        "name": "护卫",
+        "trait": "DA_Riftbeast18",
+        "name": "峡谷野怪",
         "count": 1,
         "tier": 0,
         "breakpoints": [
-          2,
-          4,
-          6
+          3,
+          5,
+          7,
+          10
         ],
         "reached": [
+          false,
           false,
           false,
           false
@@ -1219,6 +1167,6 @@
         "active": false
       }
     ],
-    "ms": 8491
+    "ms": 9466
   }
 ]

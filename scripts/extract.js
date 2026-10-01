@@ -107,6 +107,23 @@ for (const sp of rules.specialUnits || []) {
     if (!t) throw new Error(`tierExactCount 指向的羁绊不存在: ${sp.trait}`);
     t.tierRules = Object.entries(sp.tierExactCount).map(([tier, cnt]) => ({ tier: Number(tier), exactCount: cnt }));
   }
+  if (sp.removeUnits) {
+    // 把棋子移出池子（如雷恩加尔：除宿敌外无羁绊、上场从不增加档位，没有建模价值）
+    for (const c of resolveUnits(sp.removeUnits)) {
+      const idx = champions.indexOf(c);
+      if (idx >= 0) champions.splice(idx, 1);
+      dropped.push(`${c.name}(${c.apiName}) 规则移除（${sp.name}）`);
+    }
+  }
+  if (sp.traitBreakpoints) {
+    // 覆盖羁绊断点（如宿敌 1/1/2 → [1]）；超出新断点数的档位规则一并清除
+    for (const [tName, bps] of Object.entries(sp.traitBreakpoints)) {
+      const t = Object.values(traits).find(v => v.name === tName);
+      if (!t) throw new Error(`traitBreakpoints 里的羁绊不存在: ${tName}`);
+      t.breakpoints = bps;
+      if (t.tierRules) t.tierRules = t.tierRules.filter(r => r.tier <= bps.length);
+    }
+  }
   if (sp.evolutions) {
     // 进化机制：为基座棋子合成"进化 k 次、各选一个候选羁绊"的全部变体棋子，
     // 与基座一起加入互斥组（同拉克丝形态的处理方式），求解器自动选最优进化路线
