@@ -13,15 +13,21 @@
 </header>
 <main>
   <section class="panel">
-    <div class="field">
-      <label>人口档位（可多选，人口越高求解越慢）</label>
-      <div class="chips" id="levelChips"></div>
-    </div>
     <div class="row">
       <div class="field">
         <label>赛季</label>
         <select id="setSelect" class="control" title="赛季数据来自 data/ 目录，跑过 extract.js 的新赛季会自动出现"></select>
       </div>
+      <div class="field" id="mechanicsField">
+        <label>特殊机制</label>
+        <div class="chips" id="mechanicsBox"></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>人口档位（可多选，人口越高求解越慢）</label>
+      <div class="chips" id="levelChips"></div>
+    </div>
+    <div class="row">
       <div class="field">
         <label>每档解数</label>
         <div class="chips" id="topkChips"></div>

@@ -11,35 +11,41 @@
     ]
   },
   "groups": [
-    [
-      "DA_Lux18_Base",
-      "DA_18_Lux_Inferno",
-      "DA_Lux18_Blackthorn",
-      "DA_18_Lux_Fae",
-      "DA_Lux18_Blossom",
-      "DA_18_Lux_Coven",
-      "DA_18_Lux_Sunbeam",
-      "DA_18_Lux_Primal",
-      "DA_18_Lux_Elderwood",
-      "DA_18_Lux_Moonbeam"
-    ],
-    [
-      "DA_18_KhaZix",
-      "DA_18_KhaZix::DA_18_Executioner",
-      "DA_18_KhaZix::DA_18_Rapidfire",
-      "DA_18_KhaZix::DA_18_Slayer",
-      "DA_18_KhaZix::DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer",
-      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Slayer+DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
-      "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver"
-    ]
+    {
+      "name": "拉克丝（大元素使）",
+      "units": [
+        "DA_Lux18_Base",
+        "DA_18_Lux_Inferno",
+        "DA_Lux18_Blackthorn",
+        "DA_18_Lux_Fae",
+        "DA_Lux18_Blossom",
+        "DA_18_Lux_Coven",
+        "DA_18_Lux_Sunbeam",
+        "DA_18_Lux_Primal",
+        "DA_18_Lux_Elderwood",
+        "DA_18_Lux_Moonbeam"
+      ]
+    },
+    {
+      "name": "卡兹克（进化）",
+      "units": [
+        "DA_18_KhaZix",
+        "DA_18_KhaZix::DA_18_Executioner",
+        "DA_18_KhaZix::DA_18_Rapidfire",
+        "DA_18_KhaZix::DA_18_Slayer",
+        "DA_18_KhaZix::DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer",
+        "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Slayer+DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
+        "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver"
+      ]
+    }
   ],
   "champions": [
     {
@@ -363,7 +369,9 @@
       "traits": [
         "DA_18_Rival",
         "DA_18_Executioner"
-      ]
+      ],
+      "evo": 1,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Spellweaver",
@@ -372,7 +380,9 @@
       "traits": [
         "DA_18_Rival",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 1,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Slayer",
@@ -381,7 +391,9 @@
       "traits": [
         "DA_18_Rival",
         "DA_18_Slayer"
-      ]
+      ],
+      "evo": 1,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Rapidfire",
@@ -390,7 +402,9 @@
       "traits": [
         "DA_18_Rival",
         "DA_18_Rapidfire"
-      ]
+      ],
+      "evo": 1,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Spellweaver",
@@ -400,7 +414,9 @@
         "DA_18_Rival",
         "DA_18_Executioner",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer",
@@ -410,7 +426,9 @@
         "DA_18_Rival",
         "DA_18_Executioner",
         "DA_18_Slayer"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire",
@@ -420,7 +438,9 @@
         "DA_18_Rival",
         "DA_18_Executioner",
         "DA_18_Rapidfire"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Slayer+DA_18_Spellweaver",
@@ -430,7 +450,9 @@
         "DA_18_Rival",
         "DA_18_Slayer",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Spellweaver",
@@ -440,7 +462,9 @@
         "DA_18_Rival",
         "DA_18_Rapidfire",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer",
@@ -450,7 +474,9 @@
         "DA_18_Rival",
         "DA_18_Rapidfire",
         "DA_18_Slayer"
-      ]
+      ],
+      "evo": 2,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Slayer+DA_18_Spellweaver",
@@ -461,7 +487,9 @@
         "DA_18_Executioner",
         "DA_18_Slayer",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 3,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Spellweaver",
@@ -472,7 +500,9 @@
         "DA_18_Executioner",
         "DA_18_Rapidfire",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 3,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Executioner+DA_18_Rapidfire+DA_18_Slayer",
@@ -483,7 +513,9 @@
         "DA_18_Executioner",
         "DA_18_Rapidfire",
         "DA_18_Slayer"
-      ]
+      ],
+      "evo": 3,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_18_KhaZix::DA_18_Rapidfire+DA_18_Slayer+DA_18_Spellweaver",
@@ -494,7 +526,9 @@
         "DA_18_Rapidfire",
         "DA_18_Slayer",
         "DA_18_Spellweaver"
-      ]
+      ],
+      "evo": 3,
+      "variantOf": "DA_18_KhaZix"
     },
     {
       "key": "DA_KogMaw18_AD",

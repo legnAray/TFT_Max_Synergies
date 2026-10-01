@@ -15,6 +15,8 @@ const state = {
   banUnits: [],           // 屏蔽棋子 key
   banTraits: [],          // 屏蔽羁绊 key
   ban5cost: false,
+  disabledGroups: new Set(), // 禁用的互斥组（组名，如 拉克丝各形态/卡兹克进化家族）
+  evoCaps: {},            // 进化次数上限 { 基座key: 最大进化次数 }
   data: null,
 };
 const $ = id => document.getElementById(id);
@@ -67,6 +69,8 @@ async function switchSet(n) {
   state.banUnits = [];
   state.banTraits = [];
   state.ban5cost = false;
+  state.disabledGroups = new Set();
+  state.evoCaps = {};
   $('ban5costChip').classList.remove('on');
   $('results').innerHTML = '';
   try {
@@ -81,6 +85,7 @@ async function switchSet(n) {
   } catch (e) {
     setStatus(`数据加载失败: ${e.message}`, true);
   }
+  renderMechanics();
   renderAll();
 }
 
@@ -136,6 +141,79 @@ const traitName = key => traitByKey(key)?.name || key;
 const champByKey = key => (state.data?.champions || []).find(c => c.key === key);
 const emblemTotal = () => Object.values(state.emblems).reduce((s, n) => s + n, 0);
 
+const namedGroups = () => (state.data?.groups || []).filter(g => g && Array.isArray(g.units));
+const groupLabel = g => (g.name || '').replace(/（.*?）/, '') || '互斥组';
+
+/** 实际生效的屏蔽棋子 = 手选屏蔽 + 被禁用互斥组成员 + 超出进化次数上限的变体 */
+function effectiveBanUnits() {
+  const bans = new Set(state.banUnits);
+  for (const g of namedGroups()) {
+    if (state.disabledGroups.has(g.name)) g.units.forEach(k => bans.add(k));
+  }
+  for (const [baseKey, cap] of Object.entries(state.evoCaps)) {
+    for (const c of state.data?.champions || []) {
+      if (c.variantOf === baseKey && c.evo > cap) bans.add(c.key);
+    }
+  }
+  return [...bans];
+}
+
+/** 特殊机制区：按数据自动渲染（互斥组→禁用开关；进化变体→次数上限下拉） */
+function renderMechanics() {
+  const box = $('mechanicsBox');
+  box.innerHTML = '';
+  const groups = namedGroups();
+  const evoBases = [...new Set((state.data?.champions || []).filter(c => c.evo != null).map(c => c.variantOf))];
+  $('mechanicsField').style.display = (groups.length || evoBases.length) ? '' : 'none';
+  for (const g of groups) {
+    const b = document.createElement('button');
+    b.className = 'chip' + (state.disabledGroups.has(g.name) ? ' on' : '');
+    b.textContent = `禁用${groupLabel(g)}`;
+    b.title = `${g.name}：同组最多上场 1 个，禁用后整组不可上场`;
+    b.onclick = () => {
+      if (state.disabledGroups.has(g.name)) {
+        state.disabledGroups.delete(g.name);
+      } else {
+        state.disabledGroups.add(g.name);
+        state.locked = state.locked.filter(k => !g.units.includes(k)); // 必带里的组员一并移除
+      }
+      renderAll();
+      renderMechanics();
+    };
+    box.appendChild(b);
+  }
+  for (const baseKey of evoBases) {
+    const base = champByKey(baseKey);
+    if (!base) continue;
+    const variants = (state.data?.champions || []).filter(c => c.variantOf === baseKey);
+    const maxEvo = Math.max(...variants.map(c => c.evo));
+    const cap = state.evoCaps[baseKey] ?? maxEvo;
+    const item = document.createElement('span');
+    item.className = 'mech-item';
+    item.append(`${base.name}进化 `);
+    const sel = document.createElement('select');
+    sel.className = 'control';
+    for (let k = maxEvo; k >= 0; k--) {
+      const o = document.createElement('option');
+      o.value = k;
+      o.textContent = k === 0 ? '不进化' : (k === maxEvo ? `最多${k}次（默认）` : `最多${k}次`);
+      if (k === cap) o.selected = true;
+      sel.appendChild(o);
+    }
+    sel.onchange = () => {
+      const v = Number(sel.value);
+      state.evoCaps[baseKey] = v;
+      state.locked = state.locked.filter(k => { // 必带里超上限的进化变体一并移除
+        const c = champByKey(k);
+        return !(c && c.variantOf === baseKey && c.evo > v);
+      });
+      setStatus('');
+    };
+    item.appendChild(sel);
+    box.appendChild(item);
+  }
+}
+
 /* ---- 通用选择器（必带/纹章/固定/屏蔽棋子/屏蔽羁绊 共用） ---- */
 
 function pickerItems(name) {
@@ -156,8 +234,9 @@ function pickerItems(name) {
 
 // 各选择器的"选中/排除"规则：已选的不出现在候选里；冲突项自动解除
 function pickerFilter(name, item) {
-  if (name === 'locked') return !state.locked.includes(item.key) && !state.banUnits.includes(item.key);
-  if (name === 'banUnit') return !state.banUnits.includes(item.key) && !state.locked.includes(item.key);
+  const bans = new Set(effectiveBanUnits());
+  if (name === 'locked') return !state.locked.includes(item.key) && !bans.has(item.key);
+  if (name === 'banUnit') return !state.banUnits.includes(item.key) && !state.locked.includes(item.key) && !bans.has(item.key);
   if (name === 'emblem') {
     return !state.emblems[item.key] && !item.trait.unique && !state.banTraits.includes(item.key);
   }
@@ -359,7 +438,8 @@ async function solve() {
     if (state.locked.length) params.set('units', state.locked.join(','));
     const em = Object.entries(state.emblems).filter(([, n]) => n > 0).map(([k, n]) => `${k}:${n}`).join(',');
     if (em) params.set('emblems', em);
-    if (state.banUnits.length) params.set('banUnits', state.banUnits.join(','));
+    const banList = effectiveBanUnits();
+    if (banList.length) params.set('banUnits', banList.join(','));
     if (state.ban5cost) params.set('ban5cost', '1');
     if (state.banTraits.length) params.set('banTraits', state.banTraits.join(','));
     const pins = Object.entries(state.pins).map(([k, n]) => `${k}=${n}`).join(',');

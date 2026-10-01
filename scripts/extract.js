@@ -83,12 +83,12 @@ const resolveUnits = names => {
   }
   return us;
 };
-const groups = [];
+const groups = []; // [{ name, units: [key] }]（同组最多上场1个；名字供前端"特殊机制"区展示）
 const specialNotes = [];
 for (const sp of rules.specialUnits || []) {
   const us = resolveUnits(sp.units);
   if (us.length === 0) continue;
-  if (sp.exclusive && us.length > 1) groups.push(us.map(c => c.key));
+  if (sp.exclusive && us.length > 1) groups.push({ name: sp.name, units: us.map(c => c.key) });
   if (sp.slots && sp.slots !== 1) us.forEach(c => { c.slots = sp.slots; });
   if (sp.traitWeights) {
     for (const [tName, w] of Object.entries(sp.traitWeights)) {
@@ -136,13 +136,15 @@ for (const sp of rules.specialUnits || []) {
           name: `${base.name} (进化${k}·${combo.map(k2 => traits[k2].name).join('+')})`,
           cost: base.cost,
           traits: [...base.traits, ...combo],
+          evo: k,           // 进化次数（前端"特殊机制"区按此过滤）
+          variantOf: base.key, // 基座棋子
         };
         if (base.slots && base.slots !== 1) variant.slots = base.slots;
         champions.push(variant);
         family.push(variant.key);
       }
     }
-    if (family.length > 1) groups.push(family);
+    if (family.length > 1) groups.push({ name: sp.name, units: family });
   }
   if (sp.note) specialNotes.push(`${sp.name}: ${sp.note}`);
 }

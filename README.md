@@ -38,7 +38,8 @@ Open http://localhost:8080 — pick the set (a dropdown that auto-discovers ever
 so newly extracted sets show up without code changes), levels (multi-select), comps per level
 (5 or 10), the scoring mode (tier sum vs distinct-trait count), must-include units, emblems
 (up to 10, stacked per trait), pinned traits with a tier stepper, and banned units/traits
-(including a one-click ban-all-5-cost). Every picker opens as a full dropdown on click — no typing needed, though
+(including a one-click ban-all-5-cost). A "special mechanics" row next to the set dropdown renders automatically from the
+data (e.g. S18: disable Lux forms, cap Kha'Zix evolution count). Every picker opens as a full dropdown on click — no typing needed, though
 typing still filters. Results render as cost-colored unit chips plus a per-trait tier breakdown
 with hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js`
 is a zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are
