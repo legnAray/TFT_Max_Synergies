@@ -15,12 +15,25 @@ node cli.js                       # Set 18, levels 6-10, 3 optimal/tied comps pe
 node cli.js --levels 8-10         # only levels 8, 9, 10
 node cli.js --levels 7,9 --topk 5 # specific levels, more tied solutions
 node cli.js --units 卡兹克 --level 7   # lock must-include units, optimize the rest
-node cli.js --json                # machine-readable output (for the future web UI)
+node cli.js --json                # machine-readable output
 ```
 
 `--units` takes unit names as they appear in `data/s18_summary.md` (Chinese names).
 
 Reference results for Set 18 (patch 18.3 data): **level 6 → 11 tiers · 7 → 12 · 8 → 14 · 9 → 16 · 10 → 17**.
+
+## Web UI
+
+```bash
+npm run serve            # or: node server.js [--port 8080]  (PORT env var also works)
+```
+
+Open http://localhost:8080 — pick levels (multi-select), how many tied comps per level, and
+optional must-include units; results render as cost-colored unit chips plus a per-trait tier
+breakdown with hit breakpoints highlighted. `server.js` is a zero-dependency Node HTTP server
+whose `/api/solve` reuses `lib/solve.js`, so results are identical to the CLI. Heads-up: higher
+levels solve slower (level 10 takes ~30s on S18 data); the page fires one request per selected
+level and renders each as it returns.
 
 ## Updating data (once per set)
 
@@ -74,6 +87,8 @@ affect the intended units.
 
 ```
 cli.js              CLI entry
+server.js           web UI server (static files + /api/data, /api/solve)
+web/                web UI frontend (vanilla HTML/CSS/JS, no build step)
 lib/solve.js        solver (ILP model + Top-K enumeration + trait breakdown)
 scripts/extract.js  CommunityDragon data extraction (interprets sets/s{N}.rules.js)
 sets/s18.rules.js   Set 18 special-unit rules, one rules file per set
@@ -105,4 +120,3 @@ raw/                raw downloads (.gitignored)
 - No emblem (trait spatula), Augment/hex, or cost-cap constraints yet (a `--max-cost` flag is a
   natural next step).
 - The Riftbeasts tier-10 +team-size reward is not modeled.
-- Next up: a web UI (reusing `lib/solve.js` and the `--json` output).

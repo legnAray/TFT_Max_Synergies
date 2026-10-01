@@ -19,10 +19,21 @@ node cli.js                       # S18，6-10人口，每档输出 3 套最优/
 node cli.js --levels 8-10         # 只算 8、9、10 人口
 node cli.js --levels 7,9 --topk 5 # 指定人口档、多要几套并列解
 node cli.js --units 卡兹克 --level 7   # 必带某些棋子，剩余位置求最优
-node cli.js --json                # 输出 JSON（给以后的 Web 版用）
+node cli.js --json                # 输出 JSON（机器可读）
 ```
 
 S18 结果参考（18.3 版本数据）：6人口 11 档 · 7人口 12 档 · 8人口 14 档 · 9人口 16 档 · 10人口 17 档。
+
+## Web 版
+
+```bash
+npm run serve            # 或 node server.js [--port 8080]（也支持 PORT 环境变量）
+```
+
+打开 http://localhost:8080 —— 选择人口档（可多选）、每档并列解数、可选必带棋子；结果渲染为
+按费用配色的棋子标签 + 逐羁绊档位明细（断点命中高亮）。`server.js` 是零依赖的 Node HTTP
+服务，`/api/solve` 直接复用 `lib/solve.js`，结果与 CLI 完全一致。注意：人口越高求解越慢
+（S18 数据下 10 人口约 30 秒），页面按所选人口并行请求、逐档渲染。
 
 ## 数据更新（每个新赛季一次）
 
@@ -65,6 +76,8 @@ node cli.js --set 19
 
 ```
 cli.js              命令行入口
+server.js           Web 版服务器（静态页面 + /api/data、/api/solve）
+web/                Web 前端（原生 HTML/CSS/JS，无构建步骤）
 lib/solve.js        求解器（ILP 建模 + Top-K 枚举 + 羁绊明细计算）
 scripts/extract.js  CommunityDragon 数据提取（解释 sets/s{N}.rules.js 里的赛季规则）
 sets/s18.rules.js   S18 特殊规则（互斥组、计数权重），按赛季独立维护
@@ -92,4 +105,3 @@ raw/                原始下载（.gitignore）
 
 - 不含转职纹章、海克斯、费用上限约束（可加 `--max-cost`，欢迎提需求）。
 - 峡谷野怪 10 档的+人口奖励未建模。
-- 下一步：Web 版（直接复用 `lib/solve.js` 与 `--json` 输出）。
