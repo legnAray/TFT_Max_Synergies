@@ -17,7 +17,7 @@ const { solveLevel, solveWithLocked, computeBreakdown } = require('./lib/solve')
 
 function parseArgs(argv) {
   const args = {
-    set: 18, levels: null, topk: 8, json: false, units: null, level: null, data: null,
+    set: 18, levels: null, topk: 5, json: false, units: null, level: null, data: null,
     mode: 'tiers', emblem: null, banUnit: null, ban5cost: false, banTrait: null, pin: null,
   };
   for (let i = 2; i < argv.length; i++) {
@@ -126,7 +126,7 @@ function printResult(data, res, opts) {
 async function main() {
   const args = parseArgs(process.argv);
   if (args.help) {
-    console.log('用法: node cli.js [--set 18] [--levels 6-10|6,7,8] [--topk 8] [--json] [--mode tiers|count]');
+    console.log('用法: node cli.js [--set 18] [--levels 6-10|6,7,8] [--topk 5] [--json] [--mode tiers|count]');
     console.log('            [--units 名1,名2 --level 9] [--emblem 羁绊,羁绊(≤10)] [--ban-unit 名1,名2] [--ban-5cost]');
     console.log('            [--ban-trait 羁绊1,羁绊2] [--pin 羁绊1=档位,羁绊2]');
     return;

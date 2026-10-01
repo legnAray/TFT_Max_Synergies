@@ -2,11 +2,11 @@
 // Web UI 前端：纯原生 JS，无构建步骤。数据来自 /api/data，求解来自 /api/solve（server.js）。
 
 const LEVELS = [6, 7, 8, 9, 10];
-const TOPKS = [3, 5, 8, 10];
+const TOPKS = [5, 10];
 const EMBLEM_MAX = 10;
 const state = {
   levels: new Set([8]),
-  topk: 8,
+  topk: 5,
   mode: 'tiers',          // tiers 羁绊质量 | count 羁绊数量
   locked: [],             // 必带棋子 key
   emblems: {},            // 羁绊 key -> 纹章数
@@ -33,7 +33,11 @@ async function init() {
   };
   $('solveBtn').addEventListener('click', solve);
   document.addEventListener('click', e => {
-    if (!e.target.closest('.picker')) document.querySelectorAll('.suggest').forEach(s => s.classList.add('hidden'));
+    // 点击其他选择器时收起已展开的下拉（避免遮挡），点击选择器外部则全部收起
+    const picker = e.target.closest('.picker');
+    document.querySelectorAll('.suggest').forEach(s => {
+      if (!picker || !picker.contains(s)) s.classList.add('hidden');
+    });
   });
 
   try {
@@ -109,12 +113,12 @@ function pickerItems(name) {
   const traitNameOf = key => (state.data.traits.find(t => t.key === key) || {}).name || key;
   if (name === 'locked' || name === 'banUnit') {
     return state.data.champions.map(c => ({
-      key: c.key, name: c.name, cls: `c${c.cost}`,
+      key: c.key, name: c.name, cls: `c${c.cost}`, cost: c.cost,
       sub: `${c.cost}费 · ${c.traits.map(traitNameOf).join(' / ')}`,
     }));
   }
   return state.data.traits.map(t => ({
-    key: t.key, name: t.name, cls: '',
+    key: t.key, name: t.name, cls: '', cost: 0,
     sub: `断点 ${t.breakpoints.join('/')}${t.unique ? ' · 独有' : ''}`,
     trait: t,
   }));
@@ -146,7 +150,7 @@ function pickerPick(name, key) {
     state.banTraits.push(key);
   }
   setStatus('');
-  renderAll();
+  renderAll(); // 选完收起下拉（展开的下拉会遮挡下方选择器），点击输入框可再次展开
 }
 
 function setupPickers() {
@@ -154,7 +158,14 @@ function setupPickers() {
     const box = $picker(name);
     const input = box.querySelector('input');
     const suggest = box.querySelector('.suggest');
-    input.addEventListener('input', () => renderSuggest(name, input.value.trim(), suggest));
+    const open = () => renderSuggest(name, input.value.trim(), suggest);
+    input.addEventListener('input', open);
+    // 聚焦/点击即展开完整列表：不打字也能直接选（聚焦后再次点击不会重发 focus，故挂两个事件）
+    input.addEventListener('focus', open);
+    input.addEventListener('click', open);
+    // 失焦收起（mousedown 选项先于 blur 触发，不影响点选）；点击下拉空白区也收起
+    input.addEventListener('blur', () => setTimeout(() => suggest.classList.add('hidden'), 0));
+    suggest.addEventListener('mousedown', e => { if (e.target === suggest) suggest.classList.add('hidden'); });
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         const first = suggest.querySelector('.opt');
@@ -168,11 +179,16 @@ function setupPickers() {
 }
 
 function renderSuggest(name, q, suggest) {
-  if (!q || !state.data) return suggest.classList.add('hidden');
-  const hits = pickerItems(name)
-    .filter(it => pickerFilter(name, it) && it.name.includes(q))
-    .sort((a, b) => (a.name === q ? -1 : 0) - (b.name === q ? -1 : 0) || a.name.localeCompare(b.name, 'zh'))
-    .slice(0, 12);
+  if (!state.data) return suggest.classList.add('hidden');
+  const isUnit = name === 'locked' || name === 'banUnit';
+  let items = pickerItems(name).filter(it => pickerFilter(name, it));
+  if (q) items = items.filter(it => it.name.includes(q));
+  items.sort((a, b) => {
+    if (q && (a.name === q) !== (b.name === q)) return a.name === q ? -1 : 1; // 精确命中优先
+    if (isUnit) return b.cost - a.cost || a.name.localeCompare(b.name, 'zh'); // 棋子按费用降序
+    return a.name.localeCompare(b.name, 'zh');
+  });
+  const hits = q ? items.slice(0, 12) : items; // 输入时取前12；空输入展示全部（可滚动）
   if (!hits.length) return suggest.classList.add('hidden');
   suggest.innerHTML = hits.map(it =>
     `<div class="opt" data-key="${esc(it.key)}">` +

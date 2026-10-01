@@ -4,7 +4,7 @@
 // 用法: node server.js [--port 8080]   （或环境变量 PORT）
 //
 // /api/solve 参数（棋子/羁绊均支持 key 或名字，名字匹配忽略空格，与 CLI 同口径）：
-//   set, level, topk(默认8), mode(tiers|count)
+//   set, level, topk(默认5), mode(tiers|count)
 //   units      必带棋子: 名1,名2
 //   emblems    纹章(总数≤10): 地狱火,地狱火,法师 或 key:2 形式
 //   banUnits   屏蔽棋子: 名1,名2
@@ -71,7 +71,7 @@ const bad = msg => { throw new BadRequest(msg); };
 /** 解析 /api/solve 查询参数为求解器 opts（含全部前置校验），出错抛 BadRequest */
 function buildSolveOpts(data, sp) {
   const opts = {
-    topk: Math.min(Math.max(Number(sp.get('topk')) || 8, 1), 10),
+    topk: Math.min(Math.max(Number(sp.get('topk')) || 5, 1), 10),
     mode: sp.get('mode') === 'count' ? 'count' : 'tiers',
     emblems: {}, banUnits: [], banTraits: [], pins: {},
   };

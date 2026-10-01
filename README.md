@@ -11,7 +11,7 @@ Current data: **Set 18 "Enchanted Wilds"** (source: [CommunityDragon](https://ra
 ```bash
 npm install
 
-node cli.js                       # Set 18, levels 6-10, 8 comps per level (score desc, then cost desc)
+node cli.js                       # Set 18, levels 6-10, 5 comps per level (score desc, then cost desc)
 node cli.js --levels 8-10         # only levels 8, 9, 10
 node cli.js --levels 7,9 --topk 5 # specific levels, fewer/more comps
 node cli.js --units 卡兹克 --level 7        # lock must-include units, optimize the rest
@@ -33,12 +33,13 @@ Reference results for Set 18 (patch 18.3 data): **level 6 → 11 tiers · 7 → 
 npm run serve            # or: node server.js [--port 8080]  (PORT env var also works)
 ```
 
-Open http://localhost:8080 — pick levels (multi-select), comps per level (3/5/8/10), the scoring
+Open http://localhost:8080 — pick levels (multi-select), comps per level (5 or 10), the scoring
 mode (tier sum vs distinct-trait count), must-include units, emblems (up to 10, stacked per
 trait), pinned traits with a tier stepper, and banned units/traits (including a one-click
-ban-all-5-cost). Results render as cost-colored unit chips plus a per-trait tier breakdown with
-hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js` is a
-zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are
+ban-all-5-cost). Every picker opens as a full dropdown on click — no typing needed, though
+typing still filters. Results render as cost-colored unit chips plus a per-trait tier breakdown
+with hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js`
+is a zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are
 identical to the CLI. Heads-up: higher levels solve slower (level 10 takes ~30s+ on S18 data);
 the page fires one request per selected level and renders each as it returns.
 
