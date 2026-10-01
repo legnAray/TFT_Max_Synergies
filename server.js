@@ -2,6 +2,15 @@
 'use strict';
 // Web UI 服务器：静态页面(web/) + JSON API，求解复用 lib/solve.js（与 CLI 同一核心，零额外依赖）
 // 用法: node server.js [--port 8080]   （或环境变量 PORT）
+//
+// /api/solve 参数（棋子/羁绊均支持 key 或名字，名字匹配忽略空格，与 CLI 同口径）：
+//   set, level, topk(默认8), mode(tiers|count)
+//   units      必带棋子: 名1,名2
+//   emblems    纹章(总数≤10): 地狱火,地狱火,法师 或 key:2 形式
+//   banUnits   屏蔽棋子: 名1,名2
+//   ban5cost   屏蔽全部5费: 1
+//   banTraits  硬屏蔽羁绊(不许激活): 法师,护卫
+//   pins       固定羁绊至少N档: 月蚀骑士=3,宿敌（省略=1档）
 
 const http = require('http');
 const fs = require('fs');
@@ -48,12 +57,70 @@ function sendJson(res, code, obj) {
   res.end(JSON.stringify(obj));
 }
 
-// 棋子解析：先按 key、再按名字精确、最后名字包含（忽略空格），与 CLI --units 口径一致
 const norm = s => String(s).replace(/\s+/g, '');
-function resolveUnit(data, q) {
-  return data.champions.find(c => c.key === q)
-    || data.champions.find(c => c.name === q)
-    || data.champions.find(c => norm(c.name).includes(norm(q)));
+const resolveUnit = (data, q) =>
+  data.champions.find(c => c.key === q) || data.champions.find(c => c.name === q)
+  || data.champions.find(c => norm(c.name).includes(norm(q)));
+const resolveTrait = (data, q) =>
+  data.traits.find(t => t.key === q) || data.traits.find(t => t.name === q)
+  || data.traits.find(t => norm(t.name).includes(norm(q)));
+
+class BadRequest extends Error {}
+const bad = msg => { throw new BadRequest(msg); };
+
+/** 解析 /api/solve 查询参数为求解器 opts（含全部前置校验），出错抛 BadRequest */
+function buildSolveOpts(data, sp) {
+  const opts = {
+    topk: Math.min(Math.max(Number(sp.get('topk')) || 8, 1), 10),
+    mode: sp.get('mode') === 'count' ? 'count' : 'tiers',
+    emblems: {}, banUnits: [], banTraits: [], pins: {},
+  };
+  const traitByKey = new Map(data.traits.map(t => [t.key, t]));
+
+  if (sp.get('ban5cost') === '1' || sp.get('ban5cost') === 'true') {
+    opts.banUnits.push(...data.champions.filter(c => c.cost === 5).map(c => c.key));
+  }
+  for (const q of (sp.get('banUnits') || '').split(',').map(s => s.trim()).filter(Boolean)) {
+    const hit = resolveUnit(data, q);
+    if (!hit) bad(`棋子不存在: ${q}`);
+    opts.banUnits.push(hit.key);
+  }
+
+  const emblemEntries = (sp.get('emblems') || '').split(',').map(s => s.trim()).filter(Boolean);
+  for (const entry of emblemEntries) {
+    const m = entry.match(/^(.+):(\d+)$/); // 支持 "key:2" 形式
+    const q = m ? m[1] : entry;
+    const n = m ? Number(m[2]) : 1;
+    if (!Number.isInteger(n) || n < 1) bad(`纹章数量无效: ${entry}`);
+    const hit = resolveTrait(data, q);
+    if (!hit) bad(`羁绊不存在: ${q}`);
+    if (hit.unique) bad(`独有羁绊没有纹章: ${hit.name}`);
+    opts.emblems[hit.key] = (opts.emblems[hit.key] || 0) + n;
+  }
+  const emblemTotal = Object.values(opts.emblems).reduce((s, n) => s + n, 0);
+  if (emblemTotal > 10) bad(`纹章最多 10 个，给了 ${emblemTotal} 个`);
+
+  for (const q of (sp.get('banTraits') || '').split(',').map(s => s.trim()).filter(Boolean)) {
+    const hit = resolveTrait(data, q);
+    if (!hit) bad(`羁绊不存在: ${q}`);
+    if (opts.pins[hit.key] != null) bad(`羁绊不能既屏蔽又固定: ${hit.name}`);
+    if ((opts.emblems[hit.key] || 0) > 0) bad(`被屏蔽的羁绊不能上纹章: ${hit.name}`);
+    opts.banTraits.push(hit.key);
+  }
+
+  for (const item of (sp.get('pins') || '').split(',').map(s => s.trim()).filter(Boolean)) {
+    const eq = item.indexOf('=');
+    const q = (eq < 0 ? item : item.slice(0, eq)).trim();
+    const tier = eq < 0 ? 1 : Number(item.slice(eq + 1));
+    const hit = resolveTrait(data, q);
+    if (!hit) bad(`羁绊不存在: ${q}`);
+    if (opts.banTraits.includes(hit.key)) bad(`羁绊不能既屏蔽又固定: ${hit.name}`);
+    if (!Number.isInteger(tier) || tier < 1 || tier > hit.breakpoints.length) {
+      bad(`固定档位无效: ${hit.name}=${eq < 0 ? '' : item.slice(eq + 1)}（该羁绊共 ${hit.breakpoints.length} 档）`);
+    }
+    opts.pins[hit.key] = tier;
+  }
+  return opts;
 }
 
 function champInfo(c, locked) {
@@ -70,11 +137,17 @@ async function handleApi(res, url) {
   if (url.pathname === '/api/solve') {
     const set = Number(url.searchParams.get('set') || 18);
     const level = Number(url.searchParams.get('level'));
-    const topk = Math.min(Math.max(Number(url.searchParams.get('topk')) || 3, 1), 10);
     const data = loadData(set);
     if (!data) return sendJson(res, 404, { error: `找不到 S${set} 数据文件` });
     if (!Number.isInteger(level) || level < 1 || level > 15) {
       return sendJson(res, 400, { error: 'level 需为 1-15 的整数' });
+    }
+
+    let opts;
+    try { opts = buildSolveOpts(data, url.searchParams); }
+    catch (e) {
+      if (e instanceof BadRequest) return sendJson(res, 400, { error: e.message });
+      throw e;
     }
 
     const lockedKeys = [];
@@ -83,23 +156,36 @@ async function handleApi(res, url) {
       for (const q of unitsParam.split(',').map(s => s.trim()).filter(Boolean)) {
         const hit = resolveUnit(data, q);
         if (!hit) return sendJson(res, 400, { error: `棋子不存在: ${q}` });
+        if (opts.banUnits.includes(hit.key)) return sendJson(res, 400, { error: `棋子不能既必带又屏蔽: ${hit.name}` });
         if (!lockedKeys.includes(hit.key)) lockedKeys.push(hit.key);
       }
     }
 
     const byKey = new Map(data.champions.map(c => [c.key, c]));
+    const traitByKey = new Map(data.traits.map(t => [t.key, t]));
     const lockedSet = new Set(lockedKeys);
     const out = await enqueue(async () => {
       const t0 = Date.now();
       const results = lockedKeys.length
-        ? await solveWithLocked(data, lockedKeys, level, topk)
-        : await solveLevel(data, level, topk);
+        ? await solveWithLocked(data, lockedKeys, level, opts)
+        : await solveLevel(data, level, opts);
       return {
-        set, level, topk,
+        set, level,
+        constraints: {
+          mode: opts.mode,
+          emblems: Object.entries(opts.emblems)
+            .filter(([, n]) => n > 0)
+            .map(([k, n]) => ({ key: k, name: traitByKey.get(k)?.name || k, count: n })),
+          pins: Object.entries(opts.pins)
+            .map(([k, n]) => ({ key: k, name: traitByKey.get(k)?.name || k, tier: n })),
+          banTraits: opts.banTraits.map(k => ({ key: k, name: traitByKey.get(k)?.name || k })),
+          ban5cost: opts.banUnits.filter(k => byKey.get(k)?.cost === 5).length > 0,
+        },
         locked: lockedKeys.map(k => champInfo(byKey.get(k), true)),
         results: results.map(r => ({
           level: r.level,
           score: r.score,
+          cost: r.unitKeys.reduce((s, k) => s + (byKey.get(k)?.cost || 0), 0),
           ms: Date.now() - t0,
           unitKeys: r.unitKeys,
           units: r.unitKeys.map(k => champInfo(byKey.get(k), lockedSet.has(k))),
@@ -132,7 +218,7 @@ const server = http.createServer((req, res) => {
   }
   const url = new URL(req.url, `http://localhost:${port}`);
   if (url.pathname.startsWith('/api/')) {
-    handleApi(res, url).catch(e => sendJson(res, 500, { error: e.message }));
+    handleApi(res, url).catch(e => sendJson(res, e instanceof BadRequest ? 400 : 500, { error: e.message }));
   } else {
     serveStatic(res, url);
   }
