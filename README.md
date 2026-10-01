@@ -2,144 +2,206 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-Given a board size (levels 6–10), find the composition that **maximizes the total number of active trait tiers** from the current set's unit pool. Zero waste is *not* required — trait counts may overflow breakpoints. Scoring: every breakpoint a trait reaches counts as one tier (a trait at its 2nd tier scores 2), and the objective is the sum across all traits. Same idea as [tactics.tools' perfect-synergies](https://tactics.tools/zh/perfect-synergies), but with the tier-sum metric and no perfection requirement.
+Given a board size (levels 6–10), find the composition that **maximizes active trait value** from the
+current set's unit pool, with rich constraints (must-include/banned units, banned/pinned traits,
+emblems) and two scoring modes. Solving is an **exact integer program** (glpk.js — a WASM build of
+GLPK): results are provably optimal, not heuristic. Same idea as
+[tactics.tools' perfect-synergies](https://tactics.tools/zh/perfect-synergies), generalized.
 
-Current data: **Set 18 "Enchanted Wilds"** (source: [CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json), zh_CN locale names). Solving is an exact integer program (glpk.js — a WASM build of GLPK); results are provably optimal, not heuristic.
+![Web UI](figs/fig1.png)
 
-## Usage
+Current data: **Set 18 "Enchanted Wilds / 魔法荒野"** (source:
+[CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json), zh_CN locale names).
+
+## Features
+
+- **Two scoring modes** (switchable): *tier sum* (default — every breakpoint a trait reaches counts
+  as one tier; a trait at tier 2 scores 2) and *distinct trait count* (a trait counts once however
+  many tiers it hits).
+- **Constraint system**: must-include units (lock, optimize the rest) · ban any units · one-click
+  ban all 5-costs · **hard-ban traits** (the trait may not activate at all) · **pin a trait to at
+  least N tiers**.
+- **Emblems** (up to 10): fixed team-level trait counts, no carrier needed.
+- **Multiple solutions**: 5 (default) or 10 comps per level, ordered by score desc, then total unit
+  cost **expensive-first** among ties.
+- **Set mechanics modeling**: exclusive form groups (Lux), evolving units (Kha'Zix), multi-slot /
+  multi-count units (Elder Dragon), simplified special traits (Rival) — all declared in one
+  per-set rules file, compiled into season-agnostic data.
+- **Three frontends**: Web UI, CLI, and HTTP API — all sharing the same solver core.
+- **New sets via one command**: extraction pipeline downloads CommunityDragon data and compiles
+  everything (including special-unit rules) automatically.
+
+## Quick start
 
 ```bash
 npm install
-
-node cli.js                       # Set 18, levels 6-10, 5 comps per level (score desc, then cost desc)
-node cli.js --levels 8-10         # only levels 8, 9, 10
-node cli.js --levels 7,9 --topk 5 # specific levels, fewer/more comps
-node cli.js --units 卡兹克 --level 7        # lock must-include units, optimize the rest
-node cli.js --mode count          # scoring: count distinct active traits (default: tier sum)
-node cli.js --emblem 地狱火,地狱火 --level 8 # emblems (max 10) add fixed trait counts
-node cli.js --ban-5cost --ban-unit 远古巨龙  # ban all 5-costs / any units
-node cli.js --ban-trait 法师 --level 8      # hard-ban a trait (must not activate)
-node cli.js --pin 月蚀骑士=3,宿敌 --level 8 # pin traits to at least N tiers (default 1)
-node cli.js --json                # machine-readable output
+npm run serve          # Web UI at http://localhost:8080
 ```
 
-`--units` takes unit names as they appear in `data/s18_summary.md` (Chinese names).
+```bash
+node cli.js                       # CLI: levels 6-10, 5 comps per level
+node cli.js --levels 8 --topk 10  # more comps
+node cli.js --json                # machine-readable output
+```
 
 Reference results for Set 18 (patch 18.3 data, Kha'Zix fully evolved): **level 6 → 12 tiers ·
 7 → 13 · 8 → 15 · 9 → 17 · 10 → 18** (unevolved boards score about 2 tiers lower).
 
 ## Web UI
 
+Open http://localhost:8080 (`npm run serve`, or `node server.js [--port 8080]`; `PORT` env var also
+works). `server.js` is a zero-dependency Node HTTP server; `/api/solve` reuses `lib/solve.js`, so
+results are identical to the CLI.
+
+Controls (all pickers open as a full dropdown on click — no typing needed, typing still filters):
+
+- **Set** — a dropdown that auto-discovers every `data/s{N}.json`; newly extracted sets appear
+  without code changes.
+- **Special mechanics** — rendered automatically from the data. For S18: *disable Lux forms* /
+  *disable Kha'Zix* toggles (whole exclusive groups) and the *Kha'Zix evolution* cap
+  (default / ≤2 / ≤1 / none) for mid-game boards.
+- **Levels** (multi-select) · **comps per level** (5/10) · **scoring mode** · **ban all 5-costs**.
+- **Must-include units** · **emblems** (stackable per trait, x/10 counter) · **pinned traits**
+  (tier stepper on the chip) · **banned units** · **banned traits**.
+
+Results render as cost-colored unit chips plus a per-trait breakdown: hit breakpoints highlighted,
+tier badges, exact-count rule notes, waste, emblem contributions, and inactive traits. Conflicting
+picks (ban vs pin vs emblem vs lock) are resolved automatically. Heads-up: higher levels solve
+slower (level 10 takes ~30s+ on S18 data); each selected level is a separate request that renders
+as it returns, and overly strong constraints report "no feasible solution" instead of garbage.
+
+## CLI
+
 ```bash
-npm run serve            # or: node server.js [--port 8080]  (PORT env var also works)
+node cli.js [--set 18] [--levels 6-10|6,7,8 | --level 9] [--topk 5] [--json] [--mode tiers|count]
+            [--units 名1,名2 --level 9]            # must-include units
+            [--emblem 地狱火,地狱火,法师]           # emblems, ≤10 total
+            [--ban-unit 远古巨龙,魔像] [--ban-5cost]
+            [--ban-trait 法师,护卫]                 # hard-ban traits
+            [--pin 月蚀骑士=3,宿敌]                 # pin traits (tier optional, default 1)
 ```
 
-Open http://localhost:8080 — pick the set (a dropdown that auto-discovers every `data/s{N}.json`,
-so newly extracted sets show up without code changes), levels (multi-select), comps per level
-(5 or 10), the scoring mode (tier sum vs distinct-trait count), must-include units, emblems
-(up to 10, stacked per trait), pinned traits with a tier stepper, and banned units/traits
-(including a one-click ban-all-5-cost). A "special mechanics" row next to the set dropdown renders automatically from the
-data (e.g. S18: disable Lux forms, cap Kha'Zix evolution count). Every picker opens as a full dropdown on click — no typing needed, though
-typing still filters. Results render as cost-colored unit chips plus a per-trait tier breakdown
-with hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js`
-is a zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are
-identical to the CLI. Heads-up: higher levels solve slower (level 10 takes ~30s+ on S18 data);
-the page fires one request per selected level and renders each as it returns.
+Unit/trait names accept the names from `data/s{N}_summary.md`; matching is exact first, then
+contains (whitespace-insensitive, so `拉克丝(地狱火)` matches `拉克丝 (地狱火)`).
 
-## Updating data (once per set)
+## HTTP API
 
-```bash
-node scripts/extract.js 19        # auto-downloads latest CommunityDragon data -> data/s19.json
-node scripts/extract.js 19 --refresh  # force re-download of the raw file
-node cli.js --set 19
-```
+| Endpoint | Description |
+|---|---|
+| `GET /api/sets` | available sets (scans `data/`), with name / unit / trait counts |
+| `GET /api/data?set=18` | full structured data for a set |
+| `GET /api/solve?...` | solve; see parameters below |
 
-Set data is organized as **regular units + special units**. Regular units need no declaration —
-they follow the default rules (occupy 1 slot, +1 count to each of their traits; breakpoints come
-straight from trait data). Special units are declared one by one in `sets/s{N}.rules.js`
-(`specialUnits`: exclusive groups, count weights, slot counts, tier activation conditions); the
-extraction script compiles them into generic fields in the data JSON, keeping the solver
-season-agnostic. The extractor also generates `data/s{N}_summary.md` (a manual checklist); after
-switching sets, review it and run a with-rules vs. without-rules diff to confirm the rules only
-affect the intended units.
+`/api/solve` parameters (unit/trait values accept keys or names, whitespace-insensitive):
 
-## Set 18 special units (declared in `sets/s18.rules.js`)
+| Param | Meaning | Default |
+|---|---|---|
+| `set`, `level` | set number, board level (1–15) | 18, required |
+| `topk` | comps to return | 5 |
+| `mode` | `tiers` \| `count` | `tiers` |
+| `units` | must-include units (comma list) | — |
+| `emblems` | e.g. `地狱火,地狱火,法师` or `key:2` forms; ≤10 total; unique traits rejected | — |
+| `banUnits` | banned units | — |
+| `ban5cost` | `1` bans all 5-costs | — |
+| `banTraits` | hard-banned traits | — |
+| `pins` | e.g. `月蚀骑士=3,宿敌` (tier optional, default 1) | — |
 
-- **Lux (Elementalist / Avatar)**: 10 forms (including the form-less Base) form an exclusive
-  group — at most one on the board. In-game description: once you own one, every other Lux in
-  your shop converts to the same trait. Her form trait counts **+2**.
-- **Rivals (simplified)**: in-game breakpoints are 1/1/2 (solo Kha'Zix activates tiers 1+2). We
-  simplify per project convention: Rengar (whose only trait is Rival — he never adds tiers) is
-  removed from the pool, and **Rival counts as a Kha'Zix-exclusive 1-tier trait**.
-- **Kha'Zix evolution**: takedowns let him permanently gain one trait chosen from
-  Executioner / Quickshot / Berserker / Spellweaver (up to 3 times, no repeats). Modeled as
-  15 mutually exclusive variant units (evolve 0–3; same 3-cost, same Rivals count) declared in
-  the rules file — the solver picks the best evolution path automatically, and mid-game boards
-  can lock a specific evolution via `--units`. Rengar's gold/AD rewards are combat effects and
-  are not modeled.
-- **Elder Dragon**: **occupies 2 board slots** and provides **+2 Riftbeasts count** (verbatim
-  from the Apex Predator trait description). 5-cost. Empirical result: despite the double count,
-  no optimal level 6–10 board contains Elder Dragon — 2 slots for 1 guaranteed tier plus Riftbeast
-  progress loses to two regular units each hitting a 2-breakpoint.
-- Unique traits (Gem Knight, The Green Father, Bounty Hunter, etc. — 9 traits whose only
-  breakpoint is 1) are **regular mechanics** handled automatically by the breakpoint data; no
-  declaration needed.
-- Riftbeasts tier 10 grants +team size; ignored under the fixed-level model (that tier needs 10
-  counts, only reachable by an all-Riftbeast board).
+Responses include per-comp unit details, total cost, and a `constraints` echo. Invalid input
+returns `400 {error}` with a Chinese message (emblem cap, unique-trait emblems, ban/pin/emblem
+conflicts, out-of-range pin tiers, unknown names, …).
 
 ## Scoring & model
 
 - Regular unit: 1 slot, +1 count to each of its traits. Special units are handled through generic
   data-JSON fields: `slots` (board slots), `weights` (trait count weights), `tierRules` (tier
-  activation conditions), `groups` (exclusive groups).
-- Trait tier = number of its breakpoints reached (duplicates allowed, e.g. Rivals 1/1/2).
-- Two scoring modes: **tiers** (default) maximizes Σ tiers; **count** maximizes the number of
-  distinct active traits (`z[trait]` indicators with `y ≤ z ≤ Σy`).
-- Integer program: `x[unit] ∈ {0,1}`; board constraint `Σ slots·x = N`; exclusive groups
-  `Σx ≤ 1`; tier variables `y[trait, breakpoint]` with `weighted count ≥ breakpoint·y` (tiers
-  with activation conditions additionally get `count + M·y ≤ required + M` to force the exact
-  count); emblems add fixed counts `E` to their trait (rows become `Σw·x ≥ b·y − E`);
-  banned traits forbid activation (`weighted count ≤ first breakpoint − 1`); pinned traits
-  require `Σ_b y ≥ N`.
+  activation conditions), `groups` (exclusive groups, `{name, units}`).
+- Trait tier = number of its breakpoints reached (duplicates allowed, e.g. Rival's 1/1/2 in-game).
+- Integer program: `x[unit] ∈ {0,1}`; board `Σ slots·x = N`; exclusive groups `Σx ≤ 1`; tier
+  variables `y[trait, breakpoint]` with `weighted count ≥ breakpoint·y` (tiers with activation
+  conditions add `count + M·y ≤ required + M`); **count mode** adds `z[trait]` indicators
+  (`y ≤ z ≤ Σy`, maximize Σz); emblems add fixed counts `E` (`Σw·x ≥ b·y − E`); hard-banned traits
+  forbid activation (`weighted count ≤ first breakpoint − 1`); pinned traits require `Σ_b y ≥ N`.
 - Top-K tied solutions: enumerated iteratively with no-good cuts, deduplicated by trait-tier
-  signature; final order is score desc, then total unit cost desc.
+  signature; final order is score desc, then total unit cost desc. Infeasible problems are
+  detected via the solver status and return no results (glpk.js returns a "result" object with
+  status `GLP_NOFEAS` even for infeasible MIPs — checked explicitly).
+
+## Updating data (once per set)
+
+```bash
+node scripts/extract.js 19        # auto-downloads CommunityDragon data -> data/s19.json (+ s19_summary.md)
+node scripts/extract.js 19 --refresh  # force re-download of the raw file
+node cli.js --set 19              # or pick S19 in the web UI dropdown
+```
+
+Set data is organized as **regular units + special units**. Regular units need no declaration —
+1 slot, +1 to each trait, breakpoints straight from trait data. Special units are declared in
+`sets/s{N}.rules.js`; the extractor compiles them into generic data fields so the solver stays
+season-agnostic:
+
+| Rule field | Meaning | S18 example |
+|---|---|---|
+| `exclusive`, `formTraitWeight` | exclusive group; weight of each form's non-common trait | Lux's 10 forms |
+| `slots`, `traitWeights` | board slots; explicit trait count weights | Elder Dragon (2 slots, +2 Riftbeasts) |
+| `trait` + `tierExactCount` | a tier that needs an exact count | Rival (pre-simplification) |
+| `evolutions: {choices, maxEvolve, distinct}` | synthesizes all evolution variants as exclusive unit copies (with `evo`/`variantOf` metadata for the UI) | Kha'Zix: 15 variants |
+| `removeUnits` | drop units from the pool entirely | Rengar |
+| `traitBreakpoints` | override a trait's breakpoints | Rival → `[1]` |
+| `setName` | display name for the set dropdown | 魔法荒野 |
+
+After switching sets, review the generated `data/s{N}_summary.md` checklist and diff with/without
+rules to confirm the rules only affect the intended units.
+
+## Set 18 special units (declared in `sets/s18.rules.js`)
+
+- **Lux (Elementalist / Avatar)**: 10 forms form an exclusive group — at most one on the board
+  (in-game: once you own one, other forms in your shop convert to the same trait). Her form trait
+  counts **+2**.
+- **Kha'Zix evolution**: takedowns let him permanently gain one trait chosen from Executioner /
+  Quickshot / Berserker / Spellweaver (up to 3 times, no repeats). Modeled as 15 mutually
+  exclusive variant units (evolve 0–3; same 3-cost, same Rivals count) — the solver picks the
+  best evolution path automatically; the web UI exposes a per-game evolution cap and whole-family
+  disable; mid-game boards can lock a specific evolution via `--units`.
+- **Rivals (simplified)**: in-game breakpoints are 1/1/2 (solo Kha'Zix activates tiers 1+2). We
+  simplify: Rengar (whose only trait is Rival — he never adds tiers) is removed from the pool, and
+  **Rival counts as a Kha'Zix-exclusive 1-tier trait**.
+- **Elder Dragon**: 2 board slots, +2 Riftbeasts count. Empirically no optimal level 6–10 board
+  contains him — 2 slots for 1 guaranteed tier loses to two regular units each hitting a
+  2-breakpoint.
+- Unique traits (Gem Knight, The Green Father, … breakpoint `[1]`) are regular mechanics handled
+  by breakpoint data; Riftbeasts' tier-10 +team-size is ignored under the fixed-level model.
 
 ## Project layout
 
 ```
 cli.js              CLI entry
-server.js           web UI server (static files + /api/data, /api/solve)
-web/                web UI frontend (vanilla HTML/CSS/JS, no build step)
+server.js           web server (static files + /api/sets, /api/data, /api/solve)
+web/                web UI (vanilla HTML/CSS/JS, no build step)
 lib/solve.js        solver (ILP model + Top-K enumeration + trait breakdown)
-scripts/extract.js  CommunityDragon data extraction (interprets sets/s{N}.rules.js)
-sets/s18.rules.js   Set 18 special-unit rules, one rules file per set
-data/s18.json       Set 18 structured data (units / traits / groups / weights)
-data/s18_summary.md Set 18 manual checklist
+scripts/extract.js  CommunityDragon extraction (interprets sets/s{N}.rules.js)
+sets/s18.rules.js   per-set special-unit rules
+data/s18.json       structured data (units / traits / groups / weights)
+data/s18_summary.md manual checklist per set
+data/results_s18.json reference results (top-1 per level)
+figs/               screenshots
 raw/                raw downloads (.gitignored)
 ```
 
 ## Cross-platform (Windows / Ubuntu)
 
-- Pure JavaScript + WebAssembly, **zero native dependencies**: the glpk.js solver only depends on
-  pure-JS pako and ships as js + wasm; nothing platform-specific lands in node_modules — the
-  `npm install` result is identical on Windows and Ubuntu (the project folder can even be copied
-  across as-is).
-- All file paths go through `path.join` / `__dirname`; no drive letters, no hardcoded separators,
-  no `process.platform` branches.
-- Requires **Node ≥ 18** (uses global fetch; developed and verified on Windows + Node 24).
-- On Ubuntu:
-  ```bash
-  sudo apt install nodejs npm   # or install Node 18+ via nvm
-  npm install && node cli.js
-  ```
-- Output is UTF-8: Ubuntu terminals are UTF-8 by default; on Windows prefer Windows Terminal /
-  Git Bash — legacy cmd code pages (cp936) may garble Chinese display (display-only; `--json`
-  output is unaffected).
+- Pure JavaScript + WebAssembly, **zero native dependencies**: nothing platform-specific lands in
+  `node_modules` — the same folder works on Windows and Linux as-is (verified on Ubuntu 22.04 via
+  WSL2, Node 24).
+- All paths go through `path.join` / `__dirname`; no drive letters, no hardcoded separators.
+- Requires **Node ≥ 18** (global fetch; developed on Windows + Node 24).
+- Ubuntu: install Node 18+ (nvm recommended — distro packages may be older), then
+  `npm install && node server.js`.
+- Output is UTF-8; on Windows prefer Windows Terminal / Git Bash (legacy cmd code pages may garble
+  Chinese display; `--json` is unaffected).
 
 ## Known limitations / roadmap
 
-- Emblems are modeled as fixed team-level trait counts (up to 10, no carrier); a
-  solver-optimized emblem mode and Augments are not modeled.
-- No general cost cap yet (only ban-5cost / ban-unit); a `--max-cost` flag is a natural next
-  step.
+- Emblems are player-chosen fixed counts; a solver-optimized emblem mode and Augments are not
+  modeled.
+- No general cost cap yet (only ban-5cost / ban-unit); a `--max-cost` flag is a natural next step.
 - The Riftbeasts tier-10 +team-size reward is not modeled.
