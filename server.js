@@ -74,10 +74,12 @@ function buildSolveOpts(data, sp) {
     topk: Math.min(Math.max(Number(sp.get('topk')) || 5, 1), 10),
     mode: sp.get('mode') === 'count' ? 'count' : 'tiers',
     emblems: {}, banUnits: [], banTraits: [], pins: {},
+    ban5cost: false, // 仅回显用（求解走 banUnits）；不能从"屏蔽名单里有无5费"推断，禁用拉克丝等全5费互斥组会误报
   };
   const traitByKey = new Map(data.traits.map(t => [t.key, t]));
 
   if (sp.get('ban5cost') === '1' || sp.get('ban5cost') === 'true') {
+    opts.ban5cost = true;
     opts.banUnits.push(...data.champions.filter(c => c.cost === 5).map(c => c.key));
   }
   for (const q of (sp.get('banUnits') || '').split(',').map(s => s.trim()).filter(Boolean)) {
@@ -201,7 +203,7 @@ async function handleApi(res, url) {
           pins: Object.entries(opts.pins)
             .map(([k, n]) => ({ key: k, name: traitByKey.get(k)?.name || k, tier: n })),
           banTraits: opts.banTraits.map(k => ({ key: k, name: traitByKey.get(k)?.name || k })),
-          ban5cost: opts.banUnits.filter(k => byKey.get(k)?.cost === 5).length > 0,
+          ban5cost: !!opts.ban5cost,
         },
         locked: lockedKeys.map(k => champInfo(byKey.get(k), true)),
         results: results.map(r => ({
