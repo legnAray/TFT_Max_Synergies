@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { solveLevel, computeBreakdown } = require('./lib/solve');
+const { solveLevel, solveWithLocked } = require('./lib/solve');
 
 function parseArgs(argv) {
   const args = { set: 18, levels: null, topk: 3, json: false, units: null, level: null, data: null };
@@ -75,31 +75,20 @@ async function main() {
   // --units: 必带棋子（先从数据里锁定，再在剩余人口里求最优）
   let lockedKeys = [];
   if (args.units) {
+    const norm = s => s.replace(/\s+/g, ''); // 名字匹配忽略空格（如 "拉克丝(地狱火)" 也能匹配 "拉克丝 (地狱火)"）
     const names = args.units.split(',').map(s => s.trim()).filter(Boolean);
     for (const n of names) {
-      const hit = data.champions.find(c => c.name === n) || data.champions.find(c => c.name.includes(n));
+      const hit = data.champions.find(c => c.name === n) || data.champions.find(c => norm(c.name).includes(norm(n)));
       if (!hit) { console.error(`棋子不存在: ${n}（用 data/s${args.set}_summary.md 里的名字）`); process.exit(1); }
       lockedKeys.push(hit.key);
     }
     if (lockedKeys.length && args.level == null) { console.error('--units 需要配合 --level 使用'); process.exit(1); }
-    // 从数据中移除同互斥组其他成员、再缩小人口
-    const locked = new Set(lockedKeys);
-    const banned = new Set();
-    for (const g of data.groups || []) if (g.some(k => locked.has(k))) g.forEach(k => { if (!locked.has(k)) banned.add(k); });
-    data.champions = data.champions.filter(c => !banned.has(c.key));
     for (const lv of args.levels) {
-      const lockedSlots = lockedKeys.reduce((s, k) => s + (data.champions.find(c => c.key === k)?.slots || 1), 0);
-      const remain = lv - lockedSlots;
-      if (remain < 0) { console.error(`人口${lv}（${lockedSlots}格）装不下必带棋子（占${lockedSlots}格）`); process.exit(1); }
-      // 临时把人口约束改成 remain，结果再拼回必带棋子
-      const sub = { ...data, champions: data.champions.filter(c => !locked.has(c.key)) };
-      const subResults = await solveLevel(sub, remain, args.topk);
-      console.log(`══ ${lv}人口（必带: ${[...locked].map(k => data.champions.find(c => c.key === k).name).join(', ')}）`);
-      for (const r of subResults) {
-        const merged = computeBreakdown(data, lockedKeys.concat(r.unitKeys));
-        const score = merged.reduce((s, x) => s + x.tier, 0);
-        printResult(data, { ...r, unitKeys: lockedKeys.concat(r.unitKeys), breakdown: merged, score });
-      }
+      console.log(`══ ${lv}人口（必带: ${lockedKeys.map(k => data.champions.find(c => c.key === k).name).join(', ')}）`);
+      let results;
+      try { results = await solveWithLocked(data, lockedKeys, lv, args.topk); }
+      catch (e) { console.error(e.message); process.exit(1); }
+      for (const r of results) printResult(data, r);
     }
     return;
   }
