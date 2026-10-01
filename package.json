@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node cli.js",
+    "serve": "node server.js",
     "extract": "node scripts/extract.js"
   },
   "keywords": [],
