@@ -79,7 +79,28 @@ label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px
 .opt:hover { background: rgba(126, 195, 240, .08); }
 .opt .t { color: var(--muted); font-size: 12px; }
 .hidden { display: none !important; }
-.chips.locked { margin-top: 8px; }
+.chips.picked { margin-top: 8px; }
+
+/* 控件行布局与小部件 */
+.row { display: flex; gap: 26px; flex-wrap: wrap; }
+.row .field { margin-bottom: 14px; }
+.hint { margin-left: 6px; color: var(--accent); font-weight: 600; }
+.chip .plus { margin-left: 4px; color: var(--blue); }
+.chip .plus:hover { color: #b0e0ff; }
+.chip.pin select.tier-select {
+  margin: 0 2px 0 4px;
+  background: var(--panel-2);
+  color: var(--accent);
+  border: none;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.chip.ban { border-style: dashed; }
+.constraint-note { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; }
+.emb { font-style: normal; font-size: 10.5px; color: var(--accent); margin-left: 3px; }
+.cost-tag { color: var(--accent); }
+.pick-name { font-size: 14px; }
 
 .actions { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
 button.primary {

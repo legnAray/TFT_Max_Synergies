@@ -9,7 +9,7 @@
 <body>
 <header>
   <h1>云顶之弈 · 最大羁绊计算器</h1>
-  <p class="sub" id="subtitle">整数规划精确最优 · 每踩一个断点记 1 档，目标为档位总和最大</p>
+  <p class="sub" id="subtitle">整数规划精确最优 · 可选羁绊质量（档位总和）或羁绊数量（不同名计数）</p>
 </header>
 <main>
   <section class="panel">
@@ -17,17 +17,59 @@
       <label>人口档位（可多选，人口越高求解越慢）</label>
       <div class="chips" id="levelChips"></div>
     </div>
-    <div class="field">
-      <label>每档并列解数</label>
-      <div class="chips" id="topkChips"></div>
+    <div class="row">
+      <div class="field">
+        <label>每档解数</label>
+        <div class="chips" id="topkChips"></div>
+      </div>
+      <div class="field">
+        <label>评分模式</label>
+        <div class="chips" id="modeChips"></div>
+      </div>
+      <div class="field">
+        <label>屏蔽</label>
+        <div class="chips"><button class="chip" id="ban5costChip">全部 5 费棋子</button></div>
+      </div>
     </div>
     <div class="field">
-      <label>必带棋子（可选：锁死后在剩余人口里求最优）</label>
-      <div class="picker">
-        <input id="unitInput" placeholder="输入棋子名筛选，点击或回车添加" autocomplete="off">
-        <div id="unitSuggest" class="suggest hidden"></div>
+      <label>必带棋子（锁死后在剩余人口里求最优）</label>
+      <div class="picker" data-picker="locked">
+        <input placeholder="输入棋子名筛选，点击或回车添加" autocomplete="off">
+        <div class="suggest hidden"></div>
       </div>
-      <div class="chips locked" id="lockedList"></div>
+      <div class="chips picked" data-list="locked"></div>
+    </div>
+    <div class="field">
+      <label>纹章（直接计入羁绊计数，不指定携带者）<span class="hint" id="emblemCount">0/10</span></label>
+      <div class="picker" data-picker="emblem">
+        <input placeholder="输入羁绊名筛选，点击或回车 +1（可重复叠加）" autocomplete="off">
+        <div class="suggest hidden"></div>
+      </div>
+      <div class="chips picked" data-list="emblem"></div>
+    </div>
+    <div class="field">
+      <label>固定羁绊（至少激活 N 档）</label>
+      <div class="picker" data-picker="pin">
+        <input placeholder="输入羁绊名筛选，点击或回车固定到 1 档，chip 上可调档位" autocomplete="off">
+        <div class="suggest hidden"></div>
+      </div>
+      <div class="chips picked" data-list="pin"></div>
+    </div>
+    <div class="field">
+      <label>屏蔽棋子（不上场）</label>
+      <div class="picker" data-picker="banUnit">
+        <input placeholder="输入棋子名筛选，点击或回车屏蔽" autocomplete="off">
+        <div class="suggest hidden"></div>
+      </div>
+      <div class="chips picked" data-list="banUnit"></div>
+    </div>
+    <div class="field">
+      <label>屏蔽羁绊（硬屏蔽：该羁绊不许激活）</label>
+      <div class="picker" data-picker="banTrait">
+        <input placeholder="输入羁绊名筛选，点击或回车屏蔽" autocomplete="off">
+        <div class="suggest hidden"></div>
+      </div>
+      <div class="chips picked" data-list="banTrait"></div>
     </div>
     <div class="actions">
       <button id="solveBtn" class="primary">开始计算</button>
