@@ -5,6 +5,7 @@ const LEVELS = [6, 7, 8, 9, 10];
 const TOPKS = [5, 10];
 const EMBLEM_MAX = 10;
 const state = {
+  set: 18,
   levels: new Set([8]),
   topk: 5,
   mode: 'tiers',          // tiers 羁绊质量 | count 羁绊数量
@@ -40,17 +41,46 @@ async function init() {
     });
   });
 
+  // 赛季下拉：/api/sets 动态发现 data/ 里的赛季，默认取最新
   try {
-    const res = await fetch('/api/data');
+    const res = await fetch('/api/sets');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { sets } = await res.json();
+    const sel = $('setSelect');
+    sel.innerHTML = sets.map(s =>
+      `<option value="${s.set}">S${s.set}${s.name ? ' · ' + esc(s.name) : ''}（${s.champions}棋子）</option>`).join('');
+    sel.onchange = () => switchSet(Number(sel.value));
+    if (sets.length) await switchSet(sets[0].set);
+  } catch (e) {
+    setStatus(`赛季列表加载失败: ${e.message}`, true);
+  }
+  setupPickers();
+  renderAll();
+}
+
+/** 切换赛季：重置与赛季数据绑定的选择状态，重新加载棋子/羁绊 */
+async function switchSet(n) {
+  state.set = n;
+  state.locked = [];
+  state.emblems = {};
+  state.pins = {};
+  state.banUnits = [];
+  state.banTraits = [];
+  state.ban5cost = false;
+  $('ban5costChip').classList.remove('on');
+  $('results').innerHTML = '';
+  try {
+    const res = await fetch('/api/data?set=' + n);
     if (!res.ok) throw new Error((await res.json()).error || `HTTP ${res.status}`);
     state.data = await res.json();
+    const label = `S${state.data.set}${state.data.name ? ' ' + state.data.name : ''}`;
     $('subtitle').textContent =
-      `S${state.data.set} · ${state.data.champions.length} 棋子 / ${state.data.traits.length} 羁绊 · ` +
+      `${label} · ${state.data.champions.length} 棋子 / ${state.data.traits.length} 羁绊 · ` +
       '整数规划精确最优（羁绊质量=档位总和 / 羁绊数量=不同名计数）';
+    setStatus('');
   } catch (e) {
     setStatus(`数据加载失败: ${e.message}`, true);
   }
-  setupPickers();
   renderAll();
 }
 
@@ -325,7 +355,7 @@ async function solve() {
   }
   let done = 0;
   await Promise.all(levels.map(async lv => {
-    const params = new URLSearchParams({ level: lv, topk: state.topk, mode: state.mode });
+    const params = new URLSearchParams({ set: state.set, level: lv, topk: state.topk, mode: state.mode });
     if (state.locked.length) params.set('units', state.locked.join(','));
     const em = Object.entries(state.emblems).filter(([, n]) => n > 0).map(([k, n]) => `${k}:${n}`).join(',');
     if (em) params.set('emblems', em);

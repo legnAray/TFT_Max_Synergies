@@ -33,10 +33,11 @@ Reference results for Set 18 (patch 18.3 data): **level 6 → 11 tiers · 7 → 
 npm run serve            # or: node server.js [--port 8080]  (PORT env var also works)
 ```
 
-Open http://localhost:8080 — pick levels (multi-select), comps per level (5 or 10), the scoring
-mode (tier sum vs distinct-trait count), must-include units, emblems (up to 10, stacked per
-trait), pinned traits with a tier stepper, and banned units/traits (including a one-click
-ban-all-5-cost). Every picker opens as a full dropdown on click — no typing needed, though
+Open http://localhost:8080 — pick the set (a dropdown that auto-discovers every `data/s{N}.json`,
+so newly extracted sets show up without code changes), levels (multi-select), comps per level
+(5 or 10), the scoring mode (tier sum vs distinct-trait count), must-include units, emblems
+(up to 10, stacked per trait), pinned traits with a tier stepper, and banned units/traits
+(including a one-click ban-all-5-cost). Every picker opens as a full dropdown on click — no typing needed, though
 typing still filters. Results render as cost-colored unit chips plus a per-trait tier breakdown
 with hit breakpoints highlighted, sorted by score then total cost (expensive first). `server.js`
 is a zero-dependency Node HTTP server whose `/api/solve` reuses `lib/solve.js`, so results are

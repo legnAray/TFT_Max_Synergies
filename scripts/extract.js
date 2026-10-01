@@ -123,6 +123,7 @@ for (const t of Object.values(traits)) {
 
 const out = {
   set: setNumber,
+  name: set.name || null, // 赛季名（Web 端下拉展示用；缺失时前端回退为 S{编号}）
   source: 'raw/cd_tft_zh_cn.json (CommunityDragon)',
   rules: { notes: specialNotes },
   groups,

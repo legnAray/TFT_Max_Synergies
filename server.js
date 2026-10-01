@@ -128,6 +128,28 @@ function champInfo(c, locked) {
 }
 
 async function handleApi(res, url) {
+  if (url.pathname === '/api/sets') {
+    // 扫描 data/s{N}.json 动态发现赛季：跑过 extract.js 的新赛季自动出现在下拉里
+    const dir = path.join(__dirname, 'data');
+    let files = [];
+    try { files = fs.readdirSync(dir); } catch { return sendJson(res, 200, { sets: [] }); }
+    const sets = [];
+    for (const f of files) {
+      const m = /^s(\d+)\.json$/.exec(f);
+      if (!m) continue;
+      try {
+        const d = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+        sets.push({
+          set: Number(m[1]),
+          name: d.name || null,
+          champions: (d.champions || []).length,
+          traits: (d.traits || []).length,
+        });
+      } catch { /* 跳过坏文件 */ }
+    }
+    sets.sort((a, b) => b.set - a.set); // 最新赛季在前
+    return sendJson(res, 200, { sets });
+  }
   if (url.pathname === '/api/data') {
     const set = Number(url.searchParams.get('set') || 18);
     const data = loadData(set);
