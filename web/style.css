@@ -1,0 +1,178 @@
+:root {
+  --bg: #0b1220;
+  --panel: #141e30;
+  --panel-2: #0f1828;
+  --line: #27344b;
+  --text: #dde6f2;
+  --muted: #8ea0ba;
+  --accent: #e8c15a;
+  --blue: #7ec3f0;
+  --err: #f08a8a;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  background: radial-gradient(1100px 500px at 50% -120px, #1c2c49 0%, var(--bg) 60%) fixed, var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, 'Microsoft YaHei', 'PingFang SC', sans-serif;
+}
+main { max-width: 980px; margin: 0 auto; padding: 0 16px 48px; }
+header { max-width: 980px; margin: 0 auto; padding: 28px 16px 8px; }
+h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: 1px; }
+.sub { margin: 0; color: var(--muted); font-size: 13px; }
+footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 18px;
+}
+.field { margin-bottom: 14px; }
+.field:last-of-type { margin-bottom: 0; }
+label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+
+/* 选项 chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color .12s, background .12s;
+}
+.chip:hover { border-color: var(--blue); }
+.chip.on { border-color: var(--accent); color: var(--accent); background: rgba(232, 193, 90, .08); }
+.chip .x { margin-left: 6px; color: var(--muted); }
+.chip .x:hover { color: var(--err); }
+
+/* 必带棋子选择器 */
+.picker { position: relative; }
+.picker input {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.picker input:focus { border-color: var(--blue); }
+.suggest {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+}
+.opt { padding: 7px 12px; cursor: pointer; font-size: 14px; display: flex; gap: 8px; align-items: baseline; }
+.opt:hover { background: rgba(126, 195, 240, .08); }
+.opt .t { color: var(--muted); font-size: 12px; }
+.hidden { display: none !important; }
+.chips.locked { margin-top: 8px; }
+
+.actions { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+button.primary {
+  background: linear-gradient(180deg, #f0cd6d, #d9a93f);
+  border: none;
+  color: #2a2107;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 9px 26px;
+  cursor: pointer;
+}
+button.primary:hover { filter: brightness(1.06); }
+button.primary:disabled { opacity: .55; cursor: wait; }
+.status { color: var(--muted); font-size: 13px; }
+.status.err { color: var(--err); }
+
+/* 结果区 */
+.result .lv-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.result h2 { margin: 0; font-size: 19px; }
+.best { color: var(--accent); font-size: 15px; }
+.best b { font-size: 20px; }
+.ms { color: var(--muted); font-size: 12px; }
+.wait, .err { color: var(--muted); }
+.err { color: var(--err); }
+
+.comp {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+.comp .tag { font-size: 12px; color: var(--muted); }
+.comp .tag b { color: var(--blue); font-weight: 600; }
+.units { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+.unit {
+  border: 1px solid;
+  border-radius: 7px;
+  padding: 2px 9px;
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.unit .cost { font-size: 11px; opacity: .85; }
+.unit .lock { font-size: 11px; color: var(--accent); }
+.unit .slots { font-size: 11px; color: var(--muted); }
+
+/* 费用配色（沿用游戏习惯：灰/绿/蓝/紫/金） */
+.c1 { color: #a7b3bd; border-color: #57646f; background: rgba(167, 179, 189, .07); }
+.c2 { color: #46c97a; border-color: #2c7a4e; background: rgba(70, 201, 122, .07); }
+.c3 { color: #55aef2; border-color: #2d6da8; background: rgba(85, 174, 242, .07); }
+.c4 { color: #c07ef2; border-color: #7a44a8; background: rgba(192, 126, 242, .08); }
+.c5 { color: #f2b53d; border-color: #a87a1e; background: rgba(242, 181, 61, .08); }
+
+/* 羁绊明细 */
+.traits { display: grid; gap: 4px; }
+.trait {
+  display: grid;
+  grid-template-columns: minmax(7em, 10em) 3.2em 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  padding: 3px 2px;
+}
+.trait .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trait .cnt { color: var(--muted); text-align: right; }
+.pips { display: flex; gap: 4px; flex-wrap: wrap; }
+.pip {
+  min-width: 22px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+.pip.hit { border-color: var(--accent); color: var(--accent); background: rgba(232, 193, 90, .1); }
+.tier-badge {
+  min-width: 3em;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #16324a;
+  background: linear-gradient(180deg, #f5d87c, #dcb44e);
+  padding: 1px 8px;
+  font-size: 13px;
+}
+.note { color: var(--muted); font-size: 12px; grid-column: 2 / -1; margin-top: -2px; }
+.inactive { color: var(--muted); font-size: 12.5px; margin-top: 8px; }
+
+@media (max-width: 640px) {
+  .trait { grid-template-columns: minmax(6em, 9em) 2.6em 1fr auto; gap: 6px; }
+}

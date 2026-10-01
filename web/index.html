@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>云顶之弈 · 最大羁绊计算器</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>云顶之弈 · 最大羁绊计算器</h1>
+  <p class="sub" id="subtitle">整数规划精确最优 · 每踩一个断点记 1 档，目标为档位总和最大</p>
+</header>
+<main>
+  <section class="panel">
+    <div class="field">
+      <label>人口档位（可多选，人口越高求解越慢）</label>
+      <div class="chips" id="levelChips"></div>
+    </div>
+    <div class="field">
+      <label>每档并列解数</label>
+      <div class="chips" id="topkChips"></div>
+    </div>
+    <div class="field">
+      <label>必带棋子（可选：锁死后在剩余人口里求最优）</label>
+      <div class="picker">
+        <input id="unitInput" placeholder="输入棋子名筛选，点击或回车添加" autocomplete="off">
+        <div id="unitSuggest" class="suggest hidden"></div>
+      </div>
+      <div class="chips locked" id="lockedList"></div>
+    </div>
+    <div class="actions">
+      <button id="solveBtn" class="primary">开始计算</button>
+      <span id="status" class="status"></span>
+    </div>
+  </section>
+  <section id="results"></section>
+</main>
+<footer>数据 CommunityDragon · 求解 glpk.js（GLPK WASM）· 与 CLI 同一求解核心</footer>
+<script src="app.js"></script>
+</body>
+</html>
