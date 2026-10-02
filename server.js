@@ -11,11 +11,12 @@
 //   ban5cost   屏蔽全部5费: 1
 //   banTraits  硬屏蔽羁绊(不许激活): 法师,护卫
 //   pins       固定羁绊至少N档: 月蚀骑士=3,宿敌（省略=1档）
+//   exalted    本局尊者棋子(S11 画之灵): 名1,名2 —— 被选中棋子获得尊者羁绊计数
 
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { solveLevel, solveWithLocked } = require('./lib/solve');
+const { solveLevel, solveWithLocked, grantTrait } = require('./lib/solve');
 
 const portArgIdx = process.argv.indexOf('--port');
 const port = portArgIdx > 0 ? Number(process.argv[portArgIdx + 1]) : Number(process.env.PORT || 8080);
@@ -185,14 +186,30 @@ async function handleApi(res, url) {
       }
     }
 
-    const byKey = new Map(data.champions.map(c => [c.key, c]));
-    const traitByKey = new Map(data.traits.map(t => [t.key, t]));
+    // 本局尊者（S11 画之灵）：选中棋子 +1 条尊者羁绊，其余约束（固定/屏蔽/纹章）照常生效
+    const exaltedKeys = [];
+    const exaltedParam = url.searchParams.get('exalted');
+    if (exaltedParam) {
+      if (!data.exalted) return sendJson(res, 400, { error: `S${set} 没有尊者机制` });
+      for (const q of exaltedParam.split(',').map(s => s.trim()).filter(Boolean)) {
+        const hit = resolveUnit(data, q);
+        if (!hit) return sendJson(res, 400, { error: `棋子不存在: ${q}` });
+        if (!exaltedKeys.includes(hit.key)) exaltedKeys.push(hit.key);
+      }
+      if (exaltedKeys.length > data.exalted.maxPicks) {
+        return sendJson(res, 400, { error: `尊者最多选 ${data.exalted.maxPicks} 个，给了 ${exaltedKeys.length} 个` });
+      }
+    }
+    const solveData = exaltedKeys.length ? grantTrait(data, data.exalted.trait, exaltedKeys) : data;
+
+    const byKey = new Map(solveData.champions.map(c => [c.key, c]));
+    const traitByKey = new Map(solveData.traits.map(t => [t.key, t]));
     const lockedSet = new Set(lockedKeys);
     const out = await enqueue(async () => {
       const t0 = Date.now();
       const results = lockedKeys.length
-        ? await solveWithLocked(data, lockedKeys, level, opts)
-        : await solveLevel(data, level, opts);
+        ? await solveWithLocked(solveData, lockedKeys, level, opts)
+        : await solveLevel(solveData, level, opts);
       return {
         set, level,
         constraints: {
@@ -204,6 +221,7 @@ async function handleApi(res, url) {
             .map(([k, n]) => ({ key: k, name: traitByKey.get(k)?.name || k, tier: n })),
           banTraits: opts.banTraits.map(k => ({ key: k, name: traitByKey.get(k)?.name || k })),
           ban5cost: !!opts.ban5cost,
+          exalted: exaltedKeys.map(k => ({ key: k, name: byKey.get(k)?.name || k })),
         },
         locked: lockedKeys.map(k => champInfo(byKey.get(k), true)),
         results: results.map(r => ({

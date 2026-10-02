@@ -102,6 +102,11 @@ select.control:focus { border-color: var(--blue); outline: none; }
 .hint { margin-left: 6px; color: var(--accent); font-weight: 600; }
 .mech-item { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; padding: 2px 4px; }
 .mech-item select.control { min-width: 0; padding: 4px 8px; }
+/* 特殊机制区里的尊者选择器（S11 画之灵）：标签 + 选择框占一行，已选 chips 换行展示 */
+.mech-exalted { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mech-exalted .mech-label { font-size: 14px; white-space: nowrap; }
+.mech-exalted .picker { flex: 1; min-width: 240px; }
+.mech-exalted .chips.picked { margin-top: 0; flex-basis: 100%; }
 .chip .plus { margin-left: 4px; color: var(--blue); }
 .chip .plus:hover { color: #b0e0ff; }
 .chip.pin select.tier-select {

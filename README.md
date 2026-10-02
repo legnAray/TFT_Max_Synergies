@@ -62,7 +62,9 @@ Controls (all pickers open as a full dropdown on click — no typing needed, typ
   without code changes.
 - **Special mechanics** — rendered automatically from the data. For S18: *disable Lux forms* /
   *disable Kha'Zix* toggles (whole exclusive groups) and the *Kha'Zix evolution* cap
-  (default / ≤2 / ≤1 / none) for mid-game boards.
+  (default / ≤2 / ≤1 / none) for mid-game boards. For S11: a **this-game Exalted** multi-select —
+  a different group of units is Exalted each game; picking them grants those units the Exalted trait
+  (breakpoints 3/5), stacking with emblems/pins/bans.
 - **Levels** (multi-select) · **comps per level** (5/10) · **scoring mode** · **ban all 5-costs**.
 - **Must-include units** · **emblems** (stackable per trait, x/10 counter) · **pinned traits**
   (tier stepper on the chip) · **banned units** · **banned traits**.
@@ -82,6 +84,7 @@ node cli.js [--set 18] [--levels 6-10|6,7,8 | --level 9] [--topk 5] [--json] [--
             [--ban-unit 远古巨龙,魔像] [--ban-5cost]
             [--ban-trait 法师,护卫]                 # hard-ban traits
             [--pin 月蚀骑士=3,宿敌]                 # pin traits (tier optional, default 1)
+            [--exalted 洛,孙悟空,李青 --set 11]     # S11 this-game Exalted units
 ```
 
 Unit/trait names accept the names from `data/s{N}_summary.md`; matching is exact first, then
@@ -108,6 +111,7 @@ contains (whitespace-insensitive, so `拉克丝(地狱火)` matches `拉克丝 (
 | `ban5cost` | `1` bans all 5-costs | — |
 | `banTraits` | hard-banned traits | — |
 | `pins` | e.g. `月蚀骑士=3,宿敌` (tier optional, default 1) | — |
+| `exalted` | S11 this-game Exalted units (grants the trait, ≤10 units) | — |
 
 Responses include per-comp unit details, total cost, and a `constraints` echo. Invalid input
 returns `400 {error}` with a Chinese message (emblem cap, unique-trait emblems, ban/pin/emblem
@@ -190,9 +194,12 @@ names are identical, so it extracts cleanly from the patch-14.14 snapshot (`--pa
 - **Xayah & Rakan**: two separate 5-costs. CD also ships a 5-cost combined "霞与洛" engine dummy
   (traits 仙侣/天龙之子/迅捷射手/武仙子) — removed from the pool, otherwise the solver would
   double-dip; its dummy-only combo trait 迅捷射手/武仙子 is removed with `removeTraits`.
-- **Exalted (尊者)**: each game grants random extra traits to a few random units — no fixed
-  holders in data, so boards are modeled on base traits only (same simplification spirit as S18's
-  Rival).
+- **Exalted (尊者) — pick this game's holders**: each game a different group of units becomes
+  Exalted (fielding 3/5 grants team damage + Soul Core XP; no extra traits attached). The trait has
+  no fixed holders in data, so it's modeled as a set mechanic: pick this game's Exalted units via
+  the web UI's *this-game Exalted* multi-select or CLI `--exalted`; selected units gain +1 Exalted
+  trait (a `grantTrait` data transform — the solver core is untouched), and breakpoints 3/5 plus
+  emblems/pins/bans all apply as usual.
 - Summoned helpers (Kayle, Tibbers, Azir soldiers, dragon flames, …) carry no traits and are
   auto-dropped. In-match reward mechanics (Spirit Blossom pairing, Storyweaver's Kayle, Fortune
   festivals, Umbral moonlight tiles, encounters, the revival's painted-realm tiles) don't change

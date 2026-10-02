@@ -17,6 +17,7 @@ const state = {
   ban5cost: false,
   disabledGroups: new Set(), // 禁用的互斥组（组名，如 拉克丝各形态/卡兹克进化家族）
   evoCaps: {},            // 进化次数上限 { 基座key: 最大进化次数 }
+  exalted: [],            // 本局尊者棋子 key（S11 画之灵；数据声明 data.exalted 时可用）
   data: null,
 };
 const $ = id => document.getElementById(id);
@@ -71,6 +72,7 @@ async function switchSet(n) {
   state.ban5cost = false;
   state.disabledGroups = new Set();
   state.evoCaps = {};
+  state.exalted = [];
   $('ban5costChip').classList.remove('on');
   $('results').innerHTML = '';
   try {
@@ -158,13 +160,14 @@ function effectiveBanUnits() {
   return [...bans];
 }
 
-/** 特殊机制区：按数据自动渲染（互斥组→禁用开关；进化变体→次数上限下拉） */
+/** 特殊机制区：按数据自动渲染（互斥组→禁用开关；进化变体→次数上限下拉；尊者→本局持有者选择器） */
 function renderMechanics() {
   const box = $('mechanicsBox');
   box.innerHTML = '';
   const groups = namedGroups();
   const evoBases = [...new Set((state.data?.champions || []).filter(c => c.evo != null).map(c => c.variantOf))];
-  $('mechanicsField').style.display = (groups.length || evoBases.length) ? '' : 'none';
+  const hasExalted = !!state.data?.exalted;
+  $('mechanicsField').style.display = (groups.length || evoBases.length || hasExalted) ? '' : 'none';
   for (const g of groups) {
     const b = document.createElement('button');
     b.className = 'chip' + (state.disabledGroups.has(g.name) ? ' on' : '');
@@ -212,6 +215,19 @@ function renderMechanics() {
     item.appendChild(sel);
     box.appendChild(item);
   }
+  // 尊者（S11 画之灵）：选择本局成为尊者的棋子（选中者获得尊者羁绊，断点 3/5）
+  if (hasExalted) {
+    const wrap = document.createElement('div');
+    wrap.className = 'mech-exalted';
+    wrap.innerHTML =
+      `<span class="mech-label">本局尊者</span>` +
+      `<div class="picker" data-picker="exalted">` +
+      `<input placeholder="点击选择本局成为尊者的棋子（${state.exalted.length}/${state.data.exalted.maxPicks}）" autocomplete="off">` +
+      `<div class="suggest hidden"></div></div>` +
+      `<div class="chips picked" data-list="exalted"></div>`;
+    box.appendChild(wrap);
+    setupPicker('exalted'); // 动态创建的选择器，创建后立即绑事件
+  }
 }
 
 /* ---- 通用选择器（必带/纹章/固定/屏蔽棋子/屏蔽羁绊 共用） ---- */
@@ -219,7 +235,7 @@ function renderMechanics() {
 function pickerItems(name) {
   if (!state.data) return [];
   const traitNameOf = key => (state.data.traits.find(t => t.key === key) || {}).name || key;
-  if (name === 'locked' || name === 'banUnit') {
+  if (name === 'locked' || name === 'banUnit' || name === 'exalted') {
     return state.data.champions.map(c => ({
       key: c.key, name: c.name, cls: `c${c.cost}`, cost: c.cost,
       sub: `${c.cost}费 · ${c.traits.map(traitNameOf).join(' / ')}`,
@@ -237,6 +253,8 @@ function pickerFilter(name, item) {
   const bans = new Set(effectiveBanUnits());
   if (name === 'locked') return !state.locked.includes(item.key) && !bans.has(item.key);
   if (name === 'banUnit') return !state.banUnits.includes(item.key) && !state.locked.includes(item.key) && !bans.has(item.key);
+  // 尊者是逐局事实，被屏蔽/必带的棋子也可能成为尊者（屏蔽它只是不上场而已），只排除已选
+  if (name === 'exalted') return !state.exalted.includes(item.key);
   if (name === 'emblem') {
     return !state.emblems[item.key] && !item.trait.unique && !state.banTraits.includes(item.key);
   }
@@ -250,6 +268,10 @@ function pickerPick(name, key) {
     state.locked.push(key);
   } else if (name === 'banUnit') {
     state.banUnits.push(key);
+  } else if (name === 'exalted') {
+    const max = state.data?.exalted?.maxPicks || 10;
+    if (state.exalted.length >= max) return setStatus(`尊者最多选 ${max} 个`, true);
+    state.exalted.push(key);
   } else if (name === 'emblem') {
     if (emblemTotal() >= EMBLEM_MAX) return setStatus(`纹章最多 ${EMBLEM_MAX} 个`, true);
     state.emblems[key] = (state.emblems[key] || 0) + 1;
@@ -263,33 +285,37 @@ function pickerPick(name, key) {
 }
 
 function setupPickers() {
-  for (const name of ['locked', 'emblem', 'pin', 'banUnit', 'banTrait']) {
-    const box = $picker(name);
-    const input = box.querySelector('input');
-    const suggest = box.querySelector('.suggest');
-    const open = () => renderSuggest(name, input.value.trim(), suggest);
-    input.addEventListener('input', open);
-    // 聚焦/点击即展开完整列表：不打字也能直接选（聚焦后再次点击不会重发 focus，故挂两个事件）
-    input.addEventListener('focus', open);
-    input.addEventListener('click', open);
-    // 失焦收起（mousedown 选项先于 blur 触发，不影响点选）；点击下拉空白区也收起
-    input.addEventListener('blur', () => setTimeout(() => suggest.classList.add('hidden'), 0));
-    suggest.addEventListener('mousedown', e => { if (e.target === suggest) suggest.classList.add('hidden'); });
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        const first = suggest.querySelector('.opt');
-        if (first) pickerPick(name, first.dataset.key);
-        e.preventDefault();
-      } else if (e.key === 'Escape') {
-        suggest.classList.add('hidden');
-      }
-    });
-  }
+  for (const name of ['locked', 'emblem', 'pin', 'banUnit', 'banTrait']) setupPicker(name);
+}
+
+/** 绑定单个选择器的事件（静态选择器 init 时绑定；特殊机制区的尊者选择器每次重建后绑定） */
+function setupPicker(name) {
+  const box = $picker(name);
+  if (!box) return;
+  const input = box.querySelector('input');
+  const suggest = box.querySelector('.suggest');
+  const open = () => renderSuggest(name, input.value.trim(), suggest);
+  input.addEventListener('input', open);
+  // 聚焦/点击即展开完整列表：不打字也能直接选（聚焦后再次点击不会重发 focus，故挂两个事件）
+  input.addEventListener('focus', open);
+  input.addEventListener('click', open);
+  // 失焦收起（mousedown 选项先于 blur 触发，不影响点选）；点击下拉空白区也收起
+  input.addEventListener('blur', () => setTimeout(() => suggest.classList.add('hidden'), 0));
+  suggest.addEventListener('mousedown', e => { if (e.target === suggest) suggest.classList.add('hidden'); });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const first = suggest.querySelector('.opt');
+      if (first) pickerPick(name, first.dataset.key);
+      e.preventDefault();
+    } else if (e.key === 'Escape') {
+      suggest.classList.add('hidden');
+    }
+  });
 }
 
 function renderSuggest(name, q, suggest) {
   if (!state.data) return suggest.classList.add('hidden');
-  const isUnit = name === 'locked' || name === 'banUnit';
+  const isUnit = name === 'locked' || name === 'banUnit' || name === 'exalted';
   let items = pickerItems(name).filter(it => pickerFilter(name, it));
   if (q) items = items.filter(it => it.name.includes(q));
   items.sort((a, b) => {
@@ -324,10 +350,12 @@ function renderAll() {
   renderListPin();
   renderListBanUnit();
   renderListBanTrait();
+  renderListExalted();
   $('emblemCount').textContent = `${emblemTotal()}/${EMBLEM_MAX}`;
   document.querySelectorAll('.suggest').forEach(s => s.classList.add('hidden'));
-  for (const name of ['locked', 'emblem', 'pin', 'banUnit', 'banTrait']) {
-    $picker(name).querySelector('input').value = '';
+  for (const name of ['locked', 'emblem', 'pin', 'banUnit', 'banTrait', 'exalted']) {
+    const box = $picker(name);
+    if (box) box.querySelector('input').value = '';
   }
 }
 
@@ -415,6 +443,23 @@ function renderListBanTrait() {
   }
 }
 
+function renderListExalted() {
+  const box = $list('exalted');
+  if (!box) return; // 当前赛季无尊者机制
+  box.innerHTML = '';
+  for (const key of state.exalted) {
+    const c = champByKey(key);
+    const chip = baseChip(c ? `c${c.cost}` : '', `尊者 ${c ? c.name : key}`);
+    chip.appendChild(chipX(() => { state.exalted = state.exalted.filter(k => k !== key); renderAll(); }));
+    box.appendChild(chip);
+  }
+  const input = $picker('exalted')?.querySelector('input');
+  if (input) {
+    const max = state.data?.exalted?.maxPicks || 10;
+    input.placeholder = `点击选择本局成为尊者的棋子（${state.exalted.length}/${max}）`;
+  }
+}
+
 /* ---- 求解与结果渲染 ---- */
 
 async function solve() {
@@ -442,6 +487,7 @@ async function solve() {
     if (banList.length) params.set('banUnits', banList.join(','));
     if (state.ban5cost) params.set('ban5cost', '1');
     if (state.banTraits.length) params.set('banTraits', state.banTraits.join(','));
+    if (state.exalted.length) params.set('exalted', state.exalted.join(','));
     const pins = Object.entries(state.pins).map(([k, n]) => `${k}=${n}`).join(',');
     if (pins) params.set('pins', pins);
     const sec = sections.get(lv);
@@ -480,6 +526,7 @@ function renderLevel(sec, json) {
   if (c.pins.length) notes.push(`固定: ${c.pins.map(p => `${p.name}≥${p.tier}档`).join('、')}`);
   if (c.banTraits.length) notes.push(`屏蔽羁绊: ${c.banTraits.map(t => t.name).join('、')}`);
   if (c.ban5cost) notes.push('已屏蔽5费');
+  if (c.exalted?.length) notes.push(`本局尊者: ${c.exalted.map(u => u.name).join('、')}`);
   if (notes.length) {
     const p = document.createElement('p');
     p.className = 'constraint-note';

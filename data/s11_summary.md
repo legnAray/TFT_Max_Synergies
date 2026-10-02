@@ -2,8 +2,8 @@
 
 棋子共 60 个（已丢弃 19 条：虚空生物(TFT_Voidspawn) 无羁绊；目标假人(TFT_TrainingDummy) 无羁绊；纹章之书(TFT5_EmblemArmoryKey) 无羁绊；成装锻造器(TFT_ArmoryKeyCompleted) 无羁绊；基础装备锻造器(TFT_ArmoryKeyComponent) 无羁绊；神器装备锻造器(TFT_ArmoryKeyOrnn) 无羁绊；辅助装锻造器(TFT_ArmoryKeySupport) 无羁绊；赏金猎人宝箱(TFT6_MercenaryChest) 无羁绊；雕纹魔像(TFT_BlueGolem) 无羁绊；提伯斯(TFT11_Tibbers) 无羁绊；凯尔(TFT11_Kayle) 无羁绊；婕拉 荆棘之藤(TFT11_ZyraThornPlant) 无羁绊；侦察守卫(TFT11_ExaltedCore) 无羁绊；招财树(TFT11_FortuneProp) 无羁绊；龙王烈焰(TFT11_DragonlordFlames) 无羁绊；霞(TFT11_XayahBenchDummy) 无羁绊；洛(TFT11_RakanBenchDummy) 无羁绊；阿兹尔士兵(TFT11_AzirSoldier) 无羁绊；霞与洛(undefined) 规则移除（霞与洛（合体假人）））
 > 特殊规则 · 霞与洛（合体假人）: 霞、洛是两个独立 5 费；"霞与洛"仅为引擎假人，移出棋子池
-> 特殊规则 · 尊者（未建模）: 游戏内每局给随机几名棋子附加额外羁绊（售出灵魂核心换经验），数据中无固定持有者 → 按基础羁绊简化建模，未计随机加成
 > 特殊规则 · 局内增益机制（不影响羁绊计数）: 灵魂莲华对对碰配对、剪纸仙灵讲述凯尔故事登神（凯尔为召唤物、已自动丢弃）、吉星节日、夜幽月光格、奇遇事件、返场版绘境格——均为局内奖励/增益，不改变羁绊计数，未建模
+> 特殊规则 · 尊者: 每局一组不同的单位成为尊者（不附加其他羁绊）；选择本局尊者后，这些棋子获得尊者羁绊，断点 3/5 由通用机制处理
 
 ## 1 费（13个）
 - 阿狸: 灵魂莲华 / 法师

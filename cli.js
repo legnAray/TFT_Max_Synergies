@@ -10,15 +10,17 @@
 //   node cli.js --ban-5cost --ban-unit 远古巨龙 --level 8  # 屏蔽5费/任意棋子
 //   node cli.js --ban-trait 法师,护卫 --level 8            # 硬屏蔽羁绊（不许激活）
 //   node cli.js --pin 月蚀骑士=3,宿敌 --level 8            # 固定羁绊至少 N 档（省略 =1）
+//   node cli.js --set 11 --exalted 阿狸,亚索,锐雯 --level 8  # S11 本局尊者棋子（获得尊者羁绊）
 
 const fs = require('fs');
 const path = require('path');
-const { solveLevel, solveWithLocked, computeBreakdown } = require('./lib/solve');
+const { solveLevel, solveWithLocked, computeBreakdown, grantTrait } = require('./lib/solve');
 
 function parseArgs(argv) {
   const args = {
     set: 18, levels: null, topk: 5, json: false, units: null, level: null, data: null,
     mode: 'tiers', emblem: null, banUnit: null, ban5cost: false, banTrait: null, pin: null,
+    exalted: null,
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -34,6 +36,7 @@ function parseArgs(argv) {
     else if (a === '--ban-5cost') args.ban5cost = true;
     else if (a === '--ban-trait') args.banTrait = next();
     else if (a === '--pin') args.pin = next();
+    else if (a === '--exalted') args.exalted = next();
     else if (a === '--json') args.json = true;
     else if (a === '--data') args.data = next();
     else if (a === '--help' || a === '-h') args.help = true;
@@ -128,7 +131,7 @@ async function main() {
   if (args.help) {
     console.log('用法: node cli.js [--set 18] [--levels 6-10|6,7,8] [--topk 5] [--json] [--mode tiers|count]');
     console.log('            [--units 名1,名2 --level 9] [--emblem 羁绊,羁绊(≤10)] [--ban-unit 名1,名2] [--ban-5cost]');
-    console.log('            [--ban-trait 羁绊1,羁绊2] [--pin 羁绊1=档位,羁绊2]');
+    console.log('            [--ban-trait 羁绊1,羁绊2] [--pin 羁绊1=档位,羁绊2] [--exalted 名1,名2(本局尊者,S11)]');
     return;
   }
   const dataDir = args.data || path.join(__dirname, 'data');
@@ -141,6 +144,23 @@ async function main() {
   const opts = buildOpts(data, args);
   const scoreLabel = opts.mode === 'count' ? '羁绊数量' : '羁绊档位';
 
+  // --exalted: 本局尊者棋子（S11 画之灵），选中棋子获得 +1 条尊者羁绊
+  let solveData = data;
+  if (args.exalted) {
+    if (!data.exalted) { console.error(`S${args.set} 没有尊者机制`); process.exit(1); }
+    const keys = [];
+    for (const n of args.exalted.split(',').map(s => s.trim()).filter(Boolean)) {
+      const hit = resolveUnit(data, n);
+      if (!hit) { console.error(`棋子不存在: ${n}（用 data/s${args.set}_summary.md 里的名字）`); process.exit(1); }
+      if (!keys.includes(hit.key)) keys.push(hit.key);
+    }
+    if (keys.length > data.exalted.maxPicks) {
+      console.error(`尊者最多选 ${data.exalted.maxPicks} 个，给了 ${keys.length} 个`); process.exit(1);
+    }
+    solveData = grantTrait(solveData, data.exalted.trait, keys);
+    console.log(`本局尊者: ${keys.map(k => solveData.champions.find(c => c.key === k).name).join(', ')}`);
+  }
+
   // --units: 必带棋子（先从数据里锁定，再在剩余人口里求最优）
   let lockedKeys = [];
   if (args.units) {
@@ -152,11 +172,11 @@ async function main() {
     }
     if (lockedKeys.length && args.level == null) { console.error('--units 需要配合 --level 使用'); process.exit(1); }
     for (const lv of args.levels) {
-      console.log(`══ ${lv}人口（必带: ${lockedKeys.map(k => data.champions.find(c => c.key === k).name).join(', ')}）`);
+      console.log(`══ ${lv}人口（必带: ${lockedKeys.map(k => solveData.champions.find(c => c.key === k).name).join(', ')}）`);
       let results;
-      try { results = await solveWithLocked(data, lockedKeys, lv, opts); }
+      try { results = await solveWithLocked(solveData, lockedKeys, lv, opts); }
       catch (e) { console.error(e.message); process.exit(1); }
-      for (const r of results) printResult(data, r, opts);
+      for (const r of results) printResult(solveData, r, opts);
     }
     return;
   }
@@ -165,7 +185,7 @@ async function main() {
   for (const lv of args.levels) {
     const t0 = Date.now();
     let results;
-    try { results = await solveLevel(data, lv, opts); }
+    try { results = await solveLevel(solveData, lv, opts); }
     catch (e) { console.error(e.message); process.exit(1); }
     const ms = Date.now() - t0;
     if (args.json) { jsonOut.push(...results.map(r => ({ ...r, ms }))); continue; }
@@ -174,7 +194,7 @@ async function main() {
     console.log(`══ ${lv}人口 · 最大${scoreLabel}: ${best.score} · ${ms}ms`);
     results.forEach((r, i) => {
       if (i > 0) console.log(`  -- 并列/次优 (${r.score}${opts.mode === 'count' ? '个' : '档'}) --`);
-      printResult(data, r, opts);
+      printResult(solveData, r, opts);
     });
   }
   if (args.json) console.log(JSON.stringify(jsonOut, null, 2));

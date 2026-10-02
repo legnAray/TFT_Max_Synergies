@@ -185,6 +185,16 @@ for (const sp of rules.specialUnits || []) {
 }
 champions.sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name, 'zh'));
 
+// ---- 尊者机制（rules.exalted）：每局一组不同单位持有该羁绊，编译成通用机制数据 ----
+// Web"特殊机制"区/CLI --exalted 选择本局持有者，求解前用 grantTrait 授予对应棋子
+let exalted = null;
+if (rules.exalted) {
+  const tKey = byNameTrait[rules.exalted.trait];
+  if (!tKey) throw new Error(`exalted.trait 指向的羁绊不存在: ${rules.exalted.trait}`);
+  exalted = { trait: tKey, name: rules.exalted.trait, maxPicks: rules.exalted.maxPicks || 10 };
+  if (rules.exalted.note) specialNotes.push(`尊者: ${rules.exalted.note}`);
+}
+
 // ---- 校验：羁绊被多少棋子引用 ----
 const traitUnits = {};
 for (const t of Object.keys(traits)) traitUnits[t] = [];
@@ -200,6 +210,7 @@ const out = {
   name: rules.setName || null, // 赛季显示名（CD 的 set.name 是内部代号如 "Set10"，故取人工维护的 rules.setName）
   source: `raw/${rawName} (CommunityDragon${patch ? ' ' + patch : ' latest'})`,
   rules: { notes: specialNotes },
+  exalted, // 尊者机制声明（S11 画之灵）：{ trait, name, maxPicks }，无则 null
   groups,
   champions,
   traits: Object.values(traits),
