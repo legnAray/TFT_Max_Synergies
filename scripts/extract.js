@@ -191,7 +191,11 @@ let exalted = null;
 if (rules.exalted) {
   const tKey = byNameTrait[rules.exalted.trait];
   if (!tKey) throw new Error(`exalted.trait 指向的羁绊不存在: ${rules.exalted.trait}`);
-  exalted = { trait: tKey, name: rules.exalted.trait, maxPicks: rules.exalted.maxPicks || 10 };
+  exalted = {
+    trait: tKey, name: rules.exalted.trait,
+    maxPicks: rules.exalted.maxPicks || 10,
+    maxTraits: rules.exalted.maxTraits || 3, // 羁绊条数达到上限的棋子不可能成为尊者
+  };
   if (rules.exalted.note) specialNotes.push(`尊者: ${rules.exalted.note}`);
 }
 

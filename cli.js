@@ -152,6 +152,10 @@ async function main() {
     for (const n of args.exalted.split(',').map(s => s.trim()).filter(Boolean)) {
       const hit = resolveUnit(data, n);
       if (!hit) { console.error(`棋子不存在: ${n}（用 data/s${args.set}_summary.md 里的名字）`); process.exit(1); }
+      // 羁绊上限 3 条：本身已有 3 条羁绊的棋子不可能成为尊者（game 规则）
+      if (hit.traits.length >= data.exalted.maxTraits) {
+        console.error(`${hit.name} 已有 ${hit.traits.length} 个羁绊，不可能成为尊者`); process.exit(1);
+      }
       if (!keys.includes(hit.key)) keys.push(hit.key);
     }
     if (keys.length > data.exalted.maxPicks) {

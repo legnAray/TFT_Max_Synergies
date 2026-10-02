@@ -238,6 +238,7 @@ function pickerItems(name) {
   if (name === 'locked' || name === 'banUnit' || name === 'exalted') {
     return state.data.champions.map(c => ({
       key: c.key, name: c.name, cls: `c${c.cost}`, cost: c.cost,
+      traitCount: c.traits.length,
       sub: `${c.cost}费 · ${c.traits.map(traitNameOf).join(' / ')}`,
     }));
   }
@@ -253,8 +254,12 @@ function pickerFilter(name, item) {
   const bans = new Set(effectiveBanUnits());
   if (name === 'locked') return !state.locked.includes(item.key) && !bans.has(item.key);
   if (name === 'banUnit') return !state.banUnits.includes(item.key) && !state.locked.includes(item.key) && !bans.has(item.key);
-  // 尊者是逐局事实，被屏蔽/必带的棋子也可能成为尊者（屏蔽它只是不上场而已），只排除已选
-  if (name === 'exalted') return !state.exalted.includes(item.key);
+  // 尊者是逐局事实，被屏蔽/必带的棋子也可能成为尊者（屏蔽它只是不上场而已），只排除已选；
+  // 且羁绊上限 3 条——已有 3 条羁绊的棋子不可能成为尊者，不出现在候选里
+  if (name === 'exalted') {
+    const maxTraits = state.data?.exalted?.maxTraits ?? 3;
+    return !state.exalted.includes(item.key) && item.traitCount < maxTraits;
+  }
   if (name === 'emblem') {
     return !state.emblems[item.key] && !item.trait.unique && !state.banTraits.includes(item.key);
   }

@@ -111,7 +111,7 @@ contains (whitespace-insensitive, so `拉克丝(地狱火)` matches `拉克丝 (
 | `ban5cost` | `1` bans all 5-costs | — |
 | `banTraits` | hard-banned traits | — |
 | `pins` | e.g. `月蚀骑士=3,宿敌` (tier optional, default 1) | — |
-| `exalted` | S11 this-game Exalted units (grants the trait, ≤10 units) | — |
+| `exalted` | S11 this-game Exalted units (grants the trait, ≤10; units already holding 3 traits are rejected) | — |
 
 Responses include per-comp unit details, total cost, and a `constraints` echo. Invalid input
 returns `400 {error}` with a Chinese message (emblem cap, unique-trait emblems, ban/pin/emblem
@@ -199,7 +199,9 @@ names are identical, so it extracts cleanly from the patch-14.14 snapshot (`--pa
   no fixed holders in data, so it's modeled as a set mechanic: pick this game's Exalted units via
   the web UI's *this-game Exalted* multi-select or CLI `--exalted`; selected units gain +1 Exalted
   trait (a `grantTrait` data transform — the solver core is untouched), and breakpoints 3/5 plus
-  emblems/pins/bans all apply as usual.
+  emblems/pins/bans all apply as usual. **3-trait cap**: the 12 units already holding three traits
+  (千珏/锐雯/瑟提/乌迪尔/霞/洛/孙悟空/…) can never be Exalted — they're excluded from the picker
+  candidates and rejected by the CLI/API.
 - Summoned helpers (Kayle, Tibbers, Azir soldiers, dragon flames, …) carry no traits and are
   auto-dropped. In-match reward mechanics (Spirit Blossom pairing, Storyweaver's Kayle, Fortune
   festivals, Umbral moonlight tiles, encounters, the revival's painted-realm tiles) don't change

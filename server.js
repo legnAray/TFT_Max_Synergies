@@ -194,6 +194,10 @@ async function handleApi(res, url) {
       for (const q of exaltedParam.split(',').map(s => s.trim()).filter(Boolean)) {
         const hit = resolveUnit(data, q);
         if (!hit) return sendJson(res, 400, { error: `棋子不存在: ${q}` });
+        // 羁绊上限 3 条：本身已有 3 条羁绊的棋子不可能成为尊者（game 规则）
+        if (hit.traits.length >= data.exalted.maxTraits) {
+          return sendJson(res, 400, { error: `${hit.name} 已有 ${hit.traits.length} 个羁绊，不可能成为尊者` });
+        }
         if (!exaltedKeys.includes(hit.key)) exaltedKeys.push(hit.key);
       }
       if (exaltedKeys.length > data.exalted.maxPicks) {
