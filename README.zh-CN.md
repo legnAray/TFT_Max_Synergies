@@ -10,7 +10,9 @@
 ![Web 界面](figs/fig1.png)
 
 当前数据：**S18「Enchanted Wilds / 魔法荒野」**（来源
-[CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json)，中文国服命名）。
+[CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json)，中文国服命名），
+以及历史赛季 **S11「画之灵 / Inkborn Fables」**（金铲铲 S11 = 全球 Set 11，取 14.14 最终补丁
+快照提取，见「数据更新」一节）。
 
 ## 功能特性
 
@@ -40,6 +42,8 @@ node cli.js --json                # 输出 JSON（机器可读）
 
 S18 结果参考（18.3 版本数据，卡兹克进化满级）：6人口 12 档 · 7人口 13 档 · 8人口 15 档 ·
 9人口 17 档 · 10人口 18 档（未进化约低 2 档）。
+S11 画之灵（14.14 最终补丁）：6人口 9 档 · 7人口 10 档 · 8人口 12 档 · 9人口 13 档 ·
+10人口 14 档。
 
 ## Web 界面
 
@@ -123,6 +127,13 @@ node scripts/extract.js 19 --refresh  # 强制重新下载原始文件
 node cli.js --set 19              # 或在 Web 界面赛季下拉里直接选 S19
 ```
 
+已下线的老赛季在 CommunityDragon 上以逐补丁快照存档，用 `--patch` 指定该赛季存活期内的
+最后一个补丁号（注意不带结尾的 `.1`）即可提取：
+
+```bash
+node scripts/extract.js 11 --patch 14.14   # S11 画之灵，取最终补丁快照
+```
+
 赛季数据按"**常规棋子 + 特殊棋子**"组织。常规棋子零声明：占 1 格、对自身每个羁绊 +1 计数，
 断点由羁绊数据决定。特殊棋子在 `sets/s{N}.rules.js` 里声明，由提取脚本编译成数据 JSON 的
 通用字段，求解器与赛季无关：
@@ -134,6 +145,7 @@ node cli.js --set 19              # 或在 Web 界面赛季下拉里直接选 S1
 | `trait` + `tierExactCount` | 某档需要精确计数 | 宿敌（简化前） |
 | `evolutions: {choices, maxEvolve, distinct}` | 合成全部进化变体为互斥棋子副本（带 `evo`/`variantOf` 元数据供前端用） | 卡兹克 15 变体 |
 | `removeUnits` | 把棋子移出池子 | 雷恩加尔 |
+| `removeTraits` | 把羁绊整个删除（要求已无棋子持有） | S11 假人专属组合羁绊 迅捷射手/武仙子 |
 | `traitBreakpoints` | 覆盖羁绊断点 | 宿敌 → `[1]` |
 | `setName` | 赛季显示名（下拉用） | 魔法荒野 |
 
@@ -156,6 +168,20 @@ node cli.js --set 19              # 或在 Web 界面赛季下拉里直接选 S1
 - 独有羁绊（宝石骑士、翠神等断点为 `[1]` 的羁绊）属于常规机制，由断点数据自动处理；
   峡谷野怪 10 档的 +人口按固定人口建模忽略。
 
+## S11 特殊处理（均在 `sets/s11.rules.js` 声明）
+
+画之灵 = 金铲铲 S11 = 全球 Set 11（Inkborn Fables），国服 Riot 译名与金铲铲一致，
+直接从 14.14 最终补丁快照（`--patch 14.14`）提取。
+
+- **霞与洛**：是两个独立 5 费棋子。CD 数据里还有一个 5 费"霞与洛"引擎假人
+  （带 仙侣/天龙之子/迅捷射手/武仙子 四羁绊）——移出棋子池，否则求解器会拿它一顶二；
+  假人专属的组合羁绊「迅捷射手/武仙子」用 `removeTraits` 一并删除。
+- **尊者**：游戏内每局给随机几名棋子附加额外羁绊——数据中无固定持有者，按基础羁绊简化
+  建模（同 S18 宿敌的简化思路）。
+- 召唤物（凯尔、提伯斯、阿兹尔士兵、龙王烈焰等）无羁绊、自动丢弃；局内奖励机制
+  （灵魂莲华对对碰、剪纸仙灵凯尔、吉星节日、夜幽月光格、奇遇、返场版绘境格）不改变
+  羁绊计数，未建模。
+
 ## 目录结构
 
 ```
@@ -163,11 +189,11 @@ cli.js              命令行入口
 server.js           Web 服务器（静态页面 + /api/sets、/api/data、/api/solve）
 web/                Web 前端（原生 HTML/CSS/JS，无构建步骤）
 lib/solve.js        求解器（ILP 建模 + Top-K 枚举 + 羁绊明细计算）
-scripts/extract.js  CommunityDragon 数据提取（解释 sets/s{N}.rules.js 里的赛季规则）
-sets/s18.rules.js   S18 特殊规则（互斥组、进化、断点覆盖等），按赛季独立维护
-data/s18.json       S18 结构化数据（棋子/羁绊/互斥组/权重）
-data/s18_summary.md S18 人工核对清单
-data/results_s18.json 参考结果（每档最优 1 套）
+scripts/extract.js  CommunityDragon 数据提取（解释 sets/s{N}.rules.js；--patch 提取已下线赛季）
+sets/s{N}.rules.js  各赛季特殊规则（s18、s11），按赛季独立维护
+data/s{N}.json      赛季结构化数据（棋子/羁绊/互斥组/权重）
+data/s{N}_summary.md 赛季人工核对清单
+data/results_s{N}.json 参考结果（每档最优 1 套）
 figs/               截图
 raw/                原始下载（.gitignore）
 ```

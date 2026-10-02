@@ -1,7 +1,7 @@
 {
   "set": 18,
   "name": "魔法荒野",
-  "source": "raw/cd_tft_zh_cn.json (CommunityDragon)",
+  "source": "raw/cd_tft_zh_cn.json (CommunityDragon latest)",
   "rules": {
     "notes": [
       "拉克丝（大元素使）: 拥有 1 个后商店中其余形态都转为同羁绊 → 各形态互斥；描述\"为选定的羁绊提供+2计数\"",

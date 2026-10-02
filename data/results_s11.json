@@ -1,0 +1,1038 @@
+[
+ {
+  "level": 6,
+  "score": 9,
+  "unitKeys": [
+   "TFT11_Qiyana",
+   "TFT11_Diana",
+   "TFT11_Soraka",
+   "TFT11_LeeSin",
+   "TFT11_Rakan",
+   "TFT11_WuKong"
+  ],
+  "breakdown": [
+   {
+    "trait": "TFT11_Heavenly",
+    "name": "天将",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Dragonlord",
+    "name": "天龙之子",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Duelist",
+    "name": "决斗大师",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Sage",
+    "name": "圣贤",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Altruist",
+    "name": "武仙子",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4
+    ],
+    "reached": [
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Great",
+    "name": "齐天大圣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Lovers",
+    "name": "仙侣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   }
+  ],
+  "ms": 212
+ },
+ {
+  "level": 7,
+  "score": 10,
+  "unitKeys": [
+   "TFT11_Malphite",
+   "TFT11_Riven",
+   "TFT11_Diana",
+   "TFT11_Soraka",
+   "TFT11_Rakan",
+   "TFT11_WuKong",
+   "TFT11_Udyr"
+  ],
+  "breakdown": [
+   {
+    "trait": "TFT11_Heavenly",
+    "name": "天将",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Altruist",
+    "name": "武仙子",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4
+    ],
+    "reached": [
+     true,
+     true,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Behemoth",
+    "name": "擎天卫",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Sage",
+    "name": "圣贤",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Dragonlord",
+    "name": "天龙之子",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_SpiritWalker",
+    "name": "灵魂行者",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Great",
+    "name": "齐天大圣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Lovers",
+    "name": "仙侣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Bruiser",
+    "name": "斗士",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   },
+   {
+    "trait": "TFT11_Storyweaver",
+    "name": "剪纸仙灵",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     3,
+     5,
+     7,
+     10
+    ],
+    "reached": [
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   },
+   {
+    "trait": "TFT11_InkShadow",
+    "name": "墨之影",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     3,
+     5,
+     7
+    ],
+    "reached": [
+     false,
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   }
+  ],
+  "ms": 351
+ },
+ {
+  "level": 8,
+  "score": 12,
+  "unitKeys": [
+   "TFT11_Malphite",
+   "TFT11_Qiyana",
+   "TFT11_Diana",
+   "TFT11_Soraka",
+   "TFT11_LeeSin",
+   "TFT11_Rakan",
+   "TFT11_WuKong",
+   "TFT11_Udyr"
+  ],
+  "breakdown": [
+   {
+    "trait": "TFT11_Heavenly",
+    "name": "天将",
+    "count": 4,
+    "tier": 3,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "reached": [
+     true,
+     true,
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Dragonlord",
+    "name": "天龙之子",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Duelist",
+    "name": "决斗大师",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Behemoth",
+    "name": "擎天卫",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Sage",
+    "name": "圣贤",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Altruist",
+    "name": "武仙子",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4
+    ],
+    "reached": [
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_SpiritWalker",
+    "name": "灵魂行者",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Great",
+    "name": "齐天大圣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Lovers",
+    "name": "仙侣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_InkShadow",
+    "name": "墨之影",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     3,
+     5,
+     7
+    ],
+    "reached": [
+     false,
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   }
+  ],
+  "ms": 409
+ },
+ {
+  "level": 9,
+  "score": 13,
+  "unitKeys": [
+   "TFT11_Malphite",
+   "TFT11_Zyra",
+   "TFT11_Riven",
+   "TFT11_Diana",
+   "TFT11_Soraka",
+   "TFT11_Galio",
+   "TFT11_Rakan",
+   "TFT11_WuKong",
+   "TFT11_Udyr"
+  ],
+  "breakdown": [
+   {
+    "trait": "TFT11_Sage",
+    "name": "圣贤",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Heavenly",
+    "name": "天将",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Altruist",
+    "name": "武仙子",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4
+    ],
+    "reached": [
+     true,
+     true,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Storyweaver",
+    "name": "剪纸仙灵",
+    "count": 3,
+    "tier": 1,
+    "breakpoints": [
+     3,
+     5,
+     7,
+     10
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Bruiser",
+    "name": "斗士",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Behemoth",
+    "name": "擎天卫",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Dragonlord",
+    "name": "天龙之子",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_SpiritWalker",
+    "name": "灵魂行者",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Great",
+    "name": "齐天大圣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Lovers",
+    "name": "仙侣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_InkShadow",
+    "name": "墨之影",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     3,
+     5,
+     7
+    ],
+    "reached": [
+     false,
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   }
+  ],
+  "ms": 636
+ },
+ {
+  "level": 10,
+  "score": 14,
+  "unitKeys": [
+   "TFT11_Zyra",
+   "TFT11_Qiyana",
+   "TFT11_Riven",
+   "TFT11_Diana",
+   "TFT11_Soraka",
+   "TFT11_Galio",
+   "TFT11_LeeSin",
+   "TFT11_Rakan",
+   "TFT11_WuKong",
+   "TFT11_Xayah"
+  ],
+  "breakdown": [
+   {
+    "trait": "TFT11_Dragonlord",
+    "name": "天龙之子",
+    "count": 4,
+    "tier": 3,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     true,
+     true,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Sage",
+    "name": "圣贤",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Heavenly",
+    "name": "天将",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "reached": [
+     true,
+     true,
+     false,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Altruist",
+    "name": "武仙子",
+    "count": 3,
+    "tier": 2,
+    "breakpoints": [
+     2,
+     3,
+     4
+    ],
+    "reached": [
+     true,
+     true,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Storyweaver",
+    "name": "剪纸仙灵",
+    "count": 3,
+    "tier": 1,
+    "breakpoints": [
+     3,
+     5,
+     7,
+     10
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Bruiser",
+    "name": "斗士",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Duelist",
+    "name": "决斗大师",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     2,
+     4,
+     6,
+     8
+    ],
+    "reached": [
+     true,
+     false,
+     false,
+     false
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Lovers",
+    "name": "仙侣",
+    "count": 2,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Great",
+    "name": "齐天大圣",
+    "count": 1,
+    "tier": 1,
+    "breakpoints": [
+     1
+    ],
+    "reached": [
+     true
+    ],
+    "waste": 0,
+    "emblem": 0,
+    "active": true
+   },
+   {
+    "trait": "TFT11_Trickshot",
+    "name": "迅捷射手",
+    "count": 1,
+    "tier": 0,
+    "breakpoints": [
+     2,
+     4
+    ],
+    "reached": [
+     false,
+     false
+    ],
+    "waste": 1,
+    "emblem": 0,
+    "active": false
+   }
+  ],
+  "ms": 2731
+ }
+]

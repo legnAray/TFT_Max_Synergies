@@ -1,0 +1,843 @@
+{
+  "set": 11,
+  "name": "画之灵",
+  "source": "raw/cd_tft_zh_cn_14.14.json (CommunityDragon 14.14)",
+  "rules": {
+    "notes": [
+      "霞与洛（合体假人）: 霞、洛是两个独立 5 费；\"霞与洛\"仅为引擎假人，移出棋子池",
+      "尊者（未建模）: 游戏内每局给随机几名棋子附加额外羁绊（售出灵魂核心换经验），数据中无固定持有者 → 按基础羁绊简化建模，未计随机加成",
+      "局内增益机制（不影响羁绊计数）: 灵魂莲华对对碰配对、剪纸仙灵讲述凯尔故事登神（凯尔为召唤物、已自动丢弃）、吉星节日、夜幽月光格、奇遇事件、返场版绘境格——均为局内奖励/增益，不改变羁绊计数，未建模"
+    ]
+  },
+  "groups": [],
+  "champions": [
+    {
+      "key": "TFT11_Ahri",
+      "name": "阿狸",
+      "cost": 1,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Darius",
+      "name": "德莱厄斯",
+      "cost": 1,
+      "traits": [
+        "TFT11_Umbral",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Garen",
+      "name": "盖伦",
+      "cost": 1,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_Jax",
+      "name": "贾克斯",
+      "cost": 1,
+      "traits": [
+        "TFT11_InkShadow",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_KhaZix",
+      "name": "卡兹克",
+      "cost": 1,
+      "traits": [
+        "TFT11_Heavenly",
+        "TFT11_Reaper"
+      ]
+    },
+    {
+      "key": "TFT11_Caitlyn",
+      "name": "凯特琳",
+      "cost": 1,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_Sniper"
+      ]
+    },
+    {
+      "key": "TFT11_ChoGath",
+      "name": "科加斯",
+      "cost": 1,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_FortuneYord",
+      "name": "可酷伯",
+      "cost": 1,
+      "traits": [
+        "TFT11_Fortune",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_KogMaw",
+      "name": "克格莫",
+      "cost": 1,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Invoker",
+        "TFT11_Sniper"
+      ]
+    },
+    {
+      "key": "TFT11_RekSai",
+      "name": "雷克塞",
+      "cost": 1,
+      "traits": [
+        "TFT11_Dryad",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Malphite",
+      "name": "墨菲特",
+      "cost": 1,
+      "traits": [
+        "TFT11_Heavenly",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_Sivir",
+      "name": "希维尔",
+      "cost": 1,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Trickshot"
+      ]
+    },
+    {
+      "key": "TFT11_Yasuo",
+      "name": "亚索",
+      "cost": 1,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Janna",
+      "name": "迦娜",
+      "cost": 2,
+      "traits": [
+        "TFT11_Dragonlord",
+        "TFT11_Invoker"
+      ]
+    },
+    {
+      "key": "TFT11_Zyra",
+      "name": "婕拉",
+      "cost": 2,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Sage"
+      ]
+    },
+    {
+      "key": "TFT11_Lux",
+      "name": "拉克丝",
+      "cost": 2,
+      "traits": [
+        "TFT11_Porcelain",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Gnar",
+      "name": "纳尔",
+      "cost": 2,
+      "traits": [
+        "TFT11_Dryad",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_Neeko",
+      "name": "妮蔻",
+      "cost": 2,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Heavenly",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Qiyana",
+      "name": "奇亚娜",
+      "cost": 2,
+      "traits": [
+        "TFT11_Heavenly",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Kindred",
+      "name": "千珏",
+      "cost": 2,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Dryad",
+        "TFT11_Reaper"
+      ]
+    },
+    {
+      "key": "TFT11_Riven",
+      "name": "锐雯",
+      "cost": 2,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Altruist",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Senna",
+      "name": "赛娜",
+      "cost": 2,
+      "traits": [
+        "TFT11_InkShadow",
+        "TFT11_Sniper"
+      ]
+    },
+    {
+      "key": "TFT11_Shen",
+      "name": "慎",
+      "cost": 2,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_Teemo",
+      "name": "提莫",
+      "cost": 2,
+      "traits": [
+        "TFT11_Fortune",
+        "TFT11_Trickshot"
+      ]
+    },
+    {
+      "key": "TFT11_Aatrox",
+      "name": "亚托克斯",
+      "cost": 2,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_InkShadow",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Yorick",
+      "name": "约里克",
+      "cost": 2,
+      "traits": [
+        "TFT11_Umbral",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_Amumu",
+      "name": "阿木木",
+      "cost": 3,
+      "traits": [
+        "TFT11_Porcelain",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_Bard",
+      "name": "巴德",
+      "cost": 3,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Trickshot"
+      ]
+    },
+    {
+      "key": "TFT11_Thresh",
+      "name": "锤石",
+      "cost": 3,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_Tristana",
+      "name": "崔丝塔娜",
+      "cost": 3,
+      "traits": [
+        "TFT11_Fortune",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Diana",
+      "name": "黛安娜",
+      "cost": 3,
+      "traits": [
+        "TFT11_Dragonlord",
+        "TFT11_Sage"
+      ]
+    },
+    {
+      "key": "TFT11_Illaoi",
+      "name": "俄洛伊",
+      "cost": 3,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_Arcanist",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_Aphelios",
+      "name": "厄斐琉斯",
+      "cost": 3,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Sniper"
+      ]
+    },
+    {
+      "key": "TFT11_Alune",
+      "name": "拉露恩",
+      "cost": 3,
+      "traits": [
+        "TFT11_Umbral",
+        "TFT11_Invoker"
+      ]
+    },
+    {
+      "key": "TFT11_Soraka",
+      "name": "索拉卡",
+      "cost": 3,
+      "traits": [
+        "TFT11_Heavenly",
+        "TFT11_Altruist"
+      ]
+    },
+    {
+      "key": "TFT11_TahmKench",
+      "name": "塔姆",
+      "cost": 3,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Volibear",
+      "name": "沃利贝尔",
+      "cost": 3,
+      "traits": [
+        "TFT11_InkShadow",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Yone",
+      "name": "永恩",
+      "cost": 3,
+      "traits": [
+        "TFT11_Umbral",
+        "TFT11_Reaper"
+      ]
+    },
+    {
+      "key": "TFT11_Zoe",
+      "name": "佐伊",
+      "cost": 3,
+      "traits": [
+        "TFT11_Fortune",
+        "TFT11_Storyweaver",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Ashe",
+      "name": "艾希",
+      "cost": 4,
+      "traits": [
+        "TFT11_Porcelain",
+        "TFT11_Sniper"
+      ]
+    },
+    {
+      "key": "TFT11_Annie",
+      "name": "安妮",
+      "cost": 4,
+      "traits": [
+        "TFT11_Fortune",
+        "TFT11_Invoker"
+      ]
+    },
+    {
+      "key": "TFT11_Ornn",
+      "name": "奥恩",
+      "cost": 4,
+      "traits": [
+        "TFT11_Dryad",
+        "TFT11_Behemoth"
+      ]
+    },
+    {
+      "key": "TFT11_Galio",
+      "name": "加里奥",
+      "cost": 4,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Kaisa",
+      "name": "卡莎",
+      "cost": 4,
+      "traits": [
+        "TFT11_InkShadow",
+        "TFT11_Trickshot"
+      ]
+    },
+    {
+      "key": "TFT11_Kayn",
+      "name": "凯隐",
+      "cost": 4,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_Reaper"
+      ]
+    },
+    {
+      "key": "TFT11_LeeSin",
+      "name": "李青",
+      "cost": 4,
+      "traits": [
+        "TFT11_Dragonlord",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Lillia",
+      "name": "莉莉娅",
+      "cost": 4,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Invoker"
+      ]
+    },
+    {
+      "key": "TFT11_Morgana",
+      "name": "莫甘娜",
+      "cost": 4,
+      "traits": [
+        "TFT11_Ghostly",
+        "TFT11_Sage"
+      ]
+    },
+    {
+      "key": "TFT11_Nautilus",
+      "name": "诺提勒斯",
+      "cost": 4,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_Sylas",
+      "name": "塞拉斯",
+      "cost": 4,
+      "traits": [
+        "TFT11_Umbral",
+        "TFT11_Bruiser"
+      ]
+    },
+    {
+      "key": "TFT11_Syndra",
+      "name": "辛德拉",
+      "cost": 4,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Azir",
+      "name": "阿兹尔",
+      "cost": 5,
+      "traits": [
+        "TFT11_Dryad",
+        "TFT11_Invoker"
+      ]
+    },
+    {
+      "key": "TFT11_Irelia",
+      "name": "艾瑞莉娅",
+      "cost": 5,
+      "traits": [
+        "TFT11_Storyweaver",
+        "TFT11_Duelist"
+      ]
+    },
+    {
+      "key": "TFT11_Hwei",
+      "name": "彗",
+      "cost": 5,
+      "traits": [
+        "TFT11_Mythic",
+        "TFT11_Artist"
+      ]
+    },
+    {
+      "key": "TFT11_Lissandra",
+      "name": "丽桑卓",
+      "cost": 5,
+      "traits": [
+        "TFT11_Porcelain",
+        "TFT11_Arcanist"
+      ]
+    },
+    {
+      "key": "TFT11_Rakan",
+      "name": "洛",
+      "cost": 5,
+      "traits": [
+        "TFT11_Dragonlord",
+        "TFT11_Lovers",
+        "TFT11_Altruist"
+      ]
+    },
+    {
+      "key": "TFT11_Sett",
+      "name": "瑟提",
+      "cost": 5,
+      "traits": [
+        "TFT11_Fated",
+        "TFT11_Umbral",
+        "TFT11_Warden"
+      ]
+    },
+    {
+      "key": "TFT11_WuKong",
+      "name": "孙悟空",
+      "cost": 5,
+      "traits": [
+        "TFT11_Great",
+        "TFT11_Heavenly",
+        "TFT11_Sage"
+      ]
+    },
+    {
+      "key": "TFT11_Udyr",
+      "name": "乌迪尔",
+      "cost": 5,
+      "traits": [
+        "TFT11_InkShadow",
+        "TFT11_Behemoth",
+        "TFT11_SpiritWalker"
+      ]
+    },
+    {
+      "key": "TFT11_Xayah",
+      "name": "霞",
+      "cost": 5,
+      "traits": [
+        "TFT11_Dragonlord",
+        "TFT11_Lovers",
+        "TFT11_Trickshot"
+      ]
+    }
+  ],
+  "traits": [
+    {
+      "key": "TFT11_Ghostly",
+      "name": "幽魂",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Fortune",
+      "name": "吉星",
+      "breakpoints": [
+        3,
+        5,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Lovers",
+      "name": "仙侣",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "TFT11_Reaper",
+      "name": "死神",
+      "breakpoints": [
+        2,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Umbral",
+      "name": "夜幽",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        9
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Dryad",
+      "name": "永恒之森",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Sage",
+      "name": "圣贤",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Arcanist",
+      "name": "法师",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_InkShadow",
+      "name": "墨之影",
+      "breakpoints": [
+        3,
+        5,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Altruist",
+      "name": "武仙子",
+      "breakpoints": [
+        2,
+        3,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Artist",
+      "name": "画圣",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "TFT11_Exalted",
+      "name": "尊者",
+      "breakpoints": [
+        3,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Heavenly",
+      "name": "天将",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Porcelain",
+      "name": "青花瓷",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Duelist",
+      "name": "决斗大师",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Dragonlord",
+      "name": "天龙之子",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Bruiser",
+      "name": "斗士",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Trickshot",
+      "name": "迅捷射手",
+      "breakpoints": [
+        2,
+        4
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Fated",
+      "name": "灵魂莲华",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Invoker",
+      "name": "神谕者",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Great",
+      "name": "齐天大圣",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "TFT11_Sniper",
+      "name": "狙神",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Mythic",
+      "name": "山海绘卷",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_SpiritWalker",
+      "name": "灵魂行者",
+      "breakpoints": [
+        1
+      ],
+      "unique": true
+    },
+    {
+      "key": "TFT11_Warden",
+      "name": "护卫",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Behemoth",
+      "name": "擎天卫",
+      "breakpoints": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "unique": false
+    },
+    {
+      "key": "TFT11_Storyweaver",
+      "name": "剪纸仙灵",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "unique": false
+    }
+  ]
+}

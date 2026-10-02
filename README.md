@@ -11,7 +11,9 @@ GLPK): results are provably optimal, not heuristic. Same idea as
 ![Web UI](figs/fig1.png)
 
 Current data: **Set 18 "Enchanted Wilds / 魔法荒野"** (source:
-[CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json), zh_CN locale names).
+[CommunityDragon](https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json), zh_CN locale
+names), plus the historical **Set 11 "画之灵 / Inkborn Fables"** (CN-mobile's S11, extracted from
+the patch-14.14 snapshot — see *Updating data*).
 
 ## Features
 
@@ -46,6 +48,7 @@ node cli.js --json                # machine-readable output
 
 Reference results for Set 18 (patch 18.3 data, Kha'Zix fully evolved): **level 6 → 12 tiers ·
 7 → 13 · 8 → 15 · 9 → 17 · 10 → 18** (unevolved boards score about 2 tiers lower).
+Set 11 画之灵 (final patch 14.14): **6 → 9 · 7 → 10 · 8 → 12 · 9 → 13 · 10 → 14**.
 
 ## Web UI
 
@@ -134,6 +137,13 @@ node scripts/extract.js 19 --refresh  # force re-download of the raw file
 node cli.js --set 19              # or pick S19 in the web UI dropdown
 ```
 
+Delisted sets survive as per-patch snapshots on CommunityDragon; pass the last patch the set was
+live with `--patch` (no trailing `.1`):
+
+```bash
+node scripts/extract.js 11 --patch 14.14   # Set 11 画之灵 from its final patch snapshot
+```
+
 Set data is organized as **regular units + special units**. Regular units need no declaration —
 1 slot, +1 to each trait, breakpoints straight from trait data. Special units are declared in
 `sets/s{N}.rules.js`; the extractor compiles them into generic data fields so the solver stays
@@ -146,6 +156,7 @@ season-agnostic:
 | `trait` + `tierExactCount` | a tier that needs an exact count | Rival (pre-simplification) |
 | `evolutions: {choices, maxEvolve, distinct}` | synthesizes all evolution variants as exclusive unit copies (with `evo`/`variantOf` metadata for the UI) | Kha'Zix: 15 variants |
 | `removeUnits` | drop units from the pool entirely | Rengar |
+| `removeTraits` | drop a trait entirely (must have no holders left) | S11's combo trait 迅捷射手/武仙子 (dummy-only) |
 | `traitBreakpoints` | override a trait's breakpoints | Rival → `[1]` |
 | `setName` | display name for the set dropdown | 魔法荒野 |
 
@@ -171,6 +182,22 @@ rules to confirm the rules only affect the intended units.
 - Unique traits (Gem Knight, The Green Father, … breakpoint `[1]`) are regular mechanics handled
   by breakpoint data; Riftbeasts' tier-10 +team-size is ignored under the fixed-level model.
 
+## Set 11 special handling (declared in `sets/s11.rules.js`)
+
+Set 11 "画之灵" is CN-mobile's S11 and Riot's global Set 11 (Inkborn Fables) — the zh_CN trait
+names are identical, so it extracts cleanly from the patch-14.14 snapshot (`--patch 14.14`).
+
+- **Xayah & Rakan**: two separate 5-costs. CD also ships a 5-cost combined "霞与洛" engine dummy
+  (traits 仙侣/天龙之子/迅捷射手/武仙子) — removed from the pool, otherwise the solver would
+  double-dip; its dummy-only combo trait 迅捷射手/武仙子 is removed with `removeTraits`.
+- **Exalted (尊者)**: each game grants random extra traits to a few random units — no fixed
+  holders in data, so boards are modeled on base traits only (same simplification spirit as S18's
+  Rival).
+- Summoned helpers (Kayle, Tibbers, Azir soldiers, dragon flames, …) carry no traits and are
+  auto-dropped. In-match reward mechanics (Spirit Blossom pairing, Storyweaver's Kayle, Fortune
+  festivals, Umbral moonlight tiles, encounters, the revival's painted-realm tiles) don't change
+  trait counts and are out of scope.
+
 ## Project layout
 
 ```
@@ -178,11 +205,11 @@ cli.js              CLI entry
 server.js           web server (static files + /api/sets, /api/data, /api/solve)
 web/                web UI (vanilla HTML/CSS/JS, no build step)
 lib/solve.js        solver (ILP model + Top-K enumeration + trait breakdown)
-scripts/extract.js  CommunityDragon extraction (interprets sets/s{N}.rules.js)
-sets/s18.rules.js   per-set special-unit rules
-data/s18.json       structured data (units / traits / groups / weights)
-data/s18_summary.md manual checklist per set
-data/results_s18.json reference results (top-1 per level)
+scripts/extract.js  CommunityDragon extraction (interprets sets/s{N}.rules.js; --patch for delisted sets)
+sets/s{N}.rules.js  per-set special-unit rules (s18, s11)
+data/s{N}.json      structured data (units / traits / groups / weights)
+data/s{N}_summary.md manual checklist per set
+data/results_s{N}.json reference results (top-1 per level)
 figs/               screenshots
 raw/                raw downloads (.gitignored)
 ```

@@ -1,14 +1,19 @@
 // 从 CommunityDragon 的 tft json 提取指定赛季数据 -> data/s{N}.json
-// 用法: node scripts/extract.js [赛季编号，默认18] [--refresh 强制重新下载]
+// 用法: node scripts/extract.js [赛季编号，默认18] [--patch 14.14 指定历史补丁] [--refresh 强制重新下载]
+//   最新赛季用 latest；已下线的老赛季（如 S11 画之灵）用该赛季存活期内最后 一个补丁号 --patch 14.14
 const fs = require('fs');
 const path = require('path');
 
-const args = process.argv.slice(2).filter(a => a !== '--refresh');
+const rawArgs = process.argv.slice(2);
+const patchIdx = rawArgs.indexOf('--patch');
+const patch = patchIdx >= 0 ? rawArgs[patchIdx + 1] : null; // 如 '14.14'，注意不带结尾的 .1
+const args = rawArgs.filter((a, i) => a !== '--refresh' && a !== '--patch' && i !== patchIdx + 1);
 const setNumber = Number(args[0] || 18);
-const rawFile = path.join(__dirname, '..', 'raw', 'cd_tft_zh_cn.json');
+const rawName = patch ? `cd_tft_zh_cn_${patch}.json` : 'cd_tft_zh_cn.json';
+const rawFile = path.join(__dirname, '..', 'raw', rawName);
 
 async function download() {
-  const url = 'https://raw.communitydragon.org/latest/cdragon/tft/zh_cn.json';
+  const url = `https://raw.communitydragon.org/${patch || 'latest'}/cdragon/tft/zh_cn.json`;
   process.stderr.write(`下载 ${url} ...\n`);
   const res = await fetch(url);
   if (!res.ok) throw new Error(`下载失败: HTTP ${res.status}`);
@@ -24,10 +29,13 @@ async function main() {
 
 const entries = raw.setData.filter(s => Number(s.number) === setNumber);
 if (entries.length === 0) throw new Error(`找不到 setData number=${setNumber}`);
-// 若同一编号有多条（不同 mutator），取棋子数最多的一条（标准大名单）
-entries.sort((a, b) => (b.champions?.length || 0) - (a.champions?.length || 0));
-const set = entries[0];
-console.log(`setData number=${setNumber}: ${entries.length} 条，取 champions 最多的一条（mutator=${set.mutator || '无'}），champions=${set.champions.length}, traits=${set.traits.length}`);
+// 同一编号可能有多条（标准 / TURBO / PAIRS / 活动改编等）：优先标准 mutator TFTSet{N}，
+// 没有才退回"棋子最多"启发式（S11 的 14.14 快照里棋子最多的其实是五周年 remix 活动集）
+const standard = entries.filter(s => s.mutator === `TFTSet${setNumber}`);
+const pool = standard.length ? standard : entries;
+pool.sort((a, b) => (b.champions?.length || 0) - (a.champions?.length || 0));
+const set = pool[0];
+console.log(`setData number=${setNumber}: ${entries.length} 条，取 ${standard.length ? '标准 mutator' : '棋子最多'}的一条（mutator=${set.mutator || '无'}），champions=${set.champions.length}, traits=${set.traits.length}`);
 
 // ---- 羁绊表 ----
 // 注意：断点保留重复（如 S18 宿敌真实断点是 1/1/2，第1、2档都在1个单位时激活）
@@ -87,7 +95,7 @@ const groups = []; // [{ name, units: [key] }]（同组最多上场1个；名字
 const specialNotes = [];
 for (const sp of rules.specialUnits || []) {
   const us = resolveUnits(sp.units);
-  if (us.length === 0) continue;
+  if (us.length === 0 && !sp.note) continue;
   if (sp.exclusive && us.length > 1) groups.push({ name: sp.name, units: us.map(c => c.key) });
   if (sp.slots && sp.slots !== 1) us.forEach(c => { c.slots = sp.slots; });
   if (sp.traitWeights) {
@@ -113,6 +121,16 @@ for (const sp of rules.specialUnits || []) {
       const idx = champions.indexOf(c);
       if (idx >= 0) champions.splice(idx, 1);
       dropped.push(`${c.name}(${c.apiName}) 规则移除（${sp.name}）`);
+    }
+  }
+  if (sp.removeTraits) {
+    // 把羁绊整个删除（如 S11 合体假人专属的"迅捷射手/武仙子"组合羁绊，移除假人后无人持有）
+    for (const tName of sp.removeTraits) {
+      const t = Object.values(traits).find(v => v.name === tName);
+      if (!t) throw new Error(`removeTraits 里的羁绊不存在: ${tName}`);
+      const holders = champions.filter(c => c.traits.includes(t.key));
+      if (holders.length) throw new Error(`removeTraits 的羁绊 ${tName} 仍被棋子引用: ${holders.map(c => c.name).join(',')}`);
+      delete traits[t.key];
     }
   }
   if (sp.traitBreakpoints) {
@@ -180,7 +198,7 @@ for (const t of Object.values(traits)) {
 const out = {
   set: setNumber,
   name: rules.setName || null, // 赛季显示名（CD 的 set.name 是内部代号如 "Set10"，故取人工维护的 rules.setName）
-  source: 'raw/cd_tft_zh_cn.json (CommunityDragon)',
+  source: `raw/${rawName} (CommunityDragon${patch ? ' ' + patch : ' latest'})`,
   rules: { notes: specialNotes },
   groups,
   champions,
