@@ -580,7 +580,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Fortune",
@@ -590,7 +591,8 @@
         5,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Lovers",
@@ -598,7 +600,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "TFT11_Reaper",
@@ -607,7 +610,8 @@
         2,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Umbral",
@@ -618,7 +622,8 @@
         6,
         9
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Dryad",
@@ -628,7 +633,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Sage",
@@ -639,7 +645,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Arcanist",
@@ -650,7 +657,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_InkShadow",
@@ -660,7 +668,8 @@
         5,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Altruist",
@@ -670,7 +679,8 @@
         3,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Artist",
@@ -678,7 +688,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "TFT11_Exalted",
@@ -687,7 +698,8 @@
         3,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Heavenly",
@@ -700,7 +712,8 @@
         6,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Porcelain",
@@ -710,7 +723,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Duelist",
@@ -721,7 +735,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Dragonlord",
@@ -732,7 +747,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Bruiser",
@@ -743,7 +759,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Trickshot",
@@ -752,7 +769,8 @@
         2,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Fated",
@@ -763,7 +781,8 @@
         7,
         10
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Invoker",
@@ -773,7 +792,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Great",
@@ -781,7 +801,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "TFT11_Sniper",
@@ -791,7 +812,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Mythic",
@@ -802,7 +824,8 @@
         7,
         10
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_SpiritWalker",
@@ -810,7 +833,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "TFT11_Warden",
@@ -821,7 +845,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Behemoth",
@@ -832,7 +857,8 @@
         6,
         8
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "TFT11_Storyweaver",
@@ -843,7 +869,8 @@
         7,
         10
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     }
   ]
 }

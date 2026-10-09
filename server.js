@@ -83,6 +83,10 @@ function buildSolveOpts(data, sp) {
     opts.ban5cost = true;
     opts.banUnits.push(...data.champions.filter(c => c.cost === 5).map(c => c.key));
   }
+  if (sp.get('noInherent') === '1') {
+    if (opts.mode !== 'count') bad('noInherent 仅在 mode=count（羁绊数量）下有效');
+    opts.noInherent = true; // 数量模式不计固有羁绊（宝石骑士/翠神等单人自带）
+  }
   for (const q of (sp.get('banUnits') || '').split(',').map(s => s.trim()).filter(Boolean)) {
     const hit = resolveUnit(data, q);
     if (!hit) bad(`棋子不存在: ${q}`);
@@ -226,6 +230,7 @@ async function handleApi(res, url) {
           banTraits: opts.banTraits.map(k => ({ key: k, name: traitByKey.get(k)?.name || k })),
           ban5cost: !!opts.ban5cost,
           exalted: exaltedKeys.map(k => ({ key: k, name: byKey.get(k)?.name || k })),
+          noInherent: !!opts.noInherent,
         },
         locked: lockedKeys.map(k => champInfo(byKey.get(k), true)),
         results: results.map(r => ({

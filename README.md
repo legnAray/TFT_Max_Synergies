@@ -19,7 +19,8 @@ the patch-14.14 snapshot — see *Updating data*).
 
 - **Two scoring modes** (switchable): *tier sum* (default — every breakpoint a trait reaches counts
   as one tier; a trait at tier 2 scores 2) and *distinct trait count* (a trait counts once however
-  many tiers it hits).
+  many tiers it hits) — the latter can optionally **ignore innate traits** (data-derived single-unit
+  traits like Gem Knight; rule-simplified ones like Rival still count).
 - **Constraint system**: must-include units (lock, optimize the rest) · ban any units · one-click
   ban all 5-costs · **hard-ban traits** (the trait may not activate at all) · **pin a trait to at
   least N tiers**.
@@ -85,6 +86,7 @@ node cli.js [--set 18] [--levels 6-10|6,7,8 | --level 9] [--topk 5] [--json] [--
             [--ban-trait 法师,护卫]                 # hard-ban traits
             [--pin 月蚀骑士=3,宿敌]                 # pin traits (tier optional, default 1)
             [--exalted 洛,孙悟空,李青 --set 11]     # S11 this-game Exalted units
+            [--no-inherent]                        # count mode: ignore innate unique traits
 ```
 
 Unit/trait names accept the names from `data/s{N}_summary.md`; matching is exact first, then
@@ -105,6 +107,7 @@ contains (whitespace-insensitive, so `拉克丝(地狱火)` matches `拉克丝 (
 | `set`, `level` | set number, board level (1–15) | 18, required |
 | `topk` | comps to return | 5 |
 | `mode` | `tiers` \| `count` | `tiers` |
+| `noInherent` | `1` — count mode only: innate unique traits don't count toward the score | — |
 | `units` | must-include units (comma list) | — |
 | `emblems` | e.g. `地狱火,地狱火,法师` or `key:2` forms; ≤10 total; unique traits rejected | — |
 | `banUnits` | banned units | — |
@@ -123,6 +126,9 @@ conflicts, out-of-range pin tiers, unknown names, …).
   data-JSON fields: `slots` (board slots), `weights` (trait count weights), `tierRules` (tier
   activation conditions), `groups` (exclusive groups, `{name, units}`).
 - Trait tier = number of its breakpoints reached (duplicates allowed, e.g. Rival's 1/1/2 in-game).
+  Extraction marks data-derived single-unit traits (`breakpoints [1]`, not rule-modified) as
+  `inherent` — with count mode + `noInherent` they still activate and display (tagged 固有) but
+  don't count toward the score.
 - Integer program: `x[unit] ∈ {0,1}`; board `Σ slots·x = N`; exclusive groups `Σx ≤ 1`; tier
   variables `y[trait, breakpoint]` with `weighted count ≥ breakpoint·y` (tiers with activation
   conditions add `count + M·y ≤ required + M`); **count mode** adds `z[trait]` indicators

@@ -121,6 +121,7 @@ select.control:focus { border-color: var(--blue); outline: none; }
 .chip.ban { border-style: dashed; }
 .constraint-note { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; }
 .emb { font-style: normal; font-size: 10.5px; color: var(--accent); margin-left: 3px; }
+.inh { font-style: normal; font-size: 10.5px; color: var(--muted); margin-left: 4px; border: 1px solid var(--line); border-radius: 4px; padding: 0 3px; }
 .cost-tag { color: var(--accent); }
 .pick-name { font-size: 14px; }
 

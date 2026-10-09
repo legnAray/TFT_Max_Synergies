@@ -9,6 +9,7 @@ const state = {
   levels: new Set([8]),
   topk: 5,
   mode: 'tiers',          // tiers 羁绊质量 | count 羁绊数量
+  noInherent: false,      // 仅 count 模式：不计固有羁绊（宝石骑士/翠神等单人自带；宿敌被规则简化过、照常计数）
   locked: [],             // 必带棋子 key
   emblems: {},            // 羁绊 key -> 纹章数
   pins: {},               // 羁绊 key -> 至少档位
@@ -70,6 +71,7 @@ async function switchSet(n) {
   state.banUnits = [];
   state.banTraits = [];
   state.ban5cost = false;
+  state.noInherent = false;
   state.disabledGroups = new Set();
   state.evoCaps = {};
   state.exalted = [];
@@ -131,7 +133,19 @@ function renderModeChips() {
     b.className = 'chip' + (state.mode === mode ? ' on' : '');
     b.textContent = label;
     b.title = mode === 'tiers' ? '每踩一个断点记 1 档，档位总和最大' : '不同名激活羁绊计数最多';
-    b.onclick = () => { state.mode = mode; renderModeChips(); };
+    b.onclick = () => {
+      state.mode = mode;
+      if (mode !== 'count') state.noInherent = false; // 仅数量模式有效，切走时复位
+      renderModeChips();
+    };
+    box.appendChild(b);
+  }
+  if (state.mode === 'count') {
+    const b = document.createElement('button');
+    b.className = 'chip' + (state.noInherent ? ' on' : '');
+    b.textContent = '不计固有羁绊';
+    b.title = '固有羁绊=数据里自然形成的独有羁绊（宝石骑士/翠神等单人自带）；激活照常展示，只是不进羁绊数量。被规则简化过的（如宿敌）不算固有，照常计数';
+    b.onclick = () => { state.noInherent = !state.noInherent; renderModeChips(); };
     box.appendChild(b);
   }
 }
@@ -491,6 +505,7 @@ async function solve() {
     const banList = effectiveBanUnits();
     if (banList.length) params.set('banUnits', banList.join(','));
     if (state.ban5cost) params.set('ban5cost', '1');
+    if (state.mode === 'count' && state.noInherent) params.set('noInherent', '1');
     if (state.banTraits.length) params.set('banTraits', state.banTraits.join(','));
     if (state.exalted.length) params.set('exalted', state.exalted.join(','));
     const pins = Object.entries(state.pins).map(([k, n]) => `${k}=${n}`).join(',');
@@ -531,6 +546,7 @@ function renderLevel(sec, json) {
   if (c.pins.length) notes.push(`固定: ${c.pins.map(p => `${p.name}≥${p.tier}档`).join('、')}`);
   if (c.banTraits.length) notes.push(`屏蔽羁绊: ${c.banTraits.map(t => t.name).join('、')}`);
   if (c.ban5cost) notes.push('已屏蔽5费');
+  if (c.noInherent) notes.push('不计固有羁绊');
   if (c.exalted?.length) notes.push(`本局尊者: ${c.exalted.map(u => u.name).join('、')}`);
   if (notes.length) {
     const p = document.createElement('p');
@@ -540,10 +556,11 @@ function renderLevel(sec, json) {
   }
   sec.appendChild(head);
   const bestScore = best.score;
-  json.results.forEach((r, i) => sec.appendChild(renderComp(r, i, bestScore, isCount)));
+  const noInherent = isCount && !!c.noInherent;
+  json.results.forEach((r, i) => sec.appendChild(renderComp(r, i, bestScore, isCount, noInherent)));
 }
 
-function renderComp(r, i, bestScore, isCount) {
+function renderComp(r, i, bestScore, isCount, noInherent) {
   const art = document.createElement('article');
   art.className = 'comp';
   const scoreTxt = isCount ? `${r.score}种` : `${r.score}档`;
@@ -565,7 +582,7 @@ function renderComp(r, i, bestScore, isCount) {
     const pips = t.breakpoints.map((b, idx) =>
       `<span class="pip${t.reached[idx] ? ' hit' : ''}">${b}</span>`).join('');
     const note = [rules, t.waste > 0 ? `浪费 +${t.waste}` : ''].filter(Boolean).join(' · ');
-    return `<div class="trait"><span class="name">${esc(t.name)}</span>` +
+    return `<div class="trait"><span class="name">${esc(t.name)}${noInherent && t.inherent ? '<i class="inh">固有</i>' : ''}</span>` +
       `<span class="cnt">×${t.count}${t.emblem > 0 ? `<i class="emb">纹章+${t.emblem}</i>` : ''}</span>` +
       `<span class="pips">${pips}</span><span class="tier-badge">${t.tier}档</span>` +
       (note ? `<span class="note">${esc(note)}</span>` : '') + `</div>`;

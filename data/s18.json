@@ -10,6 +10,7 @@
       "远古巨龙: 顶级掠食者描述：占用2个弈子栏位，并提供+2【峡谷野怪】羁绊；5费，经峡谷野怪商店机制获取"
     ]
   },
+  "exalted": null,
   "groups": [
     {
       "name": "拉克丝（大元素使）",
@@ -926,7 +927,8 @@
         9,
         11
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_LuxUniqueTrait",
@@ -934,7 +936,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Slayer",
@@ -944,7 +947,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_DravenUniqueTrait18",
@@ -952,7 +956,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Solar",
@@ -960,7 +965,8 @@
       "breakpoints": [
         3
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Sprykin",
@@ -970,7 +976,8 @@
         5,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Adaptor",
@@ -980,7 +987,8 @@
         3,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Coven",
@@ -991,7 +999,8 @@
         5,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Hunter",
@@ -1002,7 +1011,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Maokai_UniqueTrait",
@@ -1010,7 +1020,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Battlemage",
@@ -1018,7 +1029,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_Primal18",
@@ -1027,7 +1039,8 @@
         2,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Greenfather",
@@ -1035,7 +1048,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Invoker",
@@ -1046,7 +1060,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Rapidfire",
@@ -1057,7 +1072,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_Juggernaut18",
@@ -1067,7 +1083,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Inferno",
@@ -1078,7 +1095,8 @@
         5,
         7
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_AluneUniqueTrait18",
@@ -1086,7 +1104,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Rival",
@@ -1094,7 +1113,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": false
     },
     {
       "key": "DA_18_Vanguard",
@@ -1104,7 +1124,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Brawler",
@@ -1114,7 +1135,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Blackthorn",
@@ -1124,7 +1146,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Executioner",
@@ -1134,7 +1157,8 @@
         3,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_ApexPredator",
@@ -1142,7 +1166,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_Riftbeast18",
@@ -1153,7 +1178,8 @@
         7,
         10
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Caustic",
@@ -1161,7 +1187,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_18_Fae",
@@ -1170,7 +1197,8 @@
         2,
         4
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Lunar",
@@ -1181,7 +1209,8 @@
         4,
         5
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Defender",
@@ -1191,7 +1220,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Spellweaver",
@@ -1201,7 +1231,8 @@
         4,
         6
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_ZyraUniqueTrait",
@@ -1209,7 +1240,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     },
     {
       "key": "DA_FloraFatalis18",
@@ -1218,7 +1250,8 @@
         1,
         2
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Summoner",
@@ -1227,7 +1260,8 @@
         2,
         3
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_18_Blossom",
@@ -1239,7 +1273,8 @@
         9,
         11
       ],
-      "unique": false
+      "unique": false,
+      "inherent": false
     },
     {
       "key": "DA_Emerald18",
@@ -1247,7 +1282,8 @@
       "breakpoints": [
         1
       ],
-      "unique": true
+      "unique": true,
+      "inherent": true
     }
   ]
 }

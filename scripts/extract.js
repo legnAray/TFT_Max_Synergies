@@ -93,6 +93,7 @@ const resolveUnits = names => {
 };
 const groups = []; // [{ name, units: [key] }]（同组最多上场1个；名字供前端"特殊机制"区展示）
 const specialNotes = [];
+const overriddenTraits = new Set(); // 被 traitBreakpoints 人工改造过的羁绊 key
 for (const sp of rules.specialUnits || []) {
   const us = resolveUnits(sp.units);
   if (us.length === 0 && !sp.note) continue;
@@ -140,6 +141,7 @@ for (const sp of rules.specialUnits || []) {
       if (!t) throw new Error(`traitBreakpoints 里的羁绊不存在: ${tName}`);
       t.breakpoints = bps;
       if (t.tierRules) t.tierRules = t.tierRules.filter(r => r.tier <= bps.length);
+      overriddenTraits.add(t.key); // 人工改造过的羁绊：即使断点变成 [1] 也不算"固有羁绊"（如宿敌）
     }
   }
   if (sp.evolutions) {
@@ -204,9 +206,12 @@ const traitUnits = {};
 for (const t of Object.keys(traits)) traitUnits[t] = [];
 for (const c of champions) for (const t of c.traits) traitUnits[t].push(c.name);
 
-// 断点为 [1] 的“独有羁绊”（单人自动激活，如特殊单位羁绊）单独标记
+// 断点为 [1] 的“独有羁绊”（单人自动激活，如特殊单位羁绊）单独标记。
+// inherent（固有羁绊）= 数据里自然形成的独有羁绊（宝石骑士/翠神这类棋子自带的）；
+// 被规则简化成 [1] 的不算（如 S18 宿敌——真实断点 1/1/2 的多单位羁绊，照常计数）。
 for (const t of Object.values(traits)) {
   t.unique = t.breakpoints.length === 1 && t.breakpoints[0] === 1;
+  t.inherent = t.unique && !overriddenTraits.has(t.key);
 }
 
 const out = {
@@ -242,7 +247,7 @@ for (const cost of Object.keys(byCost).sort()) {
 lines.push(`## 羁绊断点（共 ${Object.keys(traits).length} 个）`);
 const traitList = Object.values(traits).sort((a, b) => traitUnits[b.key].length - traitUnits[a.key].length);
 for (const t of traitList) {
-  lines.push(`- ${t.name}: 断点 ${t.breakpoints.join('/')}，棋子 ${traitUnits[t.key].length} 个${t.unique ? '（独有羁绊，单人激活）' : ''}${traitUnits[t.key].length === 0 ? '（无棋子引用——可能只能靠纹章）' : ''}`);
+  lines.push(`- ${t.name}: 断点 ${t.breakpoints.join('/')}，棋子 ${traitUnits[t.key].length} 个${t.inherent ? '（固有羁绊）' : t.unique ? '（独有羁绊，单人激活）' : ''}${traitUnits[t.key].length === 0 ? '（无棋子引用——可能只能靠纹章）' : ''}`);
 }
 fs.writeFileSync(path.join(__dirname, '..', 'data', `s${setNumber}_summary.md`), lines.join('\n'));
 console.log(`棋子: ${champions.length}，羁绊: ${Object.keys(traits).length}`);

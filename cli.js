@@ -6,6 +6,7 @@
 //   node cli.js --levels 8-10 --topk 5
 //   node cli.js --units 拉克丝(地狱火),墨菲特 --level 9     # 固定必带棋子，算剩余最优补法
 //   node cli.js --mode count                      # 羁绊数量模式（默认 tiers 羁绊质量/档位总和）
+//   node cli.js --mode count --no-inherent        # 数量模式不计固有羁绊（宝石骑士/翠神等单人自带）
 //   node cli.js --emblem 地狱火,地狱火,法师 --level 8      # 纹章（≤10个）直接计入羁绊计数
 //   node cli.js --ban-5cost --ban-unit 远古巨龙 --level 8  # 屏蔽5费/任意棋子
 //   node cli.js --ban-trait 法师,护卫 --level 8            # 硬屏蔽羁绊（不许激活）
@@ -20,7 +21,7 @@ function parseArgs(argv) {
   const args = {
     set: 18, levels: null, topk: 5, json: false, units: null, level: null, data: null,
     mode: 'tiers', emblem: null, banUnit: null, ban5cost: false, banTrait: null, pin: null,
-    exalted: null,
+    exalted: null, noInherent: false,
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -37,6 +38,7 @@ function parseArgs(argv) {
     else if (a === '--ban-trait') args.banTrait = next();
     else if (a === '--pin') args.pin = next();
     else if (a === '--exalted') args.exalted = next();
+    else if (a === '--no-inherent') args.noInherent = true;
     else if (a === '--json') args.json = true;
     else if (a === '--data') args.data = next();
     else if (a === '--help' || a === '-h') args.help = true;
@@ -65,6 +67,10 @@ const resolveTrait = (data, q) =>
 /** 把 CLI 参数编译成求解器 opts（含名字→key 解析与前置校验），出错时打印并退出 */
 function buildOpts(data, args) {
   const opts = { topk: args.topk, mode: args.mode === 'count' ? 'count' : 'tiers', emblems: {}, banUnits: [], banTraits: [], pins: {} };
+  if (args.noInherent) {
+    if (opts.mode !== 'count') { console.error('--no-inherent 仅在 --mode count（羁绊数量）下有效'); process.exit(1); }
+    opts.noInherent = true;
+  }
 
   if (args.ban5cost) opts.banUnits.push(...data.champions.filter(c => c.cost === 5).map(c => c.key));
 
@@ -132,6 +138,7 @@ async function main() {
     console.log('用法: node cli.js [--set 18] [--levels 6-10|6,7,8] [--topk 5] [--json] [--mode tiers|count]');
     console.log('            [--units 名1,名2 --level 9] [--emblem 羁绊,羁绊(≤10)] [--ban-unit 名1,名2] [--ban-5cost]');
     console.log('            [--ban-trait 羁绊1,羁绊2] [--pin 羁绊1=档位,羁绊2] [--exalted 名1,名2(本局尊者,S11)]');
+    console.log('            [--no-inherent(数量模式不计固有羁绊)]');
     return;
   }
   const dataDir = args.data || path.join(__dirname, 'data');
@@ -195,7 +202,7 @@ async function main() {
     if (args.json) { jsonOut.push(...results.map(r => ({ ...r, ms }))); continue; }
     const best = results[0];
     if (!best) { console.log(`══ ${lv}人口: 无可行解`); continue; }
-    console.log(`══ ${lv}人口 · 最大${scoreLabel}: ${best.score} · ${ms}ms`);
+    console.log(`══ ${lv}人口 · 最大${scoreLabel}: ${best.score}${opts.noInherent ? '（不计固有羁绊）' : ''} · ${ms}ms`);
     results.forEach((r, i) => {
       if (i > 0) console.log(`  -- 并列/次优 (${r.score}${opts.mode === 'count' ? '个' : '档'}) --`);
       printResult(solveData, r, opts);
